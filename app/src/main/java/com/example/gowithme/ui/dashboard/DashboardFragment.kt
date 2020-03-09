@@ -11,13 +11,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gowithme.MainActivity
 import com.example.gowithme.R
 import com.example.gowithme.network.ApiRepository
-import java.io.File
-import java.io.FileOutputStream
+import com.example.gowithme.responses.Event
+import com.google.gson.Gson
 import java.io.IOException
-import java.io.InputStream
 
 
 class DashboardFragment : Fragment() {
@@ -45,11 +43,38 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRecycler()
 //        makeRequest()
-        getLocally()
+        setEventsLocally()
     }
 
-    private fun getLocally() {
-        loadJsonFromAsset()
+    private fun setEventsLocally() {
+        val jsonStr: String? = loadJsonFromAsset()
+        val gson = Gson()
+        val clicks =
+            gson.fromJson<Array<Event>>(jsonStr, Array<Event>::class.java)
+        var list = ArrayList<Event>()
+
+        for (click in clicks){
+            list.add(click)
+        }
+        dashboardViewModel.events.value = list
+    }
+
+    private fun loadJsonFromAsset() : String?{
+        var json: String? = null
+        try {
+            val inst = context!!.assets.open("a")
+
+            val size = inst.available()
+            val buffer = ByteArray(size)
+            inst.read(buffer)
+            inst.close()
+
+            json = String(buffer)
+
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+        }
+        return json
     }
 
     private fun initRecycler() {
@@ -63,32 +88,5 @@ class DashboardFragment : Fragment() {
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(activity)
     }
-
     private fun makeRequest() = dashboardViewModel.getEvents()
-
-    fun loadJsonFromAsset(): String? {
-        var json: String? = null
-        try {
-            val inst = (activity as MainActivity).assets.open("a.json")
-
-            val size = inst.available()
-            val buffer = ByteArray(size)
-            inst.read(buffer)
-            inst.close()
-
-            json = String(buffer)
-
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-        }
-
-//        try {
-//            val inputStream: InputStream = context!!.assets.open("a.json")
-//            json = inputStream.bufferedReader().use { it.readText() }
-//        } catch (e: IOException) {
-//            e.printStackTrace()
-//        }
-
-        return json
-    }
 }
