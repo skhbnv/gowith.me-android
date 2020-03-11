@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "date": "2020-01-15T18:00:00Z",
+    "price": "7500",
+    "title": "Посиделки в кафе",
+    "category": [],
+    "location": {
+      "latitude": "43.254744",
+      "longitude": "76.870988"
+    },
+    "poster_url": "https://avatars.mds.yandex.net/get-pdb/1025580/2927f190-b50f-48c3-bae6-69783c904c46/s1200",
+    "views": "57"
+  },
+  {
+    "id": 2,
+    "date": "2020-01-15T18:00:00Z",
+    "price": "7500",
+    "title": "Выступление Артура Чапаряна",
+    "category": [
+      "Концерты",
+      "Живая музыка",
+      "Благотворительность"
+    ],
+    "location": {
+      "latitude": "43.254744",
+      "longitude": "76.870988"
+    },
+     "poster_url": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
+     "views": "46"
+  },
+  {
+    "id": 3,
+    "date": "2020-01-15T18:00:00Z",
+    "price": "7500",
+    "title": "Илья Варламов",
+    "category": [
+      "Концерты",
+      "Живая музыка",
+      "Благотворительность",
+      "Туризм"
+    ],
+    "location": {
+      "latitude": "43.259936",
+      "longitude": "76.931850"
+    },
+    "poster_url": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
+    "views": "16"
+  },
+  {
+    "id": 4,
+    "date": "2020-01-28T16:00:00Z",
+    "price": "6000",
+    "title": "Stand up",
+    "category": [
+      "Живая музыка",
+      "Благотворительность",
+      "Туризм",
+      "Горы"
+    ],
+    "location": {
+      "latitude": "43.259936",
+      "longitude": "76.931850"
+    },
+    "poster_url": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fliveam.tv%2Fcomedy-club.html&psig=AOvVaw07o1ooytzhEGlbjahkm2If&ust=1580832202842000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJC-oYLhtecCFQAAAAAdAAAAABAD",
+    "views": "26"
+  },
+  {
+    "id": 5,
+    "date": "2020-01-15T18:00:00Z",
+    "price": "9500",
+    "title": "Концерт Рамштайн",
+    "category": [
+      "Концерты",
+      "Живая музыка",
+      "Благотворительность",
+      "Туризм"
+    ],
+    "location": {
+      "latitude": "43.254744",
+      "longitude": "76.870988"
+    },
+      "poster_url": "https://mir24.tv/uploaded/images/2019/July/2e43fe590a4150e8accdd16811fc3a86d578668bd4c342b000f014e3bcc18005.jpg",
+      "views": "36"
+  }
+]

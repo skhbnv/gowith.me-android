@@ -40,7 +40,7 @@ class EventsAdapter(
         fun bind(){
             val currentEvent = _eventsList[adapterPosition]
             title.text = currentEvent.title
-            Picasso.get().load(currentEvent.images.poster_url).into(poster)
+            Picasso.get().load(currentEvent.poster_url).fit().into(poster)
             dateTime.text = currentEvent.date
             price.text = currentEvent.price
         }

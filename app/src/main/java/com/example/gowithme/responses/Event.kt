@@ -6,8 +6,10 @@ data class Event(
     val date: String,
     val description: String,
     val id: Int,
-    val images: Images,
+    val poster_url: String,
     val location: Location,
     val price: String,
-    val title: String
+    val title: String,
+    val views: String
+
 )
