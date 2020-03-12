@@ -11,6 +11,7 @@ import com.example.gowithme.MainActivity
 import com.example.gowithme.R
 import com.example.gowithme.network.ApiRepository
 import com.example.gowithme.responses.DetailEvents
+import com.example.gowithme.ui.dashboard.DashboardViewModel
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import com.synnapps.carouselview.ImageListener
@@ -21,6 +22,7 @@ import java.io.IOException
 class EventPageFragment : Fragment() {
     private var list = ArrayList<String?>()
     private var id: String? = null
+//    private var dataBinding:
 
     private val eventPageViewModel by lazy {
         ViewModelProviders.of(this, EventPageViewModel.EventPageFactory(ApiRepository()))

@@ -26,7 +26,7 @@ class DashboardFragment : Fragment() {
     lateinit var navController: NavController
 
     private val dashboardViewModel by lazy {
-        ViewModelProviders.of(this, DashboardViewModel.DashboardFactory(ApiRepository()))
+        ViewModelProviders.of(activity!!, DashboardViewModel.DashboardFactory(ApiRepository()))
             .get(DashboardViewModel::class.java)
     }
     private var adapter: EventsAdapter? = null
