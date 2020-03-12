@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.gowithme.network.ApiRepository
-import com.example.gowithme.responses.Event
+import com.example.gowithme.responses.GeneralEvents
 
 class DashboardViewModel(private var repository: ApiRepository) : ViewModel() {
 
-    val events = MutableLiveData<List<Event>>()
+    val events = MutableLiveData<List<GeneralEvents>>()
 
     fun getEvents() {
         repository.getEvents(

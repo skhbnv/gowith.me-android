@@ -1,19 +1,11 @@
 [
   {
-    "id": 1,
-    "date": "2020-01-15T18:00:00Z",
-    "price": "7500",
-    "title": "Посиделки в кафе",
-    "category": [],
-    "description": "Артур: – Один из наиболее признанных комиков СНГ – Резидент «Стендапа на ТНТ» – Участник и креативный продюссер стендап-шоу «22 комика» – Соведущий YouTube Шоу «Что было дальше?» – Один из немногих комиков, выступивших со своим материалом на «Вечернем Урганте» – Создатель телеграмм канала «Бывшая» – Автор и ведущий YouTube-шоу «Вечервечер»",
-    "location": {
-      "latitude": "43.254744",
-      "longitude": "76.870988"
-    },
+   "id": 1,
+   "description": "Артур: – Один из наиболее признанных комиков СНГ – Резидент «Стендапа на ТНТ» – Участник и креативный продюссер стендап-шоу «22 комика» – Соведущий YouTube Шоу «Что было дальше?» – Один из немногих комиков, выступивших со своим материалом на «Вечернем Урганте» – Создатель телеграмм канала «Бывшая» – Автор и ведущий YouTube-шоу «Вечервечер»",
     "images": {
       "poster_url": "https://avatars.mds.yandex.net/get-pdb/1025580/2927f190-b50f-48c3-bae6-69783c904c46/s1200",
-      "carousel_url1": "https://i.ytimg.com/vi/i7OE9Rt_94w/maxresdefault.jpg",
-      "carousel_url2": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana3.jpg",
+      "carousel_url1": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
+      "carousel_url2": "https://mir24.tv/uploaded/images/2019/July/2e43fe590a4150e8accdd16811fc3a86d578668bd4c342b000f014e3bcc18005.jpg",
       "carousel_url3": null,
       "carousel_url4": null,
       "carousel_url5": null
@@ -22,19 +14,7 @@
   },
   {
     "id": 2,
-    "date": "2020-01-15T18:00:00Z",
-    "price": "7500",
-    "title": "Выступление Артура Чапаряна",
-    "category": [
-      "Концерты",
-      "Живая музыка",
-      "Благотворительность"
-    ],
     "description": "Артур: – Один из наиболее признанных комиков СНГ – Резидент «Стендапа на ТНТ» – Участник и креативный продюссер стендап-шоу «22 комика» – Соведущий YouTube Шоу «Что было дальше?» – Один из немногих комиков, выступивших со своим материалом на «Вечернем Урганте» – Создатель телеграмм канала «Бывшая» – Автор и ведущий YouTube-шоу «Вечервечер»",
-    "location": {
-      "latitude": "43.254744",
-      "longitude": "76.870988"
-    },
     "images": {
       "poster_url": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
       "carousel_url1": "https://i.ytimg.com/vi/i7OE9Rt_94w/maxresdefault.jpg",
@@ -47,20 +27,7 @@
   },
   {
     "id": 3,
-    "date": "2020-01-15T18:00:00Z",
-    "price": "7500",
-    "title": "Илья Варламов",
-    "category": [
-      "Концерты",
-      "Живая музыка",
-      "Благотворительность",
-      "Туризм"
-    ],
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised",
-    "location": {
-      "latitude": "43.259936",
-      "longitude": "76.931850"
-    },
     "images": {
       "poster_url": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
       "carousel_url1": "https://i.ytimg.com/vi/i7OE9Rt_94w/maxresdefault.jpg",
@@ -80,20 +47,7 @@
   },
   {
     "id": 4,
-    "date": "2020-01-28T16:00:00Z",
-    "price": "6000",
-    "title": "Stand up",
-    "category": [
-      "Живая музыка",
-      "Благотворительность",
-      "Туризм",
-      "Горы"
-    ],
     "description": "В 2005 году в эфир ТНТ вышел первый выпуск проекта, который за годы своего существования изменил представления о юморе. Сегодня Comedy Club — это больше, чем одно из самых популярных юмористических шоу в стране. Это всегда актуальные темы, эксперименты с жанром и топовые гости. Сотни выпусков, тысячи номеров, миллионы шуток — и это еще далеко не конец.  В 2017 году Comedy Club получил премию ТЭФИ в номинации «Юмористическая программа»",
-    "location": {
-      "latitude": "43.259936",
-      "longitude": "76.931850"
-    },
     "images": {
       "poster_url": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fliveam.tv%2Fcomedy-club.html&psig=AOvVaw07o1ooytzhEGlbjahkm2If&ust=1580832202842000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJC-oYLhtecCFQAAAAAdAAAAABAD",
       "carousel_url1": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DC33of3Xwgj8&psig=AOvVaw07o1ooytzhEGlbjahkm2If&ust=1580832202842000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJC-oYLhtecCFQAAAAAdAAAAABAJ",
@@ -113,20 +67,7 @@
   },
   {
     "id": 5,
-    "date": "2020-01-15T18:00:00Z",
-    "price": "9500",
-    "title": "Концерт Рамштайн",
-    "category": [
-      "Концерты",
-      "Живая музыка",
-      "Благотворительность",
-      "Туризм"
-    ],
     "description": "29 июля в Лужниках прошел концерт Rammstein в рамках европейского тура 2019 года.  Изначально он должен был состояться в ВТБ Арене, но из-за огромного ажиотажа организаторы выбрали самую крупную площадку в Москве.  Я не мог пропустить это событие, и приехал из другого города специально на этот концерт. Скажу сразу – остался в полном восторге. Смотрите, как это было",
-    "location": {
-      "latitude": "43.254744",
-      "longitude": "76.870988"
-    },
     "images": {
       "poster_url": "https://mir24.tv/uploaded/images/2019/July/2e43fe590a4150e8accdd16811fc3a86d578668bd4c342b000f014e3bcc18005.jpg",
       "carousel_url1": "https://i.ytimg.com/vi/SU1rTUpaoGU/maxresdefault.jpg",
