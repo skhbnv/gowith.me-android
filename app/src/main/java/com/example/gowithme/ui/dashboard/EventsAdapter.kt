@@ -51,7 +51,6 @@ class EventsAdapter(
         fun bind() {
             val currentEvent = _eventsList[adapterPosition]
             val dt = getNeededDateTime(currentEvent.date)
-
             title.text = currentEvent.title
             Picasso.get().load(currentEvent.poster_url).fit().into(poster)
             dateTime.text = dt

@@ -11,5 +11,4 @@ data class Event(
     val price: String,
     val title: String,
     val views: String
-
 )

@@ -14,7 +14,7 @@
    "comments": [
         {
            "id" : 2,
-           "parent_comment": 1,
+           "parent_comment": 3,
            "date": "2020-01-15T18:00:00Z",
            "message": "Смешно шутит комик, иду во второй раз",
            "user_id": 1
@@ -25,37 +25,38 @@
            "date": "2020-01-15T18:00:00Z",
            "message": "Смешно шутит комик, иду во второй раз",
            "user_id": 1
-         },
-     ]
+         }
+     ],
 
-    author: {
+    "author": {
         "id" : "1",
         "first_name" : "Jake",
+        "avatar_url" : "Jake",
         "last_name" : "Salley"
     },
-    creationDate: "2020-01-15T18:00:00Z",
-    subscribers : [
+    "creationDate": "2020-01-15T18:00:00Z",
+    "subscribers" : [
         {
         "id" : "1",
-        "avatar_url": ""
+        "avatar_url": "",
         "first_name" : "Jake",
         "last_name" : "Salley"
         }
         ,
         {
         "id" : "2",
-        "avatar_url": ""
+        "avatar_url": "",
         "first_name" : "James",
-        "last_name" : "Worthon",
+        "last_name" : "Worthon"
         },
         {
         "id" : "3",
-        "avatar_url": ""
+        "avatar_url": "",
         "first_name" : "Jake",
-        "last_name" : "Salley",
-        },
-        "total" : 123
-    ]
+        "last_name" : "Salley"
+        }
+    ],
+    "total_subscribers" : "123"
   },
   {
     "id": 2,
