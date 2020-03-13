@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gowithme.R
 import com.example.gowithme.responses.GeneralEvents
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.category_card.view.*
 import kotlinx.android.synthetic.main.event_card.view.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -46,7 +47,7 @@ class EventsAdapter(
         private var dateTime = v.date_time
         private var price = v.price
         private var views = v.views
-        private var view = v
+        private var llCategories = v.ll_categories
 
         fun bind() {
             val currentEvent = _eventsList[adapterPosition]
@@ -57,6 +58,12 @@ class EventsAdapter(
             price.text = currentEvent.price
             views.text = currentEvent.views
             itemView.setOnClickListener(this)
+            currentEvent.category.forEach{ c ->
+                val categoryCard = LayoutInflater.from(_context)
+                    .inflate(R.layout.category_card, null, false)
+                categoryCard.category_text.text = c
+                llCategories.addView(categoryCard)
+            }
         }
 
         @SuppressLint("SimpleDateFormat")

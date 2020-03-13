@@ -1,5 +1,7 @@
 package com.example.gowithme.responses
 
+import java.io.Serializable
+
 data class GeneralEvents(
     val category: List<String>,
     val date: String,
@@ -9,4 +11,4 @@ data class GeneralEvents(
     val price: String,
     val title: String,
     val views: String
-)
+) : Serializable

@@ -1,8 +1,12 @@
 package com.example.gowithme.responses
 
 data class DetailEvents(
-    val id: Int,
+    val author: User,
     val comments: List<Comment>,
+    val creationDate: String,
     val description: String,
-    val images: Images
+    val id: Int,
+    val images: Images,
+    val subscribers: List<User>,
+    val total_subscribers: String
 )

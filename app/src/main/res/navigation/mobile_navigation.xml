@@ -43,6 +43,8 @@
         android:id="@+id/eventPageFragment"
         android:name="com.example.gowithme.ui.event_page.EventPageFragment"
         android:label="EventPageFragment" >
-        <argument android:name="eventId"/>
+        <argument
+            app:argType="com.example.gowithme.responses.GeneralEvents"
+            android:name="selectedGeneralEvent"/>
     </fragment>
 </navigation>

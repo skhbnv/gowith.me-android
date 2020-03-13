@@ -86,7 +86,8 @@ class DashboardFragment : Fragment() {
     private fun initRecycler() {
         adapter = EventsAdapter(
             _onClick = { clickedEvent ->
-                val bundle = bundleOf("eventId" to clickedEvent.id.toString())
+                val bundle = Bundle()
+                bundle.putSerializable("selectedGeneralEvent", clickedEvent)
                 navController.navigate(R.id.action_nav_dashboard_to_eventPageFragment, bundle)
             },
             _context = (activity as Context)
