@@ -23,7 +23,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import com.synnapps.carouselview.ImageListener
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_event_page.*
 import java.io.IOException
 
@@ -62,7 +61,7 @@ class EventPageFragment : Fragment(), OnMapReadyCallback{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         observeViewModel()
         eventPageViewModel.selectedGeneralEvents.value = selectedEvent
-        (activity as MainActivity).nav_view.visibility = View.GONE
+        
     }
 
     private fun observeViewModel() {

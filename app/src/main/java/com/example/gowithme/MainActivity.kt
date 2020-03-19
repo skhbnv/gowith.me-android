@@ -39,6 +39,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_dashboard -> showBottomNav()
                 R.id.nav_favorites -> showBottomNav()
                 R.id.nav_profile -> showBottomNav()
+                R.id.eventPageFragment -> {
+                    hideBottomNav()
+                    
+                }
                 else -> hideBottomNav()
             }
         }
@@ -47,6 +51,11 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
-    private fun showBottomNav() { nav_view.visibility = View.VISIBLE }
-    private fun hideBottomNav() { nav_view.visibility = View.GONE }
+    private fun showBottomNav() {
+        nav_view.visibility = View.VISIBLE
+    }
+
+    private fun hideBottomNav() {
+        nav_view.visibility = View.GONE
+    }
 }

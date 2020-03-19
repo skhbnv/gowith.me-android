@@ -13,4 +13,8 @@
 <!--    <string name="author_name">%1$s %2$s</string>-->
     <string name="followers_num">%1$s уже подписались</string>
     <string name="kzt">₸</string>
+    <string name="last_activity">Последняя активность:</string>
+    <string name="events_visited">Посетил ивентов: %s</string>
+    <string name="events_created">Создал ивентов: %s</string>
+    <string name="name">%1$s, %2$s</string>
 </resources>
