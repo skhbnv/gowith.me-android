@@ -1,4 +1,4 @@
-package com.example.gowithme.responses
+package com.example.gowithme.models.responses
 
 data class DetailEvents(
     val author: User,
