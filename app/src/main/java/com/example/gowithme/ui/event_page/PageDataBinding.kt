@@ -1,15 +1,16 @@
 package com.example.gowithme.ui.event_page
 
 import android.annotation.SuppressLint
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.example.gowithme.responses.User
+import com.squareup.picasso.Picasso
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
 object PageDataBinding {
-
-
     @JvmStatic
     @SuppressLint("SimpleDateFormat")
     @BindingAdapter("android:date")
@@ -24,6 +25,17 @@ object PageDataBinding {
             date = originalFormat.parse(source)
             view.text = targetFormat.format(date!!)
         }
+    }
+    @JvmStatic
+    @BindingAdapter("android:image_url")
+    fun setImage(img: ImageView, src: String?){
+        Picasso.get().load(src).fit().centerCrop().into(img)
+    }
+    @JvmStatic
+    @BindingAdapter("android:name_concat")
+    fun setName(view: TextView, user: User?){
+        val format = "${user?.first_name} ${user?.last_name}"
+        view.text = format
     }
 
 }

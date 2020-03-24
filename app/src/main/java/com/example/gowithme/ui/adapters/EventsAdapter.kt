@@ -1,4 +1,4 @@
-package com.example.gowithme.ui.dashboard
+package com.example.gowithme.ui.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context

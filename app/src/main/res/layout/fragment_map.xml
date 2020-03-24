@@ -1,13 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout>
+    <data>
+        <import type="com.example.gowithme.ui.event_page.PageDataBinding" />
+        <variable
+            name="viewModel"
+            type="com.example.gowithme.ui.map.MapViewModel" />
+    </data>
 
-    <fragment
-        android:id="@+id/map"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.google.android.gms.maps.SupportMapFragment" />
+        android:orientation="vertical">
 
-</LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/event_info"
+            android:visibility="@{viewModel.markerInfoVisibility}"
+            android:layout_width="match_parent"
+            android:layout_height="265dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="15dp">
+
+            <TextView
+                android:text="@{viewModel.selectedGeneralEvents.title}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="sans-serif-black"
+                android:textAlignment="center"
+                android:textColor="#212121"
+                android:textSize="18sp"
+                tools:text=" Romeo and Juliet by William Shakespeare" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:image_url="@{viewModel.selectedGeneralEvents.poster_url}"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="45dp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+</layout>

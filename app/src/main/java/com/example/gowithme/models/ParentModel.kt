@@ -1,4 +1,8 @@
-package com.example.gowithme.models.responses
+package com.example.gowithme.models
 
-class ParentModel {
-}
+import com.example.gowithme.responses.GeneralEvents
+
+data class ParentModel (
+    var title: String = " ",
+    var children: List<GeneralEvents>
+)

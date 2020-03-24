@@ -1,4 +1,4 @@
-package com.example.gowithme.models.responses
+package com.example.gowithme.responses
 
 data class Event(
     val category: List<String>,

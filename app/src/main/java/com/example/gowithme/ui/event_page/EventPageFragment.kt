@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.gowithme.MainActivity
 import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentEventPageBinding
 import com.example.gowithme.network.ApiRepository
@@ -38,8 +37,9 @@ class EventPageFragment : Fragment(), OnMapReadyCallback{
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
-        selectedEvent = arguments?.getSerializable("selectedGeneralEvent") as GeneralEvents
+            selectedEvent = arguments?.getSerializable("selectedGeneralEvent") as GeneralEvents
     }
 
     override fun onCreateView(

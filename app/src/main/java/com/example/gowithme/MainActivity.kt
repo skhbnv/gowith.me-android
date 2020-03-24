@@ -41,12 +41,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_profile -> showBottomNav()
                 R.id.eventPageFragment -> {
                     hideBottomNav()
-                    
                 }
                 else -> hideBottomNav()
             }
         }
-
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }

@@ -1,6 +1,5 @@
 package com.example.gowithme.network
 
-import com.example.gowithme.responses.Event
 import com.example.gowithme.responses.GeneralEvents
 import retrofit2.Call
 import retrofit2.http.GET

@@ -1,4 +1,4 @@
-package com.example.gowithme.models.responses
+package com.example.gowithme.responses
 
 data class Images(
     val carousel_url1: String?,

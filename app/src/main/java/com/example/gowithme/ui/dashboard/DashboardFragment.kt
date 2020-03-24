@@ -1,100 +1,74 @@
 package com.example.gowithme.ui.dashboard
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gowithme.R
+import com.example.gowithme.models.ParentModel
 import com.example.gowithme.network.ApiRepository
-import com.example.gowithme.responses.Event
 import com.example.gowithme.responses.GeneralEvents
+import com.example.gowithme.ui.adapters.ParentAdapter
+import com.example.gowithme.ui.favorites.FavoritesViewModel
 import com.google.gson.Gson
-import java.io.IOException
-
+import kotlinx.android.synthetic.main.fragment_dashboard.*
+import java.io.InputStream
 
 class DashboardFragment : Fragment() {
-    lateinit var navController: NavController
-
     private val dashboardViewModel by lazy {
         ViewModelProviders.of(activity!!, DashboardViewModel.DashboardFactory(ApiRepository()))
             .get(DashboardViewModel::class.java)
     }
-    private var adapter: EventsAdapter? = null
-    private var recyclerView: RecyclerView? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        observeTheFields()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
     }
 
-    private fun observeTheFields() {
-        dashboardViewModel.events.observe(viewLifecycleOwner, Observer { listOfEvents ->
-            adapter?.initTheList(listOfEvents)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setEventsLocally()
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        dashboardViewModel.events.observe(viewLifecycleOwner, Observer { list ->
+            initRecycler(list as ArrayList<GeneralEvents>)
         })
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initRecycler()
-//        makeRequest()
-        setEventsLocally()
-        navController = Navigation.findNavController(view)
-    }
-
     private fun setEventsLocally() {
-        val jsonStr: String? = loadJsonFromAsset()
+        val jsonStr: String? = dashboardViewModel.loadJsonFromAsset(context!!.assets.open("general"))
         val gson = Gson()
         val clicks =
             gson.fromJson<Array<GeneralEvents>>(jsonStr, Array<GeneralEvents>::class.java)
-        var list = ArrayList<GeneralEvents>()
+        val list = ArrayList<GeneralEvents>()
 
-        for (click in clicks){
+        for (click in clicks) {
             list.add(click)
         }
         dashboardViewModel.events.value = list
     }
 
-    private fun loadJsonFromAsset() : String?{
-        var json: String? = null
-        try {
-            val inst = context!!.assets.open("general")
+    private fun initRecycler(list: ArrayList<GeneralEvents>) {
+        val parentList = ArrayList<ParentModel>()
+        parentList.add(ParentModel("Горы зовут - надо идти", list ))
+        parentList.add(ParentModel("Будет жарко", list ))
+        parentList.add(ParentModel("Заголовок 1", list ))
+        parentList.add(ParentModel("Заголовок 2", list ))
 
-            val size = inst.available()
-            val buffer = ByteArray(size)
-            inst.read(buffer)
-            inst.close()
-
-            json = String(buffer)
-
-        } catch (ex: IOException) {
-            ex.printStackTrace()
+        rv_parent.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            adapter = ParentAdapter(parentList)
         }
-        return json
-    }
 
-    private fun initRecycler() {
-        adapter = EventsAdapter(
-            _onClick = { clickedEvent ->
-                val bundle = Bundle()
-                bundle.putSerializable("selectedGeneralEvent", clickedEvent)
-                navController.navigate(R.id.action_nav_dashboard_to_eventPageFragment, bundle)
-            },
-            _context = (activity as Context)
-        )
-        recyclerView = view?.findViewById(R.id.recycler)
-        recyclerView?.adapter = adapter
-        recyclerView?.layoutManager = LinearLayoutManager(activity)
     }
-    private fun makeRequest() = dashboardViewModel.getEvents()
 }

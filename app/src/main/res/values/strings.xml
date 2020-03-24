@@ -16,5 +16,5 @@
     <string name="last_activity">Последняя активность:</string>
     <string name="events_visited">Посетил ивентов: %s</string>
     <string name="events_created">Создал ивентов: %s</string>
-    <string name="name">%1$s, %2$s</string>
+    <string name="name">%s %s</string>
 </resources>
