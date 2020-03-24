@@ -2,15 +2,11 @@
   {
    "id": 1,
    "description": "Артур: – Один из наиболее признанных комиков СНГ – Резидент «Стендапа на ТНТ» – Участник и креативный продюссер стендап-шоу «22 комика» – Соведущий YouTube Шоу «Что было дальше?» – Один из немногих комиков, выступивших со своим материалом на «Вечернем Урганте» – Создатель телеграмм канала «Бывшая» – Автор и ведущий YouTube-шоу «Вечервечер»",
-    "images": {
-      "poster_url": "https://avatars.mds.yandex.net/get-pdb/1025580/2927f190-b50f-48c3-bae6-69783c904c46/s1200",
-      "carousel_url1": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
-      "carousel_url2": "https://mir24.tv/uploaded/images/2019/July/2e43fe590a4150e8accdd16811fc3a86d578668bd4c342b000f014e3bcc18005.jpg",
-      "carousel_url3": null,
-      "carousel_url4": null,
-      "carousel_url5": null
-    },
-
+    "images": [
+      "https://avatars.mds.yandex.net/get-pdb/1025580/2927f190-b50f-48c3-bae6-69783c904c46/s1200",
+      "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
+      "https://mir24.tv/uploaded/images/2019/July/2e43fe590a4150e8accdd16811fc3a86d578668bd4c342b000f014e3bcc18005.jpg"
+    ],
    "comments": [
         {
            "id" : 2,
@@ -61,27 +57,21 @@
   {
     "id": 2,
     "description": "Артур: – Один из наиболее признанных комиков СНГ – Резидент «Стендапа на ТНТ» – Участник и креативный продюссер стендап-шоу «22 комика» – Соведущий YouTube Шоу «Что было дальше?» – Один из немногих комиков, выступивших со своим материалом на «Вечернем Урганте» – Создатель телеграмм канала «Бывшая» – Автор и ведущий YouTube-шоу «Вечервечер»",
-    "images": {
-      "poster_url": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
-      "carousel_url1": "https://i.ytimg.com/vi/i7OE9Rt_94w/maxresdefault.jpg",
-      "carousel_url2": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana3.jpg",
-      "carousel_url3": null,
-      "carousel_url4": null,
-      "carousel_url5": null
-    },
+    "images": [
+      "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
+      "https://i.ytimg.com/vi/i7OE9Rt_94w/maxresdefault.jpg",
+      "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana3.jpg"
+    ],
     "comments": []
   },
   {
     "id": 3,
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised",
-    "images": {
-      "poster_url": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
-      "carousel_url1": "https://i.ytimg.com/vi/i7OE9Rt_94w/maxresdefault.jpg",
-      "carousel_url2": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana3.jpg",
-      "carousel_url3": null,
-      "carousel_url4": null,
-      "carousel_url5": null
-    },
+    "images": [
+      "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
+      "https://i.ytimg.com/vi/i7OE9Rt_94w/maxresdefault.jpg",
+      "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana3.jpg"
+    ],
     "comments": [
       {
         "parent_comment": null,
@@ -94,14 +84,14 @@
   {
     "id": 4,
     "description": "В 2005 году в эфир ТНТ вышел первый выпуск проекта, который за годы своего существования изменил представления о юморе. Сегодня Comedy Club — это больше, чем одно из самых популярных юмористических шоу в стране. Это всегда актуальные темы, эксперименты с жанром и топовые гости. Сотни выпусков, тысячи номеров, миллионы шуток — и это еще далеко не конец.  В 2017 году Comedy Club получил премию ТЭФИ в номинации «Юмористическая программа»",
-    "images": {
-      "poster_url": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fliveam.tv%2Fcomedy-club.html&psig=AOvVaw07o1ooytzhEGlbjahkm2If&ust=1580832202842000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJC-oYLhtecCFQAAAAAdAAAAABAD",
-      "carousel_url1": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DC33of3Xwgj8&psig=AOvVaw07o1ooytzhEGlbjahkm2If&ust=1580832202842000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJC-oYLhtecCFQAAAAAdAAAAABAJ",
-      "carousel_url2": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fkino.rambler.ru%2Ftv%2F42097160-kak-slozhilas-sudba-byvshih-rezidentov-comedy-club%2F&psig=AOvVaw07o1ooytzhEGlbjahkm2If&ust=1580832202842000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJC-oYLhtecCFQAAAAAdAAAAABAP",
-      "carousel_url3": "https://www.google.com/url?sa=i&url=https%3A%2F%2Frutube.ru%2Fmetainfo%2Ftv%2F10%2Fseason12%2F&psig=AOvVaw07o1ooytzhEGlbjahkm2If&ust=1580832202842000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJC-oYLhtecCFQAAAAAdAAAAABAV",
-      "carousel_url4": null,
-      "carousel_url5": null
-    },
+    "images": [
+      "https://www.afisha.uz/ui/materials/2019/02/0543653_b.jpeg",
+      "https://pic.rutube.ru/video/03/a6/03a6b6a813ec1510e61c7c2eb9b1b862.jpg",
+      "https://pic.rutube.ru/video/83/53/83530683b0f6790b328509b634041edb.jpg",
+      "https://i.ytimg.com/vi/YQvel9QFEOQ/maxresdefault.jpg",
+      "https://img.tnt-online.ru/Documents/Icon/jj/dsjjtw5y38zj.png",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYWHazPJgX9sQlasLKBX30f6f6hqYgmrmp6FZk1lViIN6i7QEZ"
+    ],
     "comments": [
       {
         "parent_comment": null,
@@ -114,14 +104,12 @@
   {
     "id": 5,
     "description": "29 июля в Лужниках прошел концерт Rammstein в рамках европейского тура 2019 года.  Изначально он должен был состояться в ВТБ Арене, но из-за огромного ажиотажа организаторы выбрали самую крупную площадку в Москве.  Я не мог пропустить это событие, и приехал из другого города специально на этот концерт. Скажу сразу – остался в полном восторге. Смотрите, как это было",
-    "images": {
-      "poster_url": "https://mir24.tv/uploaded/images/2019/July/2e43fe590a4150e8accdd16811fc3a86d578668bd4c342b000f014e3bcc18005.jpg",
-      "carousel_url1": "https://i.ytimg.com/vi/SU1rTUpaoGU/maxresdefault.jpg",
-      "carousel_url2": "https://cs11.pikabu.ru/post_img/big/2019/06/23/9/1561300336185025047.jpg",
-      "carousel_url3": "https://4.bp.blogspot.com/-r-Ius_VbJ_Y/XTbV6HPl31I/AAAAAAAAK7U/Vw-Cs7YHj1gZtvjB3KOodNnYO112cK4pQCLcBGAs/s640/48f1085.jpg",
-      "carousel_url4": null,
-      "carousel_url5": null
-    },
+    "images": [
+      "https://mir24.tv/uploaded/images/2019/July/2e43fe590a4150e8accdd16811fc3a86d578668bd4c342b000f014e3bcc18005.jpg",
+      "https://i.ytimg.com/vi/SU1rTUpaoGU/maxresdefault.jpg",
+      "https://cs11.pikabu.ru/post_img/big/2019/06/23/9/1561300336185025047.jpg",
+      "https://4.bp.blogspot.com/-r-Ius_VbJ_Y/XTbV6HPl31I/AAAAAAAAK7U/Vw-Cs7YHj1gZtvjB3KOodNnYO112cK4pQCLcBGAs/s640/48f1085.jpg"
+    ],
     "comments": [
       {
         "parent_comment": null,
