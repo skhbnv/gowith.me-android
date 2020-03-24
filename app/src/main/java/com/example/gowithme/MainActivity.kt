@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_profile
             )
         )
+//        sd
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
