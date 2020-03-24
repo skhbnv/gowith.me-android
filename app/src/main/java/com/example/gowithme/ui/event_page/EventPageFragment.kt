@@ -71,12 +71,7 @@ class EventPageFragment : Fragment(), OnMapReadyCallback{
     }
 
     private fun setUpCarousel(event: DetailEvents?) {
-        val imageList = event?.images
-
-        list = arrayListOf(
-            imageList?.poster_url, imageList?.carousel_url1,
-            imageList?.carousel_url2, imageList?.carousel_url3,
-            imageList?.carousel_url4, imageList?.carousel_url5)
+        list = event?.images as ArrayList<String?>
 
         carouselView.setImageListener(imageListener)
         carouselView.pageCount = list.size

@@ -6,7 +6,7 @@ data class DetailEvents(
     val creationDate: String,
     val description: String,
     val id: Int,
-    val images: Images,
+    val images: List<String?>,
     val subscribers: List<User>,
     val total_subscribers: String
 )
