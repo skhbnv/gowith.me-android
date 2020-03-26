@@ -3,6 +3,12 @@
   "events_visited": 17,
   "events_created": 12,
   "city_name": "Almaty",
+  "user" : {
+    "id": 1,
+    "avatar_url": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
+    "first_name": "Артур",
+    "last_name": "Чапарян"
+  },
   "location": {
     "latitude": "43.254744",
     "longitude": "76.870988"
@@ -38,7 +44,5 @@
       "poster_url": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
       "views": "46"
     }
-  ],
-  "poster_url": "https://avatars.mds.yandex.net/get-pdb/1025580/2927f190-b50f-48c3-bae6-69783c904c46/s1200",
-  "views": "57"
+  ]
 }

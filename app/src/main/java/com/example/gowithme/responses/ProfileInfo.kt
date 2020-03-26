@@ -7,7 +7,5 @@ data class ProfileInfo(
     val events_visited: Int,
     val id: Int,
     val last_activity: List<GeneralEvents>,
-    val location: Location,
-    val poster_url: String,
-    val views: String
+    val location: Location
 )

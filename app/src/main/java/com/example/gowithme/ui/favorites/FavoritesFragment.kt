@@ -87,7 +87,8 @@ class FavoritesFragment : Fragment() {
                 bundle.putSerializable("selectedGeneralEvent", clickedEvent)
                 navController.navigate(R.id.action_nav_favorites_to_eventPageFragment, bundle)
             },
-            _context = (activity as Context)
+            _context = (activity as Context),
+            _briefInfo = false
         )
         recyclerView = view?.findViewById(R.id.recycler)
         recyclerView?.adapter = adapter

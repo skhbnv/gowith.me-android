@@ -15,7 +15,6 @@ import com.example.gowithme.models.ParentModel
 import com.example.gowithme.network.ApiRepository
 import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.ui.adapters.ParentAdapter
-import com.example.gowithme.ui.dashboard.DashboardViewModel
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
