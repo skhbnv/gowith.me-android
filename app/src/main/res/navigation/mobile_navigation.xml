@@ -27,13 +27,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_dashboard"
-        android:name="com.example.gowithme.ui.dashboard.DashboardFragment"
-        tools:layout="@layout/fragment_dashboard" >
-        
-    </fragment>
-
-    <fragment
         android:id="@+id/nav_favorites"
         android:name="com.example.gowithme.ui.favorites.FavoritesFragment"
         android:label="@string/favorites"
@@ -52,7 +45,16 @@
         android:id="@+id/nav_profile"
         android:name="com.example.gowithme.ui.profile.ProfileFragment"
         android:label="@string/profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profile_to_event_page"
+            app:destination="@id/eventPageFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/eventPageFragment"

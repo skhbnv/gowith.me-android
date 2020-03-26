@@ -16,17 +16,22 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 class EventsAdapter(
     var _context: Context,
     var _eventsList: ArrayList<GeneralEvents> = ArrayList(),
-    var _onClick: (GeneralEvents) -> Unit
+    var _onClick: (GeneralEvents) -> Unit,
+    var _briefInfo: Boolean
 ) : RecyclerView.Adapter<EventsAdapter.EventsViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): EventsViewHolder {
-        return EventsViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.event_card, parent, false)
-        )
+        return if (_briefInfo){
+            EventsViewHolder(LayoutInflater.from(parent.context)
+                .inflate(R.layout.brief_event_info, parent, false))
+            }else {
+            EventsViewHolder(LayoutInflater.from(parent.context)
+                .inflate(R.layout.event_card, parent, false))
+
+        }
     }
 
     override fun getItemCount(): Int = _eventsList.size
@@ -52,17 +57,19 @@ class EventsAdapter(
         fun bind() {
             val currentEvent = _eventsList[adapterPosition]
             val dt = getNeededDateTime(currentEvent.date)
-            title.text = currentEvent.title
-            Picasso.get().load(currentEvent.poster_url).fit().into(poster)
-            dateTime.text = dt
-            price.text = currentEvent.price
-            views.text = currentEvent.views
+            title?.text = currentEvent.title
+            poster?.let {
+                Picasso.get().load(currentEvent.poster_url).fit().centerCrop().into(poster)
+            }
+            dateTime?.text = dt
+            price?.text = currentEvent.price
+            views?.text = currentEvent.views
             itemView.setOnClickListener(this)
             currentEvent.category.forEach{ c ->
                 val categoryCard = LayoutInflater.from(_context)
                     .inflate(R.layout.category_card, null, false)
                 categoryCard.category_text.text = c
-                llCategories.addView(categoryCard)
+                llCategories?.addView(categoryCard)
             }
         }
 

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gowithme.R
 import com.example.gowithme.models.ParentModel
 import kotlinx.android.synthetic.main.card_horizontal.view.*
-import kotlinx.android.synthetic.main.fragment_profile.view.*
 
 class ParentAdapter(private val parents : List<ParentModel>) :
     RecyclerView.Adapter<ParentAdapter.ViewHolder>(){
