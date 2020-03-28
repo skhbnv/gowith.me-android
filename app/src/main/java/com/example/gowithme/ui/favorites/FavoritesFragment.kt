@@ -13,7 +13,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gowithme.R
-import com.example.gowithme.network.ApiRepository
+import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.ui.adapters.EventsAdapter
 import com.google.gson.Gson
@@ -22,10 +22,10 @@ import java.io.IOException
 class FavoritesFragment : Fragment() {
     private lateinit var navController: NavController
 
-    private val favoritesViewModel by lazy {
-        ViewModelProviders.of(activity!!, FavoritesViewModel.FavoritesFactory(ApiRepository()))
-            .get(FavoritesViewModel::class.java)
-    }
+//    private val favoritesViewModel by lazy {
+//        ViewModelProviders.of(activity!!, FavoritesViewModel.FavoritesFactory(ApiRepository(apiService = )))
+//            .get(FavoritesViewModel::class.java)
+//    }
     private var adapter: EventsAdapter? = null
     private var recyclerView: RecyclerView? = null
 
@@ -36,9 +36,9 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun observeTheFields() {
-        favoritesViewModel.events.observe(viewLifecycleOwner, Observer { listOfEvents ->
-            adapter?.initTheList(listOfEvents)
-        })
+//        favoritesViewModel.events.observe(viewLifecycleOwner, Observer { listOfEvents ->
+//            adapter?.initTheList(listOfEvents)
+//        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,7 +59,7 @@ class FavoritesFragment : Fragment() {
         for (click in clicks){
             list.add(click)
         }
-        favoritesViewModel.events.value = list
+//        favoritesViewModel.events.data = list
     }
 
     private fun loadJsonFromAsset() : String?{
@@ -93,5 +93,5 @@ class FavoritesFragment : Fragment() {
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(activity)
     }
-    private fun makeRequest() = favoritesViewModel.getEvents()
+//    private fun makeRequest() = favoritesViewModel.getEvents()
 }

@@ -4,21 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gowithme.R
-import com.example.gowithme.models.ParentModel
-import com.example.gowithme.network.ApiRepository
+import com.example.gowithme.data.models.ParentModel
+import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.ui.adapters.ParentAdapter
-import com.example.gowithme.ui.favorites.FavoritesViewModel
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import java.io.InputStream
 
 class DashboardFragment : Fragment() {
     private val dashboardViewModel by lazy {
@@ -35,6 +33,9 @@ class DashboardFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        findNavController().navigate(R.id.action_nav_dashboard_to_loginFragment)
+
         setEventsLocally()
         observeViewModel()
     }

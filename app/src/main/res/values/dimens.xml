@@ -3,4 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="profile_margin_start">25dp</dimen>
+    <dimen name="primary_button_corners">8dp</dimen>
+
+    <!--  Auth  -->
 </resources>
