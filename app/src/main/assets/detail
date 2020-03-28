@@ -13,14 +13,24 @@
            "parent_comment": 3,
            "date": "2020-01-15T18:00:00Z",
            "message": "Смешно шутит комик, иду во второй раз",
-           "user_id": 1
+           "user": {
+             "id": 1,
+             "avatar_url" : "url",
+             "first_name": "John",
+             "last_name": "Snow"
+           }
         },
          {
            "id": 3,
            "parent_comment": null,
            "date": "2020-01-15T18:00:00Z",
            "message": "Смешно шутит комик, иду во второй раз",
-           "user_id": 1
+           "user": {
+             "id": 2,
+             "avatar_url" : "url",
+             "first_name": "Lady",
+             "last_name": "Melisandra"
+           }
          }
      ],
 

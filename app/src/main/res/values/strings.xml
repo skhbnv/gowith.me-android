@@ -7,8 +7,10 @@
     <string name="title_favorites">Favorites</string>
     <string name="interests">Интересы</string>
     <string name="map">Карта</string>
+    <string name="nearby_events">События поблизости</string>
+    <string name="events_in">События в </string>
     <string name="main">Главная</string>
-    <string name="favorites">Избранное</string>
+    <string name="subscriptions">Подписки</string>
     <string name="profile">Профиль</string>
 <!--    <string name="author_name">%1$s %2$s</string>-->
     <string name="followers_num">%1$s уже подписались</string>

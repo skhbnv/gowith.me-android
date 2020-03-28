@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/nav_favorites"
         android:name="com.example.gowithme.ui.favorites.FavoritesFragment"
-        android:label="@string/favorites"
+        android:label="@string/subscriptions"
         tools:layout="@layout/fragment_favorites" >
         <action
             android:id="@+id/action_nav_favorites_to_eventPageFragment"
