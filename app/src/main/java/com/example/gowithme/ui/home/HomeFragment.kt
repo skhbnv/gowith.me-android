@@ -4,27 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gowithme.R
-import com.example.gowithme.models.ParentModel
-import com.example.gowithme.network.ApiRepository
+import com.example.gowithme.data.models.ParentModel
+import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.ui.adapters.ParentAdapter
-import com.example.gowithme.ui.dashboard.DashboardViewModel
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
-    private val homeViewModel by lazy {
-        ViewModelProviders.of(activity!!, HomeViewModel.HomeFactory(ApiRepository()))
-            .get(HomeViewModel::class.java)
-    }
+    private val homeViewModel by viewModel<HomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,8 +31,9 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setEventsLocally()
-        observeViewModel()
+        homeViewModel.getE()
+//        setEventsLocally()
+//        observeViewModel()
     }
 
     private fun observeViewModel() {

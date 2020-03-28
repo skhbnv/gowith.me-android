@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentEventPageBinding
-import com.example.gowithme.network.ApiRepository
+import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.responses.DetailEvents
 import com.example.gowithme.responses.GeneralEvents
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -31,10 +31,10 @@ class EventPageFragment : Fragment(), OnMapReadyCallback{
     var mMap: GoogleMap? = null
     private lateinit var dataBinding: FragmentEventPageBinding
 
-    private val eventPageViewModel by lazy {
-        ViewModelProviders.of(this, EventPageViewModel.EventPageFactory(ApiRepository()))
-            .get(EventPageViewModel::class.java)
-    }
+//    private val eventPageViewModel by lazy {
+//        ViewModelProviders.of(this, EventPageViewModel.EventPageFactory(ApiRepository()))
+//            .get(EventPageViewModel::class.java)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -49,7 +49,7 @@ class EventPageFragment : Fragment(), OnMapReadyCallback{
     ): View? {
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_page,container, false)
         dataBinding.executePendingBindings()
-        dataBinding.viewModel = eventPageViewModel
+//        dataBinding.viewModel = eventPageViewModel
 
         setEventsLocally()
         val mapFrag: SupportMapFragment = (childFragmentManager.findFragmentById(R.id.eventMap) as SupportMapFragment)
@@ -60,14 +60,14 @@ class EventPageFragment : Fragment(), OnMapReadyCallback{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         observeViewModel()
-        eventPageViewModel.selectedGeneralEvents.value = selectedEvent
+//        eventPageViewModel.selectedGeneralEvents.data = selectedEvent
         
     }
 
     private fun observeViewModel() {
-        eventPageViewModel.selectedDetailEvents.observe(viewLifecycleOwner, Observer { event ->
-            setUpCarousel(event)
-        })
+//        eventPageViewModel.selectedDetailEvents.observe(viewLifecycleOwner, Observer { event ->
+//            setUpCarousel(event)
+//        })
     }
 
     private fun setUpCarousel(event: DetailEvents?) {
@@ -94,7 +94,7 @@ class EventPageFragment : Fragment(), OnMapReadyCallback{
                 event = click
             }
         }
-        eventPageViewModel.selectedDetailEvents.value = event
+//        eventPageViewModel.selectedDetailEvents.data = event
     }
 
     private fun loadJsonFromAsset(): String? {

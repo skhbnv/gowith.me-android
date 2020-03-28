@@ -4,22 +4,22 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.gowithme.network.ApiRepository
+import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.responses.GeneralEvents
 
 class FavoritesViewModel(private var repository: ApiRepository): ViewModel() {
     val events = MutableLiveData<List<GeneralEvents>>()
 
     fun getEvents() {
-        repository.getEvents(
-            onSuccess = { list ->
-                events.value = list
-                Log.d("___", list!![0].date)
-            },
-            onFailure = { errorMessage ->
-                Log.d("___", errorMessage.message)
-            }
-        )
+//        repository.getEvents(
+//            onSuccess = { list ->
+//                events.data = list
+//                Log.d("___", list!![0].date)
+//            },
+//            onFailure = { errorMessage ->
+//                Log.d("___", errorMessage.message)
+//            }
+//        )
     }
 
     class FavoritesFactory(private var repository: ApiRepository) : ViewModelProvider.Factory {

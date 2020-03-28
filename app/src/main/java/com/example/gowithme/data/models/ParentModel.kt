@@ -1,4 +1,4 @@
-package com.example.gowithme.models
+package com.example.gowithme.data.models
 
 import com.example.gowithme.responses.GeneralEvents
 
