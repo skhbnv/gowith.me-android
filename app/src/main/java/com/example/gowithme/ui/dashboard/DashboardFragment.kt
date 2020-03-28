@@ -1,4 +1,4 @@
-package com.example.gowithme.ui.home
+package com.example.gowithme.ui.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gowithme.R
@@ -16,34 +17,37 @@ import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.ui.adapters.ParentAdapter
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeFragment : Fragment() {
-
-    private val homeViewModel by viewModel<HomeViewModel>()
+class DashboardFragment : Fragment() {
+    private val dashboardViewModel by lazy {
+        ViewModelProviders.of(activity!!, DashboardViewModel.DashboardFactory(ApiRepository()))
+            .get(DashboardViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_dashboard, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        homeViewModel.getEvents()
+
+        findNavController().navigate(R.id.action_nav_dashboard_to_loginFragment)
+
         setEventsLocally()
         observeViewModel()
     }
 
     private fun observeViewModel() {
-        homeViewModel.events.observe(viewLifecycleOwner, Observer { list ->
+        dashboardViewModel.events.observe(viewLifecycleOwner, Observer { list ->
             initRecycler(list as ArrayList<GeneralEvents>)
         })
     }
 
     private fun setEventsLocally() {
-        val jsonStr: String? = homeViewModel.loadJsonFromAsset(context!!.assets.open("general"))
+        val jsonStr: String? = dashboardViewModel.loadJsonFromAsset(context!!.assets.open("general"))
         val gson = Gson()
         val clicks =
             gson.fromJson<Array<GeneralEvents>>(jsonStr, Array<GeneralEvents>::class.java)
@@ -52,7 +56,7 @@ class HomeFragment : Fragment() {
         for (click in clicks) {
             list.add(click)
         }
-        homeViewModel.events.value = list
+        dashboardViewModel.events.value = list
     }
 
     private fun initRecycler(list: ArrayList<GeneralEvents>) {
@@ -66,5 +70,6 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = ParentAdapter(parentList)
         }
+
     }
 }

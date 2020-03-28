@@ -13,7 +13,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gowithme.R
-import com.example.gowithme.network.ApiRepository
+import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.ui.adapters.EventsAdapter
 import com.google.gson.Gson
@@ -23,7 +23,7 @@ class FavoritesFragment : Fragment() {
     private lateinit var navController: NavController
 
     private val favoritesViewModel by lazy {
-        ViewModelProviders.of(activity!!, FavoritesViewModel.FavoritesFactory(ApiRepository()))
+        ViewModelProviders.of(activity!!, FavoritesViewModel.FavoritesFactory(ApiRepository(apiService = null)))
             .get(FavoritesViewModel::class.java)
     }
     private var adapter: EventsAdapter? = null

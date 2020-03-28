@@ -13,7 +13,7 @@ import androidx.navigation.Navigation
 import com.example.gowithme.MainActivity
 import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentProfileBinding
-import com.example.gowithme.network.ApiRepository
+import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.responses.ProfileInfo
 import com.example.gowithme.ui.adapters.EventsAdapter

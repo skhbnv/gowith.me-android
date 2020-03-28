@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gowithme.R
-import com.example.gowithme.models.ParentModel
+import com.example.gowithme.data.models.ParentModel
 import kotlinx.android.synthetic.main.card_horizontal.view.*
 
 class ParentAdapter(private val parents : List<ParentModel>) :

@@ -1,30 +1,33 @@
-package com.example.gowithme.ui.favorites
+package com.example.gowithme.ui.dashboard
 
-import android.util.Log
+import android.util.Log.d
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.responses.GeneralEvents
+import java.io.InputStream
 
-class FavoritesViewModel(private var repository: ApiRepository): ViewModel() {
+class DashboardViewModel(private var repository: ApiRepository) : ViewModel() {
+
     val events = MutableLiveData<List<GeneralEvents>>()
+    fun loadJsonFromAsset(inst: InputStream) = repository.loadJsonFromAsset(inst)
 
     fun getEvents() {
 //        repository.getEvents(
 //            onSuccess = { list ->
 //                events.data = list
-//                Log.d("___", list!![0].date)
+//                d("___", list!![0].date)
 //            },
 //            onFailure = { errorMessage ->
-//                Log.d("___", errorMessage.message)
+//                d("___", errorMessage.message)
 //            }
 //        )
     }
 
-    class FavoritesFactory(private var repository: ApiRepository) : ViewModelProvider.Factory {
+    class DashboardFactory(private var repository: ApiRepository) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return FavoritesViewModel(repository) as T
+            return DashboardViewModel(repository) as T
         }
     }
 }

@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.gowithme.MainActivity
 import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentEventPageBinding
-import com.example.gowithme.network.ApiRepository
+import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.responses.DetailEvents
 import com.example.gowithme.responses.GeneralEvents
 import com.google.android.gms.maps.CameraUpdateFactory
