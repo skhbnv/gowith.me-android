@@ -15,10 +15,9 @@ class HomeViewModel(var repository: ApiRepository) : ViewModel() {
 
     init {
         Log.d("taaag", "init")
-
     }
 
-    fun getE() {
+    fun getEvents() {
         viewModelScope.launch {
             Log.d("taaag", "launch2")
 
@@ -39,7 +38,6 @@ class HomeViewModel(var repository: ApiRepository) : ViewModel() {
 
     val events = MutableLiveData<List<GeneralEvents>>()
     fun loadJsonFromAsset(inst: InputStream) = repository.loadJsonFromAsset(inst)
-
 
     class HomeFactory(var repo : ApiRepository): ViewModelProvider.Factory{
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

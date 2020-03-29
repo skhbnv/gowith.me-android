@@ -1,5 +1,6 @@
 package com.example.gowithme.ui.event_page
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.gowithme.MainActivity
 import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentEventPageBinding
 import com.example.gowithme.data.network.ApiRepository
@@ -22,24 +24,30 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import com.synnapps.carouselview.ImageListener
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_event_page.*
 import java.io.IOException
 
-class EventPageFragment : Fragment(), OnMapReadyCallback{
+class EventPageFragment : Fragment(), OnMapReadyCallback {
     private var list = ArrayList<String?>()
     private var selectedEvent: GeneralEvents? = null
     var mMap: GoogleMap? = null
+
+    private val mainActivityInstance by lazy {
+        (activity as MainActivity?)
+    }
+
     private lateinit var dataBinding: FragmentEventPageBinding
 
-//    private val eventPageViewModel by lazy {
-//        ViewModelProviders.of(this, EventPageViewModel.EventPageFactory(ApiRepository()))
-//            .get(EventPageViewModel::class.java)
-//    }
+    private val eventPageViewModel by lazy {
+        ViewModelProviders.of(this, EventPageViewModel.EventPageFactory(ApiRepository()))
+            .get(EventPageViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-            selectedEvent = arguments?.getSerializable("selectedGeneralEvent") as GeneralEvents
+        selectedEvent = arguments?.getSerializable("selectedGeneralEvent") as GeneralEvents
     }
 
     override fun onCreateView(
@@ -47,12 +55,14 @@ class EventPageFragment : Fragment(), OnMapReadyCallback{
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_page,container, false)
+        dataBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_event_page, container, false)
         dataBinding.executePendingBindings()
-//        dataBinding.viewModel = eventPageViewModel
+        dataBinding.viewModel = eventPageViewModel
 
         setEventsLocally()
-        val mapFrag: SupportMapFragment = (childFragmentManager.findFragmentById(R.id.eventMap) as SupportMapFragment)
+        val mapFrag: SupportMapFragment =
+            (childFragmentManager.findFragmentById(R.id.eventMap) as SupportMapFragment)
         mapFrag.getMapAsync(this)
 
         return dataBinding.root
@@ -60,14 +70,16 @@ class EventPageFragment : Fragment(), OnMapReadyCallback{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         observeViewModel()
-//        eventPageViewModel.selectedGeneralEvents.data = selectedEvent
-        
+        eventPageViewModel.selectedGeneralEvents.value = selectedEvent
+        mainActivityInstance?.toolbar?.apply {
+            title_bar.text = selectedEvent!!.title
+        }
     }
 
     private fun observeViewModel() {
-//        eventPageViewModel.selectedDetailEvents.observe(viewLifecycleOwner, Observer { event ->
-//            setUpCarousel(event)
-//        })
+        eventPageViewModel.selectedDetailEvents.observe(viewLifecycleOwner, Observer { event ->
+            setUpCarousel(event)
+        })
     }
 
     private fun setUpCarousel(event: DetailEvents?) {
@@ -87,14 +99,14 @@ class EventPageFragment : Fragment(), OnMapReadyCallback{
         val gson = Gson()
         val clicks =
             gson.fromJson<Array<DetailEvents>>(jsonStr, Array<DetailEvents>::class.java)
-        var event:  DetailEvents? = null
+        var event: DetailEvents? = null
 
         for (click in clicks) {
-            if (click.id.toString() == selectedEvent?.id.toString()){
+            if (click.id.toString() == selectedEvent?.id.toString()) {
                 event = click
             }
         }
-//        eventPageViewModel.selectedDetailEvents.data = event
+        eventPageViewModel.selectedDetailEvents.value = event
     }
 
     private fun loadJsonFromAsset(): String? {

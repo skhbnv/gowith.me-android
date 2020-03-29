@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.gowithme.ui.profile.ProfileViewModel" />
@@ -13,11 +12,14 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="15dp"
+            >
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/imageView"
@@ -31,16 +33,16 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/index" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:image_url="@{viewModel.profileInfo.user.avatar_url}" />
 
             </androidx.cardview.widget.CardView>
 
 
             <TextView
                 android:id="@+id/name"
-                android:text= "name"
+                android:name_concat="@{viewModel.profileInfo.user}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/profile_margin_start"
@@ -64,7 +66,7 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@id/name"
                 tools:text="Посетил ивентов:"
-                android:text= "@{@string/events_visited(viewModel.profileInfo.events_visited)}"
+                android:text="@{@string/events_visited(viewModel.profileInfo.events_visited)}"
                 />
 
             <TextView
@@ -156,8 +158,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
                 android:orientation="horizontal"
+                android:adapter="@{viewModel.lastActivityAdapter}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -196,7 +198,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Мои друзья" />
+                android:text="Мои подписки" />
 
             <TextView
                 android:id="@+id/my_comments"

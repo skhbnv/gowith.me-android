@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.example.gowithme.responses.User
+import com.example.gowithme.ui.adapters.EventsAdapter
 import com.squareup.picasso.Picasso
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -26,10 +28,18 @@ object PageDataBinding {
             view.text = targetFormat.format(date!!)
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("android:adapter")
+    fun rvAdapter(rv: RecyclerView, adapter: RecyclerView.Adapter<EventsAdapter.EventsViewHolder>?) {
+        rv.adapter = adapter
+    }
     @JvmStatic
     @BindingAdapter("android:image_url")
     fun setImage(img: ImageView, src: String?){
-        Picasso.get().load(src).fit().centerCrop().into(img)
+        val pic = Picasso.get()
+        pic.isLoggingEnabled = true
+        pic.load(src).fit().centerCrop().into(img)
     }
     @JvmStatic
     @BindingAdapter("android:name_concat")

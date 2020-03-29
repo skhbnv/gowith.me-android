@@ -22,10 +22,10 @@ import java.io.IOException
 class FavoritesFragment : Fragment() {
     private lateinit var navController: NavController
 
-//    private val favoritesViewModel by lazy {
-//        ViewModelProviders.of(activity!!, FavoritesViewModel.FavoritesFactory(ApiRepository(apiService = )))
-//            .get(FavoritesViewModel::class.java)
-//    }
+    private val favoritesViewModel by lazy {
+        ViewModelProviders.of(activity!!, FavoritesViewModel.FavoritesFactory(ApiRepository(apiService = null)))
+            .get(FavoritesViewModel::class.java)
+    }
     private var adapter: EventsAdapter? = null
     private var recyclerView: RecyclerView? = null
 
@@ -36,9 +36,9 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun observeTheFields() {
-//        favoritesViewModel.events.observe(viewLifecycleOwner, Observer { listOfEvents ->
-//            adapter?.initTheList(listOfEvents)
-//        })
+        favoritesViewModel.events.observe(viewLifecycleOwner, Observer { listOfEvents ->
+            adapter?.initTheList(listOfEvents)
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,7 +59,7 @@ class FavoritesFragment : Fragment() {
         for (click in clicks){
             list.add(click)
         }
-//        favoritesViewModel.events.data = list
+        favoritesViewModel.events.value = list
     }
 
     private fun loadJsonFromAsset() : String?{
@@ -87,11 +87,12 @@ class FavoritesFragment : Fragment() {
                 bundle.putSerializable("selectedGeneralEvent", clickedEvent)
                 navController.navigate(R.id.action_nav_favorites_to_eventPageFragment, bundle)
             },
-            _context = (activity as Context)
+            _context = (activity as Context),
+            _briefInfo = false
         )
         recyclerView = view?.findViewById(R.id.recycler)
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(activity)
     }
-//    private fun makeRequest() = favoritesViewModel.getEvents()
+    private fun makeRequest() = favoritesViewModel.getEvents()
 }

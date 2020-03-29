@@ -31,9 +31,9 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        homeViewModel.getE()
-//        setEventsLocally()
-//        observeViewModel()
+        homeViewModel.getEvents()
+        setEventsLocally()
+        observeViewModel()
     }
 
     private fun observeViewModel() {
@@ -66,6 +66,5 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = ParentAdapter(parentList)
         }
-
     }
 }
