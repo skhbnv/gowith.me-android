@@ -16,6 +16,8 @@ import com.example.gowithme.R
 import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.ui.adapters.EventsAdapter
+import com.example.gowithme.util.EventsKeyWord
+import com.example.gowithme.util.EventsKeyWord.EVENT_KEY_WORD
 import com.google.gson.Gson
 import java.io.IOException
 
@@ -65,7 +67,7 @@ class FavoritesFragment : Fragment() {
     private fun loadJsonFromAsset() : String?{
         var json: String? = null
         try {
-            val inst = context!!.assets.open("general")
+            val inst = context!!.assets.open("general2")
 
             val size = inst.available()
             val buffer = ByteArray(size)
@@ -84,7 +86,7 @@ class FavoritesFragment : Fragment() {
         adapter = EventsAdapter(
             _onClick = { clickedEvent ->
                 val bundle = Bundle()
-                bundle.putSerializable("selectedGeneralEvent", clickedEvent)
+                bundle.putSerializable(EVENT_KEY_WORD, clickedEvent)
                 navController.navigate(R.id.action_nav_favorites_to_eventPageFragment, bundle)
             },
             _context = (activity as Context),

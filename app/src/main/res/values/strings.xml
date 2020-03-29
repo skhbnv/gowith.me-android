@@ -20,6 +20,7 @@
     <string name="events_created">Создал ивентов: %s</string>
     <string name="name">%s %s</string>
     <string name="search_hint">Найти</string>
+    <string name="all">Все</string>
 
     <!--  Auth  -->
 

@@ -10,5 +10,8 @@ data class GeneralEvents(
     val poster_url: String,
     val price: String,
     val title: String,
-    val views: String
+    val views: String,
+    val subscribers: Int,
+    val message: String,
+    val countDownTime: String
 ) : Serializable

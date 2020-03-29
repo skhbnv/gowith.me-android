@@ -12,11 +12,12 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.gowithme.MainActivity
 import com.example.gowithme.R
-import com.example.gowithme.databinding.FragmentProfileBinding
 import com.example.gowithme.data.network.ApiRepository
+import com.example.gowithme.databinding.FragmentProfileBinding
 import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.responses.ProfileInfo
 import com.example.gowithme.ui.adapters.EventsAdapter
+import com.example.gowithme.util.EventsKeyWord.EVENT_KEY_WORD
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -31,7 +32,7 @@ class ProfileFragment : Fragment() {
 
     private var adapterClickListener: (GeneralEvents) -> Unit = {
         val bundle = Bundle()
-        bundle.putSerializable("selectedGeneralEvent", it)
+        bundle.putSerializable(EVENT_KEY_WORD, it)
         navController.navigate(R.id.action_profile_to_event_page, bundle)
     }
 

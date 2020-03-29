@@ -15,6 +15,7 @@ import com.example.gowithme.data.models.ParentModel
 import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.ui.adapters.ParentAdapter
+import com.example.gowithme.util.EventsKeyWord
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
@@ -22,6 +23,11 @@ class DashboardFragment : Fragment() {
     private val dashboardViewModel by lazy {
         ViewModelProviders.of(activity!!, DashboardViewModel.DashboardFactory(ApiRepository()))
             .get(DashboardViewModel::class.java)
+    }
+    private var onChildClick: ((GeneralEvents) -> Unit) = { child ->
+        val bundle = Bundle()
+        bundle.putSerializable(EventsKeyWord.EVENT_KEY_WORD, child)
+//        navController.navigate(R.id.action_nav_home_to_eventPageFragment, bundle)
     }
 
     override fun onCreateView(
@@ -47,7 +53,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun setEventsLocally() {
-        val jsonStr: String? = dashboardViewModel.loadJsonFromAsset(context!!.assets.open("general"))
+        val jsonStr: String? = dashboardViewModel.loadJsonFromAsset(context!!.assets.open("general2"))
         val gson = Gson()
         val clicks =
             gson.fromJson<Array<GeneralEvents>>(jsonStr, Array<GeneralEvents>::class.java)
@@ -61,14 +67,14 @@ class DashboardFragment : Fragment() {
 
     private fun initRecycler(list: ArrayList<GeneralEvents>) {
         val parentList = ArrayList<ParentModel>()
-        parentList.add(ParentModel("Горы зовут - надо идти", list ))
-        parentList.add(ParentModel("Будет жарко", list ))
-        parentList.add(ParentModel("Заголовок 1", list ))
-        parentList.add(ParentModel("Заголовок 2", list ))
+        parentList.add(ParentModel("Горы зовут - надо идти", list, 0))
+        parentList.add(ParentModel("Будет жарко", list,0))
+        parentList.add(ParentModel("Заголовок 1", list,0))
+        parentList.add(ParentModel("Заголовок 2", list,0))
 
         rv_parent.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            adapter = ParentAdapter(parentList)
+            adapter = ParentAdapter(parentList, onChildClick)
         }
 
     }

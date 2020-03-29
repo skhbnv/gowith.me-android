@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
                     showBottomNav()
                     title_bar?.text = resources.getText(R.string.nearby_events)
                     image_end.visibility = View.VISIBLE
+                    back_button.visibility = View.GONE
                     image_end.background = resources.getDrawable(R.drawable.funnel)
                 }
                 R.id.nav_favorites -> {

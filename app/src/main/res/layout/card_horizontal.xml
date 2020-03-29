@@ -8,7 +8,6 @@
     android:layout_marginTop="15dp"
     card_view:cardBackgroundColor="#fff"
     card_view:cardCornerRadius="5dp"
-    card_view:cardElevation="8dp"
     >
 
     <LinearLayout
@@ -16,23 +15,57 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/horizontal_title"
-            style="@style/Base.TextAppearance.AppCompat.Subhead"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:textAlignment="center"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            tools:text="Hello World"
-            android:textColor="@color/darkGray"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_marginStart="10dp"
+                android:id="@+id/horizontal_title"
+                style="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="18sp"
+                android:textAlignment="center"
+                android:textColor="@color/darkGray"
+                android:textStyle="bold"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                tools:text="Hello World" />
+
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_height="match_parent"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/bg_all_wrapper"
+                >
+                <TextView
+                    android:id="@+id/all_btn"
+                    android:text="@string/all"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_child"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:layout_marginTop="10dp"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="74dp" />
     </LinearLayout>

@@ -13,3 +13,13 @@ object NetworkConst {
     const val TOKEN_PREFIX = "Bearer "
 
 }
+object RecyclerLayoutsType {
+    const val NEARBY_EVENTS = 1
+    const val POSTERS = 2
+    const val COMING_SOON = 3
+}
+
+object EventsKeyWord {
+    const val EVENT_KEY_WORD = "selectedGeneralEvent"
+}
+

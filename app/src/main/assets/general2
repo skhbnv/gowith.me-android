@@ -10,7 +10,10 @@
       "longitude": "76.870555"
     },
     "poster_url": "https://avatars.mds.yandex.net/get-pdb/1025580/2927f190-b50f-48c3-bae6-69783c904c46/s1200",
-    "views": "57"
+    "views": "57",
+    subscribers: 113,
+    message: "Пошлите со мной, будет интересно и весело",
+    countDownTime: "0ч. 37м."
   },
   {
     "id": 2,
@@ -26,8 +29,11 @@
       "latitude": "43.254666",
       "longitude": "76.870444"
     },
-     "poster_url": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
-     "views": "46"
+    "poster_url": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
+    "views": "46",
+    subscribers: 113,
+    message: "Пошлите со мной, будет интересно и весело",
+    countDownTime: "0ч. 37м."
   },
   {
     "id": 3,
@@ -45,7 +51,10 @@
       "longitude": "76.931333"
     },
     "poster_url": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
-    "views": "16"
+    "views": "16",
+    subscribers: 113,
+    message: "Пошлите со мной, будет интересно и весело",
+    countDownTime: "0ч. 37м."
   },
   {
     "id": 4,
@@ -63,7 +72,10 @@
       "longitude": "76.931222"
     },
     "poster_url": "https://www.afisha.uz/ui/materials/2019/02/0543653_b.jpeg",
-    "views": "26"
+    "views": "26",
+    subscribers: 113,
+    message: "Пошлите со мной, будет интересно и весело",
+    countDownTime: "0ч. 37м."
   },
   {
     "id": 5,
@@ -80,7 +92,10 @@
       "latitude": "43.254999",
       "longitude": "76.870111"
     },
-      "poster_url": "https://mir24.tv/uploaded/images/2019/July/2e43fe590a4150e8accdd16811fc3a86d578668bd4c342b000f014e3bcc18005.jpg",
-      "views": "36"
+    "poster_url": "https://mir24.tv/uploaded/images/2019/July/2e43fe590a4150e8accdd16811fc3a86d578668bd4c342b000f014e3bcc18005.jpg",
+    "views": "36",
+    subscribers: 113,
+    message: "Пошлите со мной, будет интересно и весело",
+    countDownTime: "0ч. 37м."
   }
 ]
