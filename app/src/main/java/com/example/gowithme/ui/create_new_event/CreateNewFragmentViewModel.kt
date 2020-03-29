@@ -1,6 +1,5 @@
-package com.example.gowithme.ui.dashboard
+package com.example.gowithme.ui.create_new_event
 
-import android.util.Log.d
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -8,7 +7,7 @@ import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.responses.GeneralEvents
 import java.io.InputStream
 
-class DashboardViewModel(private var repository: ApiRepository) : ViewModel() {
+class CreateNewFragmentViewModel(private var repository: ApiRepository) : ViewModel() {
 
     val events = MutableLiveData<List<GeneralEvents>>()
     fun loadJsonFromAsset(inst: InputStream) = repository.loadJsonFromAsset(inst)
@@ -27,7 +26,7 @@ class DashboardViewModel(private var repository: ApiRepository) : ViewModel() {
 
     class DashboardFactory(private var repository: ApiRepository) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return DashboardViewModel(repository) as T
+            return CreateNewFragmentViewModel(repository) as T
         }
     }
 }

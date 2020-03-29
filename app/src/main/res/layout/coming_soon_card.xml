@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="250dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginBottom="15dp"
+    android:layout_height="150dp"
+    android:background="@drawable/corner_radius_8dp"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/back_poster"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/time_countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/categories_bg"
+        android:textColor="#FFF"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:drawableTint="#FFF"
+        android:drawableStart="@drawable/date_time"
+        android:drawablePadding="5dp"
+        android:padding="5dp"
+        tools:text="0ч. 37м." />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="15dp"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="#FFF"
+        tools:text="Большой стендап концерт" />
+
+
+
+</RelativeLayout>

@@ -15,6 +15,8 @@ import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentMapBinding
 import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.responses.GeneralEvents
+import com.example.gowithme.util.EventsKeyWord
+import com.example.gowithme.util.EventsKeyWord.EVENT_KEY_WORD
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -40,15 +42,17 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         navController = Navigation.findNavController(view)
         setOnClickListeners()
+
     }
 
     private fun setOnClickListeners() {
         event_info.setOnClickListener { openEventPage() }
+        back_to_list.setOnClickListener { navController.navigate(R.id.action_nav_map_to_nav_map_list) }
     }
 
     private fun openEventPage() {
         val bundle = Bundle()
-        bundle.putSerializable("selectedGeneralEvent", mapViewModel.selectedGeneralEvents.value)
+        bundle.putSerializable(EVENT_KEY_WORD, mapViewModel.selectedGeneralEvents.value)
         navController.navigate(R.id.action_nav_map_to_eventPageFragment, bundle)
     }
 
@@ -82,6 +86,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         setEventsLocally()
     }
 
+
     private fun setUpAllLocation(googleMap: GoogleMap?, list: ArrayList<GeneralEvents>) {
         mMap = googleMap
         var coords = LatLng(-34.0, 151.0)
@@ -96,7 +101,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     }
 
     private fun setEventsLocally() {
-        val jsonStr: String? = mapViewModel.loadJsonFromAsset(context!!.assets.open("general"))
+        val jsonStr: String? = mapViewModel.loadJsonFromAsset(context!!.assets.open("general2"))
         val gson = Gson()
         val clicks =
             gson.fromJson<Array<GeneralEvents>>(jsonStr, Array<GeneralEvents>::class.java)

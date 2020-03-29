@@ -1,13 +1,9 @@
 package com.example.gowithme
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -15,7 +11,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController : NavController
@@ -28,7 +23,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initUi() {
         setSupportActionBar(toolbar)
-//        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp)
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -51,11 +45,20 @@ class MainActivity : AppCompatActivity() {
                     image_end.background = resources.getDrawable(R.drawable.location)
                     showBottomNav()
                 }
+                R.id.nav_map_list -> {
+//                     funnel
+                    showBottomNav()
+                    title_bar?.text = resources.getText(R.string.nearby_events)
+                    image_end.visibility = View.VISIBLE
+                    back_button.visibility = View.GONE
+                    image_end.background = resources.getDrawable(R.drawable.funnel)
+                }
                 R.id.nav_map -> {
 //                     funnel
                     showBottomNav()
                     title_bar?.text = resources.getText(R.string.nearby_events)
                     image_end.visibility = View.VISIBLE
+                    back_button.visibility = View.GONE
                     image_end.background = resources.getDrawable(R.drawable.funnel)
                 }
                 R.id.nav_favorites -> {
@@ -80,8 +83,11 @@ class MainActivity : AppCompatActivity() {
                     image_end.visibility = View.GONE
                     hideBottomNav()
                 }
-
-                else -> hideBottomNav()
+                R.id.nav_add_new_event -> {
+                    back_button.visibility = View.GONE
+                    image_end.visibility = View.GONE
+                    showBottomNav()
+                }
             }
         }
         navView.setupWithNavController(navController)
