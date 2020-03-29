@@ -17,6 +17,8 @@ object RecyclerLayoutsType {
     const val NEARBY_EVENTS = 1
     const val POSTERS = 2
     const val COMING_SOON = 3
+    const val FULL_SIZE = 4
+    const val BRIEF_INFO = 5
 }
 
 object EventsKeyWord {

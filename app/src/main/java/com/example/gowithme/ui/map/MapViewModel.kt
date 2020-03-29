@@ -13,6 +13,7 @@ class MapViewModel(private var repository: ApiRepository): ViewModel() {
     var events = MutableLiveData<ArrayList<GeneralEvents>>()
     var selectedGeneralEvents = MutableLiveData<GeneralEvents>()
     var markerInfoVisibility = ObservableInt(View.GONE)
+    var markerListVisibility = ObservableInt(View.GONE)
 
     fun loadJsonFromAsset(inst: InputStream) = repository.loadJsonFromAsset(inst)
 

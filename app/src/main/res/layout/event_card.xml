@@ -10,16 +10,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/title"
-            tools:text="Romeo and Juliet by William Shakespeare"
-            android:layout_margin="8dp"
-            android:textColor="@color/darkGray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -28,6 +19,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="240dp"/>
 
+            <ImageView
+                android:id="@+id/like_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/like_image" />
+
             <LinearLayout
                 android:id="@+id/ll_categories"
                 android:layout_width="wrap_content"
@@ -35,6 +36,95 @@
                 android:orientation="horizontal" />
 
         </RelativeLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:maxLength="30"
+                android:maxLines="2"
+                android:textColor="@color/darkGray"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                android:ellipsize="end"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Romeo and Juliet by William Shakespeare" />
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:width="260dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="start"
+                android:textColor="@color/indigoGray"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/avatar_card"
+                tools:text="Хочу пойти на концерт, кто со мной?
+Будет весело, соглашайтесь" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/avatar_card"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="5dp"
+                app:layout_constraintStart_toEndOf="@+id/title"
+                app:layout_constraintTop_toTopOf="@+id/title">
+
+                <ImageView
+                    android:id="@+id/avatar_img"
+                    android:background="@drawable/index"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/author_name"
+                android:text="Jason Modua"
+                android:textSize="18sp"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/indigoGray"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginStart="10dp"
+                app:layout_constraintStart_toEndOf="@+id/avatar_card"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/when_time"
+                android:text="37 минут назад"
+                android:layout_width="120dp"
+                android:textColor="@color/darkGray"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintStart_toEndOf="@+id/avatar_card"
+                app:layout_constraintTop_toBottomOf="@+id/author_name" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="5dp"
+            android:layerType="software"
+            android:src="@drawable/dotted"
+            app:layout_constraintTop_toBottomOf="@+id/message" />
+
         <LinearLayout
             android:layout_margin="8dp"
             android:orientation="horizontal"
@@ -93,13 +183,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
-                    tools:text="₸"
+                    android:text="₸"
                     android:textSize="15sp" />
-
             </LinearLayout>
-
-
-
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -42,10 +42,12 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         navController = Navigation.findNavController(view)
         setOnClickListeners()
+
     }
 
     private fun setOnClickListeners() {
         event_info.setOnClickListener { openEventPage() }
+        back_to_list.setOnClickListener { navController.navigate(R.id.action_nav_map_to_nav_map_list) }
     }
 
     private fun openEventPage() {
@@ -83,6 +85,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         })
         setEventsLocally()
     }
+
 
     private fun setUpAllLocation(googleMap: GoogleMap?, list: ArrayList<GeneralEvents>) {
         mMap = googleMap

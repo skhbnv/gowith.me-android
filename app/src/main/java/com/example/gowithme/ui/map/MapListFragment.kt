@@ -1,4 +1,4 @@
-package com.example.gowithme.ui.favorites
+package com.example.gowithme.ui.map
 
 import android.content.Context
 import android.os.Bundle
@@ -16,31 +16,25 @@ import com.example.gowithme.R
 import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.ui.adapters.EventsAdapter
-import com.example.gowithme.util.EventsKeyWord.EVENT_KEY_WORD
+import com.example.gowithme.util.EventsKeyWord
 import com.example.gowithme.util.RecyclerLayoutsType.FULL_SIZE
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.fragment_map_list.*
 import java.io.IOException
 
-class FavoritesFragment : Fragment() {
-    private lateinit var navController: NavController
-
-    private val favoritesViewModel by lazy {
-        ViewModelProviders.of(activity!!, FavoritesViewModel.FavoritesFactory(ApiRepository(apiService = null)))
-            .get(FavoritesViewModel::class.java)
-    }
+class MapListFragment: Fragment() {
     private var adapter: EventsAdapter? = null
-    private var recyclerView: RecyclerView? = null
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        observeTheFields()
-        return inflater.inflate(R.layout.fragment_favorites, container, false)
+    private lateinit var navController: NavController
+    private val mapViewModel by lazy {
+        ViewModelProviders.of(activity!!, MapViewModel.MapFactory(ApiRepository()))
+            .get(MapViewModel::class.java)
     }
-
-    private fun observeTheFields() {
-        favoritesViewModel.events.observe(viewLifecycleOwner, Observer { listOfEvents ->
-            adapter?.initTheList(listOfEvents)
-        })
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_map_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,6 +43,16 @@ class FavoritesFragment : Fragment() {
         initRecycler()
 //        makeRequest()
         setEventsLocally()
+        observeFields()
+        mapToggleButton.setOnClickListener{
+            navController.navigate(R.id.action_nav_map_list_to_map_fragment)
+        }
+    }
+
+    private fun observeFields() {
+        mapViewModel.events.observe(viewLifecycleOwner, Observer { list ->
+            adapter?.initTheList(list)
+        })
     }
 
     private fun setEventsLocally() {
@@ -61,7 +65,7 @@ class FavoritesFragment : Fragment() {
         for (click in clicks){
             list.add(click)
         }
-        favoritesViewModel.events.value = list
+        mapViewModel.events.value = list
     }
 
     private fun loadJsonFromAsset() : String?{
@@ -86,15 +90,14 @@ class FavoritesFragment : Fragment() {
         adapter = EventsAdapter(
             _onClick = { clickedEvent ->
                 val bundle = Bundle()
-                bundle.putSerializable(EVENT_KEY_WORD, clickedEvent)
-                navController.navigate(R.id.action_nav_favorites_to_eventPageFragment, bundle)
+                bundle.putSerializable(EventsKeyWord.EVENT_KEY_WORD, clickedEvent)
+                navController.navigate(R.id.action_nav_map_list_to_eventPageFragment, bundle)
             },
             _context = (activity as Context),
             layoutType = FULL_SIZE
         )
-        recyclerView = view?.findViewById(R.id.recycler)
-        recyclerView?.adapter = adapter
-        recyclerView?.layoutManager = LinearLayoutManager(activity)
+        recycler.adapter = adapter
+        recycler.layoutManager = LinearLayoutManager(activity)
     }
-    private fun makeRequest() = favoritesViewModel.getEvents()
+//    private fun makeRequest() = mapViewModel.getEvents()
 }

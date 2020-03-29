@@ -19,7 +19,8 @@ import com.example.gowithme.util.RecyclerLayoutsType.COMING_SOON
 import com.example.gowithme.util.RecyclerLayoutsType.NEARBY_EVENTS
 import com.example.gowithme.util.RecyclerLayoutsType.POSTERS
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_create_new_event.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {

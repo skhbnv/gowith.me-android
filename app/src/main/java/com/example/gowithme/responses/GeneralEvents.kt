@@ -12,6 +12,7 @@ data class GeneralEvents(
     val title: String,
     val views: String,
     val subscribers: Int,
+    val author: User,
     val message: String,
     val countDownTime: String
 ) : Serializable
