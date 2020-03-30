@@ -14,6 +14,7 @@ import com.example.gowithme.R
 import com.example.gowithme.data.models.ParentModel
 import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.ui.adapters.ParentAdapter
+import com.example.gowithme.ui.home.adapter.HomeMainRecyclerAdapter
 import com.example.gowithme.util.EventsKeyWord.EVENT_KEY_WORD
 import com.example.gowithme.util.RecyclerLayoutsType.COMING_SOON
 import com.example.gowithme.util.RecyclerLayoutsType.NEARBY_EVENTS
@@ -34,6 +35,8 @@ class HomeFragment : Fragment() {
         navController.navigate(R.id.action_nav_home_to_eventPageFragment, bundle)
     }
 
+    private val homeMainRecyclerAdapter by lazy { HomeMainRecyclerAdapter() }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,10 +46,27 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         homeViewModel.getEvents()
-        setEventsLocally()
-        observeViewModel()
-        navController = Navigation.findNavController(view)
+        with(view) {
+            rv_parent.layoutManager = LinearLayoutManager(context)
+            rv_parent.adapter = homeMainRecyclerAdapter
+        }
+
+//        homeViewModel.getEvents()
+//        setEventsLocally()
+//        observeViewModel()
+//        navController = Navigation.findNavController(view)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        homeViewModel.eventsLD.observe(viewLifecycleOwner, Observer {
+            homeMainRecyclerAdapter.addEventList("Events", it)
+            homeMainRecyclerAdapter.addEventList("Events", it)
+            homeMainRecyclerAdapter.addEventList("Events", it)
+        })
     }
 
     private fun observeViewModel() {

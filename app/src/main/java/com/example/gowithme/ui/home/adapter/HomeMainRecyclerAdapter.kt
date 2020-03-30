@@ -17,6 +17,7 @@ class HomeMainRecyclerAdapter: RecyclerView.Adapter<HomeMainRecyclerAdapter.Home
     fun addEventList(eventsName: String, events: List<EventResponse>) {
         eventsListNames.add(eventsName)
         eventsLists.add(events)
+        notifyItemInserted(eventsListNames.lastIndex)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeRecyclerViewHolder =
