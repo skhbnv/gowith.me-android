@@ -9,8 +9,53 @@
         android:id="@+id/nav_home"
         android:name="com.example.gowithme.ui.home.HomeFragment"
         android:label="@string/interests"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_eventPageFragment"
+            app:destination="@id/eventPageFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_add_new_event"
+        android:name="com.example.gowithme.ui.create_new_event.CreateNewEventFragment"
+        android:label="@string/interests"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_eventPageFragment"
+            app:destination="@id/eventPageFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            />
+    </fragment>
 
+    <fragment
+        android:id="@+id/nav_map_list"
+        android:name="com.example.gowithme.ui.map.MapListFragment"
+        android:label="@string/map"
+        tools:layout="@layout/fragment_map">
+        <action
+            android:id="@+id/action_nav_map_list_to_eventPageFragment"
+            app:destination="@id/eventPageFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            />
+        <action
+            android:id="@+id/action_nav_map_list_to_map_fragment"
+            app:destination="@id/nav_map"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            />
+    </fragment>
     <fragment
         android:id="@+id/nav_map"
         android:name="com.example.gowithme.ui.map.MapFragment"
@@ -24,12 +69,30 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             />
+        <action
+            android:id="@+id/action_nav_map_to_nav_map_list"
+            app:destination="@id/nav_map_list"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_dashboard"
+        android:name="com.example.gowithme.ui.create_new_event.CreateNewEventFragment"
+        tools:layout="@layout/fragment_create_new_event" >
+
+        <action
+            android:id="@+id/action_nav_dashboard_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_favorites"
         android:name="com.example.gowithme.ui.favorites.FavoritesFragment"
-        android:label="@string/favorites"
+        android:label="@string/subscriptions"
         tools:layout="@layout/fragment_favorites" >
         <action
             android:id="@+id/action_nav_favorites_to_eventPageFragment"
@@ -64,4 +127,8 @@
             app:argType="com.example.gowithme.responses.GeneralEvents"
             android:name="selectedGeneralEvent"/>
     </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.gowithme.ui.auth.fragment.LoginFragment"
+        android:label="LoginFragment" />
 </navigation>

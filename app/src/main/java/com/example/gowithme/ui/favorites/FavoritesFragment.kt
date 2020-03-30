@@ -13,9 +13,11 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gowithme.R
-import com.example.gowithme.network.ApiRepository
+import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.ui.adapters.EventsAdapter
+import com.example.gowithme.util.EventsKeyWord.EVENT_KEY_WORD
+import com.example.gowithme.util.RecyclerLayoutsType.FULL_SIZE
 import com.google.gson.Gson
 import java.io.IOException
 
@@ -23,7 +25,7 @@ class FavoritesFragment : Fragment() {
     private lateinit var navController: NavController
 
     private val favoritesViewModel by lazy {
-        ViewModelProviders.of(activity!!, FavoritesViewModel.FavoritesFactory(ApiRepository()))
+        ViewModelProviders.of(activity!!, FavoritesViewModel.FavoritesFactory(ApiRepository(apiService = null)))
             .get(FavoritesViewModel::class.java)
     }
     private var adapter: EventsAdapter? = null
@@ -65,7 +67,7 @@ class FavoritesFragment : Fragment() {
     private fun loadJsonFromAsset() : String?{
         var json: String? = null
         try {
-            val inst = context!!.assets.open("general")
+            val inst = context!!.assets.open("general2")
 
             val size = inst.available()
             val buffer = ByteArray(size)
@@ -84,11 +86,11 @@ class FavoritesFragment : Fragment() {
         adapter = EventsAdapter(
             _onClick = { clickedEvent ->
                 val bundle = Bundle()
-                bundle.putSerializable("selectedGeneralEvent", clickedEvent)
+                bundle.putSerializable(EVENT_KEY_WORD, clickedEvent)
                 navController.navigate(R.id.action_nav_favorites_to_eventPageFragment, bundle)
             },
             _context = (activity as Context),
-            _briefInfo = false
+            layoutType = FULL_SIZE
         )
         recyclerView = view?.findViewById(R.id.recycler)
         recyclerView?.adapter = adapter

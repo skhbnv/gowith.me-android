@@ -4,25 +4,34 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gowithme.R
-import com.example.gowithme.models.ParentModel
-import com.example.gowithme.network.ApiRepository
+import com.example.gowithme.data.models.ParentModel
 import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.ui.adapters.ParentAdapter
+import com.example.gowithme.util.EventsKeyWord.EVENT_KEY_WORD
+import com.example.gowithme.util.RecyclerLayoutsType.COMING_SOON
+import com.example.gowithme.util.RecyclerLayoutsType.NEARBY_EVENTS
+import com.example.gowithme.util.RecyclerLayoutsType.POSTERS
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_create_new_event.*
+import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
-    private val homeViewModel by lazy {
-        ViewModelProviders.of(activity!!, HomeViewModel.HomeFactory(ApiRepository()))
-            .get(HomeViewModel::class.java)
+    private lateinit var navController: NavController
+
+    private val homeViewModel by viewModel<HomeViewModel>()
+    private var onChildClick: ((GeneralEvents) -> Unit) = { child ->
+        val bundle = Bundle()
+        bundle.putSerializable(EVENT_KEY_WORD, child)
+        navController.navigate(R.id.action_nav_home_to_eventPageFragment, bundle)
     }
 
     override fun onCreateView(
@@ -34,8 +43,10 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        homeViewModel.getEvents()
         setEventsLocally()
         observeViewModel()
+        navController = Navigation.findNavController(view)
     }
 
     private fun observeViewModel() {
@@ -45,7 +56,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setEventsLocally() {
-        val jsonStr: String? = homeViewModel.loadJsonFromAsset(context!!.assets.open("general"))
+        val jsonStr: String? = homeViewModel.loadJsonFromAsset(context!!.assets.open("general2"))
         val gson = Gson()
         val clicks =
             gson.fromJson<Array<GeneralEvents>>(jsonStr, Array<GeneralEvents>::class.java)
@@ -59,15 +70,13 @@ class HomeFragment : Fragment() {
 
     private fun initRecycler(list: ArrayList<GeneralEvents>) {
         val parentList = ArrayList<ParentModel>()
-        parentList.add(ParentModel("Горы зовут - надо идти", list ))
-        parentList.add(ParentModel("Будет жарко", list ))
-        parentList.add(ParentModel("Заголовок 1", list ))
-        parentList.add(ParentModel("Заголовок 2", list ))
+        parentList.add(ParentModel("События неподалёку", list, NEARBY_EVENTS))
+        parentList.add(ParentModel("Афиша", list, POSTERS))
+        parentList.add(ParentModel("Вот-вот начнется", list, COMING_SOON ))
 
         rv_parent.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            adapter = ParentAdapter(parentList)
+            adapter = ParentAdapter(parentList, onChildClick = onChildClick)
         }
-
     }
 }

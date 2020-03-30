@@ -7,10 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gowithme.R
-import com.example.gowithme.models.ParentModel
+import com.example.gowithme.data.models.ParentModel
+import com.example.gowithme.responses.GeneralEvents
 import kotlinx.android.synthetic.main.card_horizontal.view.*
 
-class ParentAdapter(private val parents : List<ParentModel>) :
+class ParentAdapter(private val parents : List<ParentModel>, var onChildClick: (GeneralEvents) -> Unit) :
     RecyclerView.Adapter<ParentAdapter.ViewHolder>(){
     private val viewPool = RecyclerView.RecycledViewPool()
 
@@ -36,7 +37,7 @@ class ParentAdapter(private val parents : List<ParentModel>) :
         childLayoutManager.initialPrefetchItemCount = 4
         holder.recyclerView?.apply {
             layoutManager = childLayoutManager
-            adapter = ChildAdapter(parent.children)
+            adapter = ChildAdapter(parent.children, parent.layoutType, onChildClick)
             setRecycledViewPool(viewPool)
         }
     }
@@ -44,9 +45,5 @@ class ParentAdapter(private val parents : List<ParentModel>) :
     inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val recyclerView : RecyclerView? = itemView.rv_child
         val textView: TextView? = itemView.horizontal_title
-
-        fun bind(item: ParentModel){
-
-        }
     }
 }

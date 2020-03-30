@@ -1,0 +1,131 @@
+[
+  {
+    "id": 1,
+    "date": "2020-01-15T18:00:00Z",
+    "price": "7500",
+    "title": "Посиделки в кафе",
+    "category": [],
+    "location": {
+      "latitude": "43.254755",
+      "longitude": "76.870555"
+    },
+    "author": {
+      "id" : "1",
+      "first_name" : "Jake",
+      "avatar_url" : "https://cdn.freelance.ru/img/portfolio/pics/00/2E/68/3041337.jpg?mt=62239433",
+      "last_name" : "Salley"
+    },
+    "poster_url": "https://avatars.mds.yandex.net/get-pdb/1025580/2927f190-b50f-48c3-bae6-69783c904c46/s1200",
+    "views": "57",
+    subscribers: 113,
+    message: "Пошлите со мной, будет интересно и весело",
+    countDownTime: "0ч. 37м."
+  },
+  {
+    "id": 2,
+    "date": "2020-01-15T18:00:00Z",
+    "price": "7500",
+    "title": "Выступление Артура Чапаряна",
+    "category": [
+      "Концерты",
+      "Живая музыка",
+      "Благотворительность"
+    ],
+    "author": {
+      "id" : "1",
+      "first_name" : "Jake",
+      "avatar_url" : "https://cdn.freelance.ru/img/portfolio/pics/00/2E/68/3041337.jpg?mt=62239433",
+      "last_name" : "Salley"
+    },
+    "location": {
+      "latitude": "43.254666",
+      "longitude": "76.870444"
+    },
+    "poster_url": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
+    "views": "46",
+    subscribers: 113,
+    message: "Пошлите со мной, будет интересно и весело",
+    countDownTime: "0ч. 37м."
+  },
+  {
+    "id": 3,
+    "date": "2020-01-15T18:00:00Z",
+    "price": "7500",
+    "title": "Илья Варламов",
+    "category": [
+      "Концерты",
+      "Живая музыка",
+      "Благотворительность",
+      "Туризм"
+    ],
+    "author": {
+      "id" : "1",
+      "first_name" : "Jake",
+      "avatar_url" : "https://cdn.freelance.ru/img/portfolio/pics/00/2E/68/3041337.jpg?mt=62239433",
+      "last_name" : "Salley"
+    },
+    "location": {
+      "latitude": "43.259777",
+      "longitude": "76.931333"
+    },
+    "poster_url": "https://ticketon.kz/files/media/14505u30705_stendap-artura-chaparyana.jpg",
+    "views": "16",
+    subscribers: 113,
+    message: "Пошлите со мной, будет интересно и весело",
+    countDownTime: "0ч. 37м."
+  },
+  {
+    "id": 4,
+    "date": "2020-01-28T16:00:00Z",
+    "price": "6000",
+    "title": "Stand up",
+    "category": [
+      "Живая музыка",
+      "Благотворительность",
+      "Туризм",
+      "Горы"
+    ],
+    "author": {
+      "id" : "1",
+      "first_name" : "Jake",
+      "avatar_url" : "https://cdn.freelance.ru/img/portfolio/pics/00/2E/68/3041337.jpg?mt=62239433",
+      "last_name" : "Salley"
+    },
+    "location": {
+      "latitude": "43.259888",
+      "longitude": "76.931222"
+    },
+    "poster_url": "https://www.afisha.uz/ui/materials/2019/02/0543653_b.jpeg",
+    "views": "26",
+    subscribers: 113,
+    message: "Пошлите со мной, будет интересно и весело",
+    countDownTime: "0ч. 37м."
+  },
+  {
+    "id": 5,
+    "date": "2020-01-15T18:00:00Z",
+    "price": "9500",
+    "title": "Концерт Рамштайн",
+    "category": [
+      "Концерты",
+      "Живая музыка",
+      "Благотворительность",
+      "Туризм"
+    ],
+    "author": {
+      "id" : "1",
+      "first_name" : "Jake",
+      "avatar_url" : "https://cdn.freelance.ru/img/portfolio/pics/00/2E/68/3041337.jpg?mt=62239433",
+      "last_name" : "Salley"
+    },
+    "location": {
+      "latitude": "43.254999",
+      "longitude": "76.870111"
+    },
+    "poster_url": "https://mir24.tv/uploaded/images/2019/July/2e43fe590a4150e8accdd16811fc3a86d578668bd4c342b000f014e3bcc18005.jpg",
+    "views": "36",
+    subscribers: 113,
+    message: "Пошлите со мной, будет интересно и весело",
+    countDownTime: "0ч. 37м."
+  }
+]
