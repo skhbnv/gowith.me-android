@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.item_home_main.view.*
 
 class HomeMainRecyclerAdapter: RecyclerView.Adapter<HomeMainRecyclerAdapter.HomeRecyclerViewHolder>() {
 
+    private val viewPool by lazy { RecyclerView.RecycledViewPool() }
     private val eventsListNames = ArrayList<String>()
     private val eventsLists = ArrayList<List<EventResponse>>()
 
@@ -31,7 +32,8 @@ class HomeMainRecyclerAdapter: RecyclerView.Adapter<HomeMainRecyclerAdapter.Home
         fun bindView(eventsName: String, events: List<EventResponse>) {
             with(itemView) {
                 title.text = eventsName
-
+                innerRecycler.setRecycledViewPool(viewPool)
+                innerRecycler.adapter = HorizontalEventRecyclerAdapter(events)
             }
         }
     }

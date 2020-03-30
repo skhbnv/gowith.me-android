@@ -17,7 +17,7 @@
         android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/recycler"
+        app:layout_constraintBottom_toTopOf="@id/innerRecycler"
         tools:text="События неподалёку"/>
 
     <TextView
@@ -31,7 +31,7 @@
         tools:text="Все"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
+        android:id="@+id/innerRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
