@@ -1,10 +1,8 @@
 package com.example.gowithme.ui.home
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.gowithme.data.models.response.EventResponse
 import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.util.Result
@@ -17,6 +15,9 @@ class HomeViewModel(var repository: ApiRepository) : ViewModel() {
         Log.d("taaag", "init")
     }
 
+    private val _events = MutableLiveData<List<EventResponse>>()
+    val eventsLD: LiveData<List<EventResponse>> get() = _events
+
     fun getEvents() {
         viewModelScope.launch {
             Log.d("taaag", "launch2")
@@ -25,7 +26,7 @@ class HomeViewModel(var repository: ApiRepository) : ViewModel() {
             when (res) {
                 is Result.Success -> {
                     Log.d("taaag", "Success ${res.data}")
-
+                    _events.value = res.data
                 }
 
                 is Result.Error -> {

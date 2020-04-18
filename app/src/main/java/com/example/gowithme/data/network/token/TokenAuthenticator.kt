@@ -23,8 +23,7 @@ class TokenAuthenticator(
         }
         return runBlocking {
 
-            when (val result = repository.refreshToken(
-                repository.getRefreshToken())) {
+            when (val result = repository.refreshToken()) {
                 is Result.Success -> {
                     repository.saveToken(result.data.access)
                 }
