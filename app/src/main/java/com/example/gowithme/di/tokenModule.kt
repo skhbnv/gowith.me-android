@@ -12,6 +12,7 @@ import com.example.gowithme.data.network.token.TokenRepositoryImpl
 import org.koin.android.ext.koin.androidContext
 
 private const val RETROFIT_NAME = "without_client"
+private const val PREFERENCES_NAME = "Token Preferences"
 
 val tokenModule = module {
 
@@ -36,4 +37,3 @@ val tokenModule = module {
 
 }
 
-private const val PREFERENCES_NAME = "Token Preferences"

@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import com.example.gowithme.BuildConfig
+import com.example.gowithme.data.network.auth.AuthService
 import org.koin.core.qualifier.named
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -34,5 +35,8 @@ val networkModule = module {
         get<Retrofit>(named(RETROFIT_NAME)).create(ApiService::class.java)
     }
 
+    single<AuthService> {
+        get<Retrofit>(named(RETROFIT_NAME)).create(AuthService::class.java)
+    }
 }
 
