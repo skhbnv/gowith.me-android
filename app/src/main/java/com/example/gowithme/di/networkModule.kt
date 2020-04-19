@@ -1,5 +1,7 @@
 package com.example.gowithme.di
 
+import android.content.SharedPreferences
+import android.util.Log
 import com.example.gowithme.data.network.ApiService
 import com.example.gowithme.data.network.token.TokenAuthenticator
 import com.example.gowithme.data.network.token.TokenRepositoryImpl
@@ -10,6 +12,11 @@ import retrofit2.Retrofit
 import com.example.gowithme.BuildConfig
 import com.example.gowithme.data.network.auth.AuthService
 import com.example.gowithme.data.network.event.EventService
+import com.example.gowithme.data.network.profile.ProfileService
+import com.example.gowithme.util.NetworkConst.HEADER_AUTH
+import com.example.gowithme.util.NetworkConst.TOKEN_PREFIX
+import com.example.gowithme.util.PreferencesConst
+import okhttp3.Interceptor
 import org.koin.core.qualifier.named
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -26,8 +33,21 @@ val networkModule = module {
             .build()
     }
 
+    single {
+        Interceptor { chain ->
+            val token = get<SharedPreferences>(named(PreferencesConst.TOKEN_PREFERENCES)).getString(PreferencesConst.ACCESS_TOKEN, "") ?: ""
+            val request = chain.request()
+            Log.d("http", "request ---> ${request.method()}, ${request.url()}, ${request.body()}")
+            val newRequest = request.newBuilder()
+                .addHeader(HEADER_AUTH, TOKEN_PREFIX + token)
+                .build()
+            return@Interceptor chain.proceed(newRequest)
+        }
+    }
+
     single<OkHttpClient> {
         OkHttpClient.Builder()
+            .addInterceptor(get())
             .authenticator(TokenAuthenticator(get<TokenRepositoryImpl>()))
             .build()
     }
@@ -42,6 +62,10 @@ val networkModule = module {
 
     single<EventService> {
         get<Retrofit>(named(RETROFIT_NAME)).create(EventService::class.java)
+    }
+
+    single<ProfileService> {
+        get<Retrofit>(named(RETROFIT_NAME)).create(ProfileService::class.java)
     }
 }
 
