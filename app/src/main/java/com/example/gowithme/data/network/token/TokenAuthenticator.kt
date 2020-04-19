@@ -32,7 +32,7 @@ class TokenAuthenticator(
                 }
             }
 
-            return@runBlocking newRequestWithAccessToken(response.request(), repository.getToken())
+            return@runBlocking newRequestWithAccessToken(response.request(), repository.getAccessToken())
         }
     }
 

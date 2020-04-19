@@ -10,7 +10,7 @@ interface TokenRepository {
 
     suspend fun refreshToken(): Result<RefreshResponse>
     fun saveToken(token: String)
-    fun getToken(): String
+    fun getAccessToken(): String
 
 }
 
@@ -27,7 +27,7 @@ class TokenRepositoryImpl(
         pref.edit().putString(PreferencesConst.ACCESS_TOKEN, token).apply()
     }
 
-    override fun getToken() = pref.getString(PreferencesConst.ACCESS_TOKEN, null) ?: ""
+    override fun getAccessToken() = pref.getString(PreferencesConst.ACCESS_TOKEN, null) ?: ""
 
     private fun getRefreshToken() = pref.getString(PreferencesConst.REFRESH_TOKEN, null) ?: ""
 

@@ -1,24 +1,38 @@
 package com.example.gowithme.ui.profile
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.example.gowithme.data.network.ApiRepository
-import androidx.recyclerview.widget.RecyclerView
-import com.example.gowithme.responses.ProfileInfo
-import com.example.gowithme.ui.adapters.EventsAdapter
-import java.io.InputStream
+import androidx.lifecycle.viewModelScope
+import com.example.gowithme.data.models.response.MyInfoResponse
+import com.example.gowithme.data.network.profile.IProfileRepository
+import com.example.gowithme.util.Result
+import kotlinx.coroutines.launch
 
-class ProfileViewModel(var repository: ApiRepository) : ViewModel() {
+class ProfileViewModel(private var repository: IProfileRepository) : ViewModel() {
 
-    var profileInfo = MutableLiveData<ProfileInfo>()
-    var lastActivityAdapter = MutableLiveData<RecyclerView.Adapter<EventsAdapter.EventsViewHolder>>()
+    private val _profileInfo = MutableLiveData<MyInfoResponse>()
+    val profileInfo: LiveData<MyInfoResponse> get() = _profileInfo
 
-    fun loadJsonFromAsset(inst: InputStream) = repository.loadJsonFromAsset(inst)
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> get() = _loading
 
-    class ProfileFactory(private var repository: ApiRepository) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return ProfileViewModel(repository) as T
+    fun getMyInfo() {
+        _loading.value= true
+        viewModelScope.launch {
+            when (val result = repository.getMyInfo()) {
+                is Result.Success -> {
+                    Log.d("taaag", "Success")
+                    _profileInfo.value = result.data
+                }
+                is Result.Error -> {
+                    Log.d("taaag", "Error ${result.exception}")
+
+                }
+            }
+            _loading.value= false
         }
     }
+
 }

@@ -6,8 +6,10 @@ import com.example.gowithme.data.network.auth.AuthRepository
 import com.example.gowithme.data.network.auth.AuthService
 import com.example.gowithme.data.network.event.EventRepository
 import com.example.gowithme.data.network.main.MainRepository
+import com.example.gowithme.data.network.profile.ProfileRepository
 import com.example.gowithme.ui.auth.viewmodel.AuthViewModel
 import com.example.gowithme.ui.home.HomeViewModel
+import com.example.gowithme.ui.profile.ProfileViewModel
 import com.example.gowithme.util.PreferencesConst
 import org.koin.androidx.experimental.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -33,6 +35,10 @@ val repoModule = module {
         EventRepository(get())
     }
 
+    single {
+        ProfileRepository(get())
+    }
+
 }
 
 val viewModelModule = module {
@@ -47,6 +53,10 @@ val viewModelModule = module {
 
     viewModel {
         MainViewModel(get<MainRepository>())
+    }
+
+    viewModel {
+        ProfileViewModel(get<ProfileRepository>())
     }
 
 }
