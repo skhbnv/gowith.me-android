@@ -32,6 +32,5 @@ class CreateNewEventFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        mainActivityInstance?.toolbar?.title_bar?.text = resources.getText(R.string.create_new_event)
     }
 }

@@ -47,13 +47,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
 
     private fun setOnClickListeners() {
         event_info.setOnClickListener { openEventPage() }
-        back_to_list.setOnClickListener { navController.navigate(R.id.action_nav_map_to_nav_map_list) }
     }
 
     private fun openEventPage() {
         val bundle = Bundle()
         bundle.putSerializable(EVENT_KEY_WORD, mapViewModel.selectedGeneralEvents.value)
-        navController.navigate(R.id.action_nav_map_to_eventPageFragment, bundle)
     }
 
     override fun onCreateView(

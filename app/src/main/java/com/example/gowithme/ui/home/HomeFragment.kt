@@ -37,7 +37,6 @@ class HomeFragment : Fragment() {
     private var onChildClick: ((GeneralEvents) -> Unit) = { child ->
         val bundle = Bundle()
         bundle.putSerializable(EVENT_KEY_WORD, child)
-        navController.navigate(R.id.action_nav_home_to_eventPageFragment, bundle)
     }
 
     private val homeMainRecyclerAdapter by lazy { HomeMainRecyclerAdapter() }

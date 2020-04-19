@@ -35,12 +35,6 @@ class ProfileFragment : Fragment() {
     private var adapterClickListener: (GeneralEvents) -> Unit = {
         val bundle = Bundle()
         bundle.putSerializable(EVENT_KEY_WORD, it)
-        navController.navigate(R.id.action_profile_to_event_page, bundle)
-    }
-
-    private val profileViewModel by lazy {
-        ViewModelProviders.of(activity!!, ProfileViewModel.ProfileFactory(ApiRepository()))
-            .get(ProfileViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -50,7 +44,6 @@ class ProfileFragment : Fragment() {
     ): View? {
         profileBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
-        profileBinding.viewModel = profileViewModel
         profileBinding.lifecycleOwner = viewLifecycleOwner
         setEventsLocally()
         return profileBinding.root
@@ -62,27 +55,10 @@ class ProfileFragment : Fragment() {
     }
 
     private fun observeFields() {
-        profileViewModel.profileInfo.observe(viewLifecycleOwner, Observer { profileInfo ->
-            profileInfo?.let {
-                val userName = "${profileInfo.user.first_name} ${profileInfo.user.last_name}"
-                mainActivityInstance?.toolbar?.title_bar?.text = userName
 
-                adapter = EventsAdapter(
-                    context!!,
-                    profileInfo.last_activity as ArrayList<GeneralEvents>,
-                    _onClick = adapterClickListener,
-                    layoutType = BRIEF_INFO
-                )
-                profileViewModel.lastActivityAdapter.value = adapter
-            }
-        })
     }
 
     private fun setEventsLocally() {
-        val jsonStr: String? =
-            profileViewModel.loadJsonFromAsset(context!!.assets.open("profile_info"))
-        val clicks =
-            Gson().fromJson<ProfileInfo>(jsonStr, ProfileInfo::class.java)
-        profileViewModel.profileInfo.value = clicks
+
     }
 }

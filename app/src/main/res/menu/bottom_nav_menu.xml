@@ -9,9 +9,8 @@
         android:id="@+id/nav_map_list"
         android:icon="@drawable/nav_map_ic"
         android:title="@string/map" />
-
     <item
-        android:id="@+id/nav_add_new_event"
+        android:id="@+id/nav_create_new_event"
         android:icon="@drawable/add_event_button"
         android:title="@string/create_new_event" />
     <item
