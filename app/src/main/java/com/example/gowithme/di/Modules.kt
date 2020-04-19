@@ -1,8 +1,10 @@
 package com.example.gowithme.di
 
+import com.example.gowithme.MainViewModel
 import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.data.network.auth.AuthRepository
 import com.example.gowithme.data.network.auth.AuthService
+import com.example.gowithme.data.network.main.MainRepository
 import com.example.gowithme.ui.auth.viewmodel.AuthViewModel
 import com.example.gowithme.ui.home.HomeViewModel
 import com.example.gowithme.util.PreferencesConst
@@ -22,6 +24,10 @@ val repoModule = module {
         AuthRepository(get(), get(named(PreferencesConst.TOKEN_PREFERENCES)))
     }
 
+    single {
+        MainRepository(get(named(PreferencesConst.TOKEN_PREFERENCES)))
+    }
+
 }
 
 val viewModelModule = module {
@@ -32,6 +38,10 @@ val viewModelModule = module {
 
     viewModel {
         AuthViewModel(get<AuthRepository>())
+    }
+
+    viewModel {
+        MainViewModel(get<MainRepository>())
     }
 
 }

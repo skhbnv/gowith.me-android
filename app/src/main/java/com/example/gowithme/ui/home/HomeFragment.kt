@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gowithme.MainViewModel
 import com.example.gowithme.R
 import com.example.gowithme.data.models.ParentModel
 import com.example.gowithme.responses.GeneralEvents
@@ -19,9 +20,11 @@ import com.example.gowithme.util.EventsKeyWord.EVENT_KEY_WORD
 import com.example.gowithme.util.RecyclerLayoutsType.COMING_SOON
 import com.example.gowithme.util.RecyclerLayoutsType.NEARBY_EVENTS
 import com.example.gowithme.util.RecyclerLayoutsType.POSTERS
+import com.example.gowithme.util.showToast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_create_new_event.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
@@ -29,6 +32,8 @@ class HomeFragment : Fragment() {
     private lateinit var navController: NavController
 
     private val homeViewModel by viewModel<HomeViewModel>()
+    private val mainViewModel by sharedViewModel<MainViewModel>()
+
     private var onChildClick: ((GeneralEvents) -> Unit) = { child ->
         val bundle = Bundle()
         bundle.putSerializable(EVENT_KEY_WORD, child)
@@ -61,6 +66,10 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        mainViewModel.loginState.observe(viewLifecycleOwner, Observer {
+            "Is login $it".showToast(context)
+        })
 
         homeViewModel.eventsLD.observe(viewLifecycleOwner, Observer {
             homeMainRecyclerAdapter.addEventList("Events", it)
