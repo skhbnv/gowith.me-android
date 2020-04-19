@@ -4,6 +4,7 @@ import com.example.gowithme.MainViewModel
 import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.data.network.auth.AuthRepository
 import com.example.gowithme.data.network.auth.AuthService
+import com.example.gowithme.data.network.event.EventRepository
 import com.example.gowithme.data.network.main.MainRepository
 import com.example.gowithme.ui.auth.viewmodel.AuthViewModel
 import com.example.gowithme.ui.home.HomeViewModel
@@ -28,12 +29,16 @@ val repoModule = module {
         MainRepository(get(named(PreferencesConst.TOKEN_PREFERENCES)))
     }
 
+    single {
+        EventRepository(get())
+    }
+
 }
 
 val viewModelModule = module {
 
     viewModel {
-        HomeViewModel(get())
+        HomeViewModel(get<EventRepository>())
     }
 
     viewModel {

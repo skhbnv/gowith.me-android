@@ -50,17 +50,11 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         homeViewModel.getEvents()
         with(view) {
             rv_parent.layoutManager = LinearLayoutManager(context)
             rv_parent.adapter = homeMainRecyclerAdapter
         }
-
-//        homeViewModel.getEvents()
-//        setEventsLocally()
-//        observeViewModel()
-//        navController = Navigation.findNavController(view)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -75,25 +69,6 @@ class HomeFragment : Fragment() {
             homeMainRecyclerAdapter.addEventList("Events", it)
             homeMainRecyclerAdapter.addEventList("Events", it)
         })
-    }
-
-    private fun observeViewModel() {
-        homeViewModel.events.observe(viewLifecycleOwner, Observer { list ->
-            initRecycler(list as ArrayList<GeneralEvents>)
-        })
-    }
-
-    private fun setEventsLocally() {
-        val jsonStr: String? = homeViewModel.loadJsonFromAsset(context!!.assets.open("general2"))
-        val gson = Gson()
-        val clicks =
-            gson.fromJson<Array<GeneralEvents>>(jsonStr, Array<GeneralEvents>::class.java)
-        val list = ArrayList<GeneralEvents>()
-
-        for (click in clicks) {
-            list.add(click)
-        }
-        homeViewModel.events.value = list
     }
 
     private fun initRecycler(list: ArrayList<GeneralEvents>) {
