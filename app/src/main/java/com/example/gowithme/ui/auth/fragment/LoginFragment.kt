@@ -38,8 +38,8 @@ class LoginFragment : Fragment() {
         with(binding){
             loginButton.setOnClickListener {
                 val request = LoginRequest(
-                    phoneInput.text.toString(),
-                    phoneInput.text.toString()
+                    phone = phoneInput.text.toString(),
+                    password = passwordInput.text.toString()
                 )
                 authViewModel.login(request)
             }

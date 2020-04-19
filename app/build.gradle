@@ -18,7 +18,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "BASE_URL", '"http://192.168.0.103:8000/"'
+        buildConfigField "String", "BASE_URL", '"http://192.168.0.108:8000/"'
     }
     dataBinding { enabled true }
     buildTypes {

@@ -1,5 +1,6 @@
 package com.example.gowithme.ui.auth.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,9 +24,11 @@ class AuthViewModel(private val repository: IAuthRepository): ViewModel() {
         viewModelScope.launch {
             when(val result = repository.login(request)) {
                 is Result.Success -> {
+                    Log.d("AuthViewModel", "Success")
                     _loginUI.value = LoginUI.PopUp
                 }
                 is Result.Error -> {
+                    Log.d("AuthViewModel", "Error ${result.exception}")
                     _loginUI.value = LoginUI.Error(result.exception)
                 }
             }

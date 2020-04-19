@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.gowithme.MainActivity
 import com.example.gowithme.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -15,6 +16,11 @@ class CreateNewEventFragment : Fragment() {
     private val dashboardViewModel by viewModel<CreateNewFragmentViewModel>()
     private val mainActivityInstance by lazy {
         (activity as MainActivity?)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(

@@ -32,6 +32,11 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             />
+        <action
+            android:id="@+id/action_nav_add_new_event_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@+id/nav_add_new_event"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

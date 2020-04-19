@@ -31,62 +31,26 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.nav_home -> {
-//                    location_image, city_name
-                    val theTitle = resources.getText(R.string.events_in).toString() + " Almaty"
-                    val cityText = SpannableString(theTitle)
-                    cityText.setSpan(ForegroundColorSpan(resources.getColor(R.color.colorPrimary)),
-                        10,
-                        theTitle.length,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                        )
-
-                    title_bar.text = cityText
-                    image_end.visibility = View.VISIBLE
-                    image_end.background = resources.getDrawable(R.drawable.location)
                     showBottomNav()
                 }
                 R.id.nav_map_list -> {
-//                     funnel
                     showBottomNav()
-                    title_bar?.text = resources.getText(R.string.nearby_events)
-                    image_end.visibility = View.VISIBLE
-                    back_button.visibility = View.GONE
-                    image_end.background = resources.getDrawable(R.drawable.funnel)
                 }
                 R.id.nav_map -> {
-//                     funnel
                     showBottomNav()
-                    title_bar?.text = resources.getText(R.string.nearby_events)
-                    image_end.visibility = View.VISIBLE
-                    back_button.visibility = View.GONE
-                    image_end.background = resources.getDrawable(R.drawable.funnel)
                 }
                 R.id.nav_favorites -> {
-//                    nothing
-                    image_end.visibility = View.GONE
-                    back_button.visibility = View.GONE
-                    title_bar?.text = resources.getText(R.string.subscriptions)
-
                     showBottomNav()
                 }
                 R.id.nav_profile -> {
-//                    nothing
-                    back_button.visibility = View.GONE
-                    image_end.visibility = View.GONE
                     showBottomNav()
-                }
-                R.id.eventPageFragment -> {
-                    back_button.visibility = View.VISIBLE
-                    back_button.setOnClickListener {
-                        onBackPressed()
-                    }
-                    image_end.visibility = View.GONE
-                    hideBottomNav()
                 }
                 R.id.nav_add_new_event -> {
-                    back_button.visibility = View.GONE
-                    image_end.visibility = View.GONE
-                    showBottomNav()
+                    navController.navigate(R.id.action_nav_add_new_event_to_loginFragment)
+                    hideBottomNav()
+                }
+                else -> {
+                    hideBottomNav()
                 }
             }
         }
