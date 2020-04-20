@@ -6,7 +6,7 @@ import com.example.gowithme.util.PreferencesConst
 interface IMainRepository {
 
     fun getAccessToken(): String
-
+    fun removeTokens()
 }
 
 class MainRepository(
@@ -16,4 +16,8 @@ class MainRepository(
     override fun getAccessToken(): String =
         pref.getString(PreferencesConst.ACCESS_TOKEN, "") ?: ""
 
+    override fun removeTokens() {
+        pref.edit().putString(PreferencesConst.ACCESS_TOKEN, "").apply()
+        pref.edit().putString(PreferencesConst.REFRESH_TOKEN, "").apply()
+    }
 }

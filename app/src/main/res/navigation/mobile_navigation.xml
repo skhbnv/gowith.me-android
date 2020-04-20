@@ -14,7 +14,11 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.gowithme.ui.auth.fragment.LoginFragment"
-        android:label="LoginFragment" />
+        android:label="LoginFragment" >
+        <argument
+            android:name="next"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/nav_create_new_event"
         android:name="com.example.gowithme.ui.create_new_event.CreateNewEventFragment"
@@ -23,4 +27,8 @@
         android:id="@+id/nav_profile"
         android:name="com.example.gowithme.ui.profile.ProfileFragment"
         android:label="ProfileFragment" />
+    <action
+        android:id="@+id/action_global_loginFragment"
+        app:destination="@id/loginFragment"
+        app:popUpTo="@+id/nav_home" />
 </navigation>

@@ -18,5 +18,8 @@ class MainViewModel(
         // TODO add token verify
     }
 
-
+    fun logout() {
+        repository.removeTokens()
+        _loginState.value = false
+    }
 }

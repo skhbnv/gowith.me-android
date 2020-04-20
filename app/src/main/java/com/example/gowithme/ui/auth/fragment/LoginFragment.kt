@@ -1,6 +1,7 @@
 package com.example.gowithme.ui.auth.fragment
 
 
+import android.app.PendingIntent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 
 import com.example.gowithme.R
 import com.example.gowithme.data.models.request.LoginRequest
@@ -22,6 +24,8 @@ class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
     private val authViewModel: AuthViewModel by viewModel()
+    private val safeArgs by navArgs<LoginFragmentArgs>()
+    private val next by lazy { safeArgs.next }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,8 +55,11 @@ class LoginFragment : Fragment() {
 
         authViewModel.loginUI.observe(viewLifecycleOwner, Observer {
             when(it) {
-                is LoginUI.PopUp -> {
-                    findNavController().navigateUp()
+                is LoginUI.Login -> {
+                    findNavController().createDeepLink()
+                        .setDestination(next)
+                        .createPendingIntent()
+                        .send(PendingIntent.FLAG_UPDATE_CURRENT)
                 }
                 is LoginUI.Error -> {
                     "Error".showToast(context)

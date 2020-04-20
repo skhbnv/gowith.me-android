@@ -24,11 +24,9 @@ class AuthViewModel(private val repository: IAuthRepository): ViewModel() {
         viewModelScope.launch {
             when(val result = repository.login(request)) {
                 is Result.Success -> {
-                    Log.d("AuthViewModel", "Success")
-                    _loginUI.value = LoginUI.PopUp
+                    _loginUI.value = LoginUI.Login
                 }
                 is Result.Error -> {
-                    Log.d("AuthViewModel", "Error ${result.exception}")
                     _loginUI.value = LoginUI.Error(result.exception)
                 }
             }
@@ -40,6 +38,6 @@ class AuthViewModel(private val repository: IAuthRepository): ViewModel() {
 
 sealed class LoginUI {
 
-    object PopUp: LoginUI()
+    object Login: LoginUI()
     data class Error(val exception: Exception): LoginUI()
 }

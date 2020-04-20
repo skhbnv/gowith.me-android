@@ -37,11 +37,16 @@ val networkModule = module {
         Interceptor { chain ->
             val token = get<SharedPreferences>(named(PreferencesConst.TOKEN_PREFERENCES)).getString(PreferencesConst.ACCESS_TOKEN, "") ?: ""
             val request = chain.request()
-            Log.d("http", "request ---> ${request.method()}, ${request.url()}, ${request.body()}")
-            val newRequest = request.newBuilder()
-                .addHeader(HEADER_AUTH, TOKEN_PREFIX + token)
-                .build()
-            return@Interceptor chain.proceed(newRequest)
+            Log.d("http", "-> request [${request.method()}], ${request.url()}, ${request.body().toString()}")
+            val newRequest = request.newBuilder().apply {
+                if (token.isNotBlank()) {
+                    addHeader(HEADER_AUTH, TOKEN_PREFIX + token)
+                }
+            }.build()
+            val response = chain.proceed(newRequest)
+            Log.d("http", "<- response [${request.method()}], code ${response.code()}, ${request.url()}, ${response.isSuccessful}")
+            Log.d("http", "--------------------")
+            return@Interceptor response
         }
     }
 

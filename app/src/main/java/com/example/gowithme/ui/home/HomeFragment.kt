@@ -1,6 +1,7 @@
 package com.example.gowithme.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_create_new_event.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.math.log
 
 class HomeFragment : Fragment() {
 
@@ -65,6 +67,7 @@ class HomeFragment : Fragment() {
         })
 
         homeViewModel.eventsLD.observe(viewLifecycleOwner, Observer {
+            Log.d("taaag", "eventsLD")
             homeMainRecyclerAdapter.addEventList("Events", it)
             homeMainRecyclerAdapter.addEventList("Events", it)
             homeMainRecyclerAdapter.addEventList("Events", it)
