@@ -1,5 +1,7 @@
 package com.example.gowithme.ui.create_new_event
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +13,14 @@ import androidx.navigation.fragment.findNavController
 import com.example.gowithme.MainActivity
 import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentCreateNewEventBinding
+import com.example.gowithme.util.showDateTimePicker
 import com.example.gowithme.util.showToast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CreateNewEventFragment : Fragment() {
     private val dashboardViewModel by viewModel<CreateNewFragmentViewModel>()
@@ -22,6 +28,8 @@ class CreateNewEventFragment : Fragment() {
         (activity as MainActivity?)
     }
     private lateinit var binding: FragmentCreateNewEventBinding
+    private val startCalendar by lazy { Calendar.getInstance() }
+    private val endCalendar by lazy { Calendar.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +49,14 @@ class CreateNewEventFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding) {
             startDateInput.setOnClickListener {
-
+                startCalendar.showDateTimePicker(root.context) {
+                    startDateInput.setText(SimpleDateFormat.getDateTimeInstance().format(it.time))
+                }
+            }
+            endDateInput.setOnClickListener {
+                endCalendar.showDateTimePicker(root.context) {
+                    endDateInput.setText(SimpleDateFormat.getDateTimeInstance().format(it.time))
+                }
             }
         }
     }
