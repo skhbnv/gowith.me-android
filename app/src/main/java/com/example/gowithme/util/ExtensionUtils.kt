@@ -10,7 +10,7 @@ import android.widget.Toast
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun ViewGroup.inflate(layout: Int): View = LayoutInflater.from(this.context).inflate(layout, this, false)
+fun ViewGroup.inflate(layout: Int, attachToRoot: Boolean = false): View = LayoutInflater.from(this.context).inflate(layout, this, attachToRoot)
 
 fun String.showToast(context: Context?) {
     Toast.makeText(context, this, Toast.LENGTH_LONG).show()

@@ -25,6 +25,9 @@
     <string name="create_event">Создать событие</string>
     <string name="back_to_list">Назад к списку</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <!--  Auth  -->
 
 </resources>

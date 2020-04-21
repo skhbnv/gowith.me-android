@@ -8,6 +8,7 @@ import com.example.gowithme.data.network.event.EventRepository
 import com.example.gowithme.data.network.main.MainRepository
 import com.example.gowithme.data.network.profile.ProfileRepository
 import com.example.gowithme.ui.auth.viewmodel.AuthViewModel
+import com.example.gowithme.ui.create_new_event.viewmodel.CreateNewFragmentViewModel
 import com.example.gowithme.ui.home.HomeViewModel
 import com.example.gowithme.ui.profile.ProfileViewModel
 import com.example.gowithme.util.PreferencesConst
@@ -57,6 +58,10 @@ val viewModelModule = module {
 
     viewModel {
         ProfileViewModel(get<ProfileRepository>())
+    }
+
+    viewModel {
+        CreateNewFragmentViewModel(get<EventRepository>())
     }
 
 }

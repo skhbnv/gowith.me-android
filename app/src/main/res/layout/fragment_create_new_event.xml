@@ -13,22 +13,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <FrameLayout
-                android:id="@+id/cardView3"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/bg_add_event_poster"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            <androidx.cardview.widget.CardView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:cardBackgroundColor="@color/primaryDarkText">
 
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/add_image_view" />
-            </FrameLayout>
+
+            </androidx.cardview.widget.CardView>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/titleInputLayout"
@@ -36,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/app_horizontal_margin"
                 android:layout_marginEnd="@dimen/app_horizontal_margin"
+                android:layout_marginBottom="8dp"
                 android:hint="Заголовок">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -51,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/app_horizontal_margin"
                 android:layout_marginEnd="@dimen/app_horizontal_margin"
+                android:layout_marginBottom="8dp"
                 android:hint="Описание">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -59,6 +52,15 @@
                     android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primaryDarkText"
+                android:layout_marginStart="@dimen/app_horizontal_margin"
+                android:layout_marginEnd="@dimen/app_horizontal_margin"
+                android:layout_marginBottom="8dp"
+                android:text="Категории"/>
 
             <LinearLayout
                 android:id="@+id/categoriesList"
@@ -69,10 +71,12 @@
                 android:orientation="vertical" />
 
             <Button
+                android:id="@+id/selectCategoriesButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/app_horizontal_margin"
                 android:layout_marginEnd="@dimen/app_horizontal_margin"
+                android:layout_marginBottom="8dp"
                 android:text="Выбрать категории"
                 android:textAllCaps="false" />
 
@@ -82,6 +86,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/app_horizontal_margin"
                 android:layout_marginEnd="@dimen/app_horizontal_margin"
+                android:layout_marginBottom="8dp"
+
                 android:hint="Адрес">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -101,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/app_horizontal_margin"
                 android:layout_marginEnd="@dimen/app_horizontal_margin"
+                android:layout_marginBottom="8dp"
                 android:hint="Начало ивента">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -121,6 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/app_horizontal_margin"
                 android:layout_marginEnd="@dimen/app_horizontal_margin"
+                android:layout_marginBottom="8dp"
                 android:hint="Конец ивента">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -140,6 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/app_horizontal_margin"
                 android:layout_marginEnd="@dimen/app_horizontal_margin"
+                android:layout_marginBottom="8dp"
                 android:text="@string/create_event"
                 android:textAllCaps="false" />
 
