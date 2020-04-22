@@ -91,7 +91,7 @@
                 android:hint="Адрес">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/addressDateInput"
+                    android:id="@+id/addressInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:cursorVisible="false"
@@ -142,10 +142,39 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/button"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/priceInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/app_horizontal_margin"
+                android:layout_marginEnd="@dimen/app_horizontal_margin"
+                android:layout_marginBottom="8dp"
+                android:hint="Цена">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/priceInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Switch
+                android:id="@+id/isFreeSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:switchPadding="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="@dimen/app_horizontal_margin"
+                android:layout_marginEnd="@dimen/app_horizontal_margin"
+                android:layout_gravity="end"
+                android:text="Бесплатно"/>
+
+            <Button
+                android:id="@+id/createEventButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginStart="@dimen/app_horizontal_margin"
                 android:layout_marginEnd="@dimen/app_horizontal_margin"
                 android:layout_marginBottom="8dp"

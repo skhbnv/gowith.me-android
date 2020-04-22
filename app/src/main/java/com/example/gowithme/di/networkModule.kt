@@ -44,7 +44,7 @@ val networkModule = module {
                 }
             }.build()
             val response = chain.proceed(newRequest)
-            Log.d("http", "<- response [${request.method()}], code ${response.code()}, ${request.url()}, ${response.isSuccessful}")
+            Log.d("http", "<- response [${request.method()}], code ${response.code()}, ${request.url()}, ${if (!response.isSuccessful) response.body()?.string() else "true"}, ")
             Log.d("http", "--------------------")
             return@Interceptor response
         }

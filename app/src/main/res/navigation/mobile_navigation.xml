@@ -20,10 +20,6 @@
             app:argType="integer" />
     </fragment>
     <fragment
-        android:id="@+id/nav_create_new_event"
-        android:name="com.example.gowithme.ui.create_new_event.fragment.CreateNewEventFragment"
-        android:label="CreateNewEventFragment" />
-    <fragment
         android:id="@+id/nav_profile"
         android:name="com.example.gowithme.ui.profile.ProfileFragment"
         android:label="ProfileFragment" />
@@ -31,4 +27,28 @@
         android:id="@+id/action_global_loginFragment"
         app:destination="@id/loginFragment"
         app:popUpTo="@+id/nav_home" />
+    <navigation
+        android:id="@+id/nav_create_new_event"
+        app:startDestination="@id/createNewEventFragment" >
+        <fragment
+            android:id="@+id/mapAddressFragment"
+            android:name="com.example.gowithme.ui.create_new_event.fragment.MapAddressFragment"
+            android:label="fragment_map_address"
+            tools:layout="@layout/fragment_map_address" />
+        <fragment
+            android:id="@+id/createNewEventFragment"
+            android:name="com.example.gowithme.ui.create_new_event.fragment.CreateNewEventFragment"
+            android:label="CreateNewEventFragment">
+            <action
+                android:id="@+id/action_nav_create_new_event_to_mapAddressFragment"
+                app:destination="@id/mapAddressFragment" />
+            <action
+                android:id="@+id/action_createNewEventFragment_to_categorySelectionDialogFragment"
+                app:destination="@id/categorySelectionDialogFragment" />
+        </fragment>
+        <dialog
+            android:id="@+id/categorySelectionDialogFragment"
+            android:name="com.example.gowithme.ui.create_new_event.fragment.CategorySelectionDialogFragment"
+            android:label="CategorySelectionDialogFragment" />
+    </navigation>
 </navigation>

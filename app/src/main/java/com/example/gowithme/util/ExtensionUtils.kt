@@ -7,14 +7,43 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.IdRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.navigation.fragment.findNavController
+import org.koin.android.ext.android.getKoin
+import org.koin.androidx.viewmodel.koin.getViewModel
+import org.koin.core.parameter.ParametersDefinition
+import org.koin.core.qualifier.Qualifier
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Pattern
 
 fun ViewGroup.inflate(layout: Int, attachToRoot: Boolean = false): View = LayoutInflater.from(this.context).inflate(layout, this, attachToRoot)
+
+fun <T : ViewDataBinding?> ViewGroup.inflateBinding(layout: Int): T = DataBindingUtil.inflate<T>(LayoutInflater.from(this.context), layout, this, false)
+
+fun <T : ViewDataBinding?> LayoutInflater.inflateBinding(viewGroup: ViewGroup?, layout: Int): T = DataBindingUtil.inflate<T>(this, layout, viewGroup, false)
 
 fun String.showToast(context: Context?) {
     Toast.makeText(context, this, Toast.LENGTH_LONG).show()
 }
+
+inline fun <reified VM : ViewModel> Fragment.sharedGraphViewModel(
+    @IdRes navGraphId: Int,
+    qualifier: Qualifier? = null,
+    noinline parameters: ParametersDefinition? = null
+) = lazy {
+    val owner = findNavController().getViewModelStoreOwner(navGraphId)
+
+    getKoin().getViewModel(owner, VM::class, qualifier, parameters)
+}
+
+fun Date.toIsoFormat() =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault()).format(this)
+
+fun Date.format(pattern: String) =  SimpleDateFormat(pattern, Locale.getDefault()).format(this)
 
 fun Calendar.showDateTimePicker(context: Context, callback: (calendar: Calendar) -> Unit) {
     val dateListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
