@@ -3,16 +3,14 @@ package com.example.gowithme.di
 import com.example.gowithme.MainViewModel
 import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.data.network.auth.AuthRepository
-import com.example.gowithme.data.network.auth.AuthService
 import com.example.gowithme.data.network.event.EventRepository
 import com.example.gowithme.data.network.main.MainRepository
 import com.example.gowithme.data.network.profile.ProfileRepository
 import com.example.gowithme.ui.auth.viewmodel.AuthViewModel
-import com.example.gowithme.ui.create_new_event.viewmodel.CreateNewFragmentViewModel
+import com.example.gowithme.ui.create_new_event.viewmodel.CreateNewEventViewModel
 import com.example.gowithme.ui.home.HomeViewModel
 import com.example.gowithme.ui.profile.ProfileViewModel
 import com.example.gowithme.util.PreferencesConst
-import org.koin.androidx.experimental.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -61,7 +59,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        CreateNewFragmentViewModel(get<EventRepository>())
+        CreateNewEventViewModel(get<EventRepository>())
     }
 
 }

@@ -44,7 +44,7 @@ class ImagesRecyclerAdapter(
 
 
     inner class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val glide = Glide.with(itemView.context)
+        private val glide = Glide.with(itemView.context)
         fun bind(imageUri: Uri) {
             with(itemView) {
                 glide.load(imageUri).into(imageView)

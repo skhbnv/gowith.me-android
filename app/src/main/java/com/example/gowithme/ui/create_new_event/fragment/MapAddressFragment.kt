@@ -6,12 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentMapAddressBinding
-import com.example.gowithme.ui.create_new_event.viewmodel.CreateNewFragmentViewModel
+import com.example.gowithme.ui.create_new_event.viewmodel.CreateNewEventViewModel
 import com.example.gowithme.util.inflateBinding
 import com.example.gowithme.util.sharedGraphViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -21,8 +19,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import org.koin.androidx.viewmodel.ext.android.getViewModel
-import java.lang.Exception
 import java.util.*
 
 
@@ -30,7 +26,7 @@ class MapAddressFragment : Fragment(), OnMapReadyCallback, SearchView.OnQueryTex
 
     private lateinit var binding: FragmentMapAddressBinding
     private lateinit var map: GoogleMap
-    private val createNewFragmentViewModel: CreateNewFragmentViewModel by sharedGraphViewModel(R.id.nav_create_new_event)
+    private val createNewEventViewModel: CreateNewEventViewModel by sharedGraphViewModel(R.id.nav_create_new_event)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,8 +79,8 @@ class MapAddressFragment : Fragment(), OnMapReadyCallback, SearchView.OnQueryTex
                 marker?.remove()
                 markerOptions.position(latLng)
                 marker = map.addMarker(markerOptions)
-                createNewFragmentViewModel.setLatLng(latLng.latitude, latLng.longitude)
-                createNewFragmentViewModel.setAddressText(address.first().getAddressLine(0))
+                createNewEventViewModel.setLatLng(latLng.latitude, latLng.longitude)
+                createNewEventViewModel.setAddressText(address.first().getAddressLine(0))
             } catch (e: Exception) {
                 e.printStackTrace()
             }

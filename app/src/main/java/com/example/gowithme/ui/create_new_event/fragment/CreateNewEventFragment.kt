@@ -1,45 +1,42 @@
 package com.example.gowithme.ui.create_new_event.fragment
 
 import android.Manifest
+import android.app.AlertDialog
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentCreateNewEventBinding
+import com.example.gowithme.ui.create_new_event.adapter.ImagesRecyclerAdapter
 import com.example.gowithme.ui.create_new_event.viewmodel.CreateEventUI
-import com.example.gowithme.ui.create_new_event.viewmodel.CreateNewFragmentViewModel
+import com.example.gowithme.ui.create_new_event.viewmodel.CreateNewEventViewModel
 import com.example.gowithme.ui.create_new_event.viewmodel.InputTypes
 import com.example.gowithme.util.*
 import kotlinx.android.synthetic.main.fragment_create_new_event.*
 import kotlinx.android.synthetic.main.item_textview.view.*
-import java.text.SimpleDateFormat
-import java.util.*
-import android.app.AlertDialog
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.ImageDecoder
-import android.os.Build
-import android.os.Environment
-import android.provider.MediaStore
-import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
-import androidx.core.net.toFile
-import androidx.core.net.toUri
-import com.example.gowithme.ui.create_new_event.adapter.ImagesRecyclerAdapter
 import java.io.File
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class CreateNewEventFragment : Fragment() {
 
 
-    private val createNewFragmentViewModel: CreateNewFragmentViewModel by sharedGraphViewModel(R.id.nav_create_new_event)
+    private val createNewEventViewModel: CreateNewEventViewModel by sharedGraphViewModel(R.id.nav_create_new_event)
     private lateinit var binding: FragmentCreateNewEventBinding
     private val startCalendar by lazy { Calendar.getInstance() }
     private val endCalendar by lazy { Calendar.getInstance() }
@@ -48,7 +45,7 @@ class CreateNewEventFragment : Fragment() {
             selectImageSource()
         }
     }
-    lateinit var currentPhotoPath: String
+    private lateinit var currentPhotoPath: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,20 +58,20 @@ class CreateNewEventFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        createNewFragmentViewModel.getCategories()
+        createNewEventViewModel.getCategories()
         with(binding) {
             eventImages.adapter = eventImagesAdapter
 
             startDateInput.setOnClickListener {
                 startCalendar.showDateTimePicker(root.context) {
                     startDateInput.setText(SimpleDateFormat.getDateTimeInstance().format(it.time))
-                    createNewFragmentViewModel.startDate = it.time.toIsoFormat()
+                    createNewEventViewModel.startDate = it.time.toIsoFormat()
                 }
             }
             endDateInput.setOnClickListener {
                 endCalendar.showDateTimePicker(root.context) {
                     endDateInput.setText(SimpleDateFormat.getDateTimeInstance().format(it.time))
-                    createNewFragmentViewModel.endDate = it.time.toIsoFormat()
+                    createNewEventViewModel.endDate = it.time.toIsoFormat()
                 }
             }
             selectCategoriesButton.setOnClickListener {
@@ -98,12 +95,12 @@ class CreateNewEventFragment : Fragment() {
                 }
             }
             createEventButton.setOnClickListener {
-                with(createNewFragmentViewModel) {
+                with(createNewEventViewModel) {
                     title = titleInput.text.toString()
                     description = descriptionInput.text.toString()
                     price = priceInput.text.toString()
                 }
-                createNewFragmentViewModel.createEvent()
+                createNewEventViewModel.createEvent()
             }
         }
     }
@@ -115,7 +112,7 @@ class CreateNewEventFragment : Fragment() {
 
         observeCheckedCategories()
 
-        createNewFragmentViewModel.addressText.observe(viewLifecycleOwner, Observer {
+        createNewEventViewModel.addressText.observe(viewLifecycleOwner, Observer {
             Log.d("taaag", "addressText observe $it")
             binding.addressInput.setText(it)
         })
@@ -126,7 +123,7 @@ class CreateNewEventFragment : Fragment() {
         when(requestCode) {
             CAMERA_REQUEST_CODE -> {
                 val imageFile = File(currentPhotoPath)
-//                createNewFragmentViewModel.addPhotoFile(imageFile)
+//                createNewEventViewModel.addPhotoFile(imageFile)
                 Log.d("taaag", "dispatchTakePictureIntent ${imageFile.toUri()}")
                 eventImagesAdapter.addImageUri(imageFile.toUri())
 
@@ -146,7 +143,7 @@ class CreateNewEventFragment : Fragment() {
     }
 
     private fun observeCheckedCategories() {
-        createNewFragmentViewModel.checkedCategoriesLD.observe(viewLifecycleOwner, Observer {
+        createNewEventViewModel.checkedCategoriesLD.observe(viewLifecycleOwner, Observer {
             with(binding.categoriesList) {
                 removeAllViews()
                 it.forEach { category ->
@@ -161,7 +158,7 @@ class CreateNewEventFragment : Fragment() {
     }
 
     private fun observeCreateEventUI() {
-        createNewFragmentViewModel.createEventUI.observe(viewLifecycleOwner, Observer {
+        createNewEventViewModel.createEventUI.observe(viewLifecycleOwner, Observer {
             when(it) {
                 is CreateEventUI.ValidationError -> {
                     Log.d("taaag", "ValidationError inputType ${it.inputType}")

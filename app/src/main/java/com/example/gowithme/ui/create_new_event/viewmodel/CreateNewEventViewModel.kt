@@ -9,7 +9,7 @@ import com.example.gowithme.util.Result
 import kotlinx.coroutines.launch
 import java.io.File
 
-class CreateNewFragmentViewModel(private var repository: IEventRepository) : ViewModel() {
+class CreateNewEventViewModel(private var repository: IEventRepository) : ViewModel() {
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
