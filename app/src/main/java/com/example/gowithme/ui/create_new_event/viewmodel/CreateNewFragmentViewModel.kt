@@ -7,6 +7,7 @@ import com.example.gowithme.data.models.response.CategoryResponse
 import com.example.gowithme.data.network.event.IEventRepository
 import com.example.gowithme.util.Result
 import kotlinx.coroutines.launch
+import java.io.File
 
 class CreateNewFragmentViewModel(private var repository: IEventRepository) : ViewModel() {
 
@@ -24,6 +25,8 @@ class CreateNewFragmentViewModel(private var repository: IEventRepository) : Vie
         _categories.value?.filter { it.isChecked }
     }
 
+    private val takenPhotos = ArrayList<File>()
+
     private val _addressText = MutableLiveData<String>()
     val  addressText: LiveData<String> get() = _addressText
 
@@ -34,6 +37,10 @@ class CreateNewFragmentViewModel(private var repository: IEventRepository) : Vie
     var description = ""
     var startDate = ""
     var endDate = ""
+
+    fun addPhotoFile(file: File) {
+        takenPhotos.add(file)
+    }
 
     fun setAddressText(text: String) {
         Log.d("taaag", "setAddressText $text")
@@ -129,6 +136,10 @@ class CreateNewFragmentViewModel(private var repository: IEventRepository) : Vie
     }
 
     override fun onCleared() {
+        // Удалить файлы из памяти
+        takenPhotos.forEach {
+            it.delete()
+        }
         Log.d("taaag", "-----------------------------------------------------<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
         super.onCleared()
     }

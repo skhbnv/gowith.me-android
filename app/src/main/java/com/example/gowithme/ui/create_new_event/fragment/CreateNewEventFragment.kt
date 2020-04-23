@@ -1,5 +1,6 @@
 package com.example.gowithme.ui.create_new_event.fragment
 
+import android.Manifest
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +20,21 @@ import kotlinx.android.synthetic.main.fragment_create_new_event.*
 import kotlinx.android.synthetic.main.item_textview.view.*
 import java.text.SimpleDateFormat
 import java.util.*
+import android.app.AlertDialog
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.ImageDecoder
+import android.os.Build
+import android.os.Environment
+import android.provider.MediaStore
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.core.net.toFile
+import androidx.core.net.toUri
+import com.example.gowithme.ui.create_new_event.adapter.ImagesRecyclerAdapter
+import java.io.File
+import java.io.IOException
+
 
 class CreateNewEventFragment : Fragment() {
 
@@ -27,6 +43,12 @@ class CreateNewEventFragment : Fragment() {
     private lateinit var binding: FragmentCreateNewEventBinding
     private val startCalendar by lazy { Calendar.getInstance() }
     private val endCalendar by lazy { Calendar.getInstance() }
+    private val eventImagesAdapter by lazy {
+        ImagesRecyclerAdapter {
+            selectImageSource()
+        }
+    }
+    lateinit var currentPhotoPath: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +63,8 @@ class CreateNewEventFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         createNewFragmentViewModel.getCategories()
         with(binding) {
+            eventImages.adapter = eventImagesAdapter
+
             startDateInput.setOnClickListener {
                 startCalendar.showDateTimePicker(root.context) {
                     startDateInput.setText(SimpleDateFormat.getDateTimeInstance().format(it.time))
@@ -86,15 +110,42 @@ class CreateNewEventFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        createNewFragmentViewModel.createEventUI.observe(viewLifecycleOwner, Observer {
-            when(it) {
-                is CreateEventUI.ValidationError -> {
-                    Log.d("taaag", "ValidationError inputType ${it.inputType}")
 
-                    validationError(it.inputType)
-                }
-            }
+        observeCreateEventUI()
+
+        observeCheckedCategories()
+
+        createNewFragmentViewModel.addressText.observe(viewLifecycleOwner, Observer {
+            Log.d("taaag", "addressText observe $it")
+            binding.addressInput.setText(it)
         })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode) {
+            CAMERA_REQUEST_CODE -> {
+                val imageFile = File(currentPhotoPath)
+//                createNewFragmentViewModel.addPhotoFile(imageFile)
+                Log.d("taaag", "dispatchTakePictureIntent ${imageFile.toUri()}")
+                eventImagesAdapter.addImageUri(imageFile.toUri())
+
+                // TODO uploadimage()
+            }
+            GALLERY_REQUEST_CODE -> {
+                data?.data?.let { selectedImage ->
+                    Log.d("taaag", "selectedImage $selectedImage")
+
+                    eventImagesAdapter.addImageUri(selectedImage)
+
+                    // TODO uploadimage()
+                }
+
+            }
+        }
+    }
+
+    private fun observeCheckedCategories() {
         createNewFragmentViewModel.checkedCategoriesLD.observe(viewLifecycleOwner, Observer {
             with(binding.categoriesList) {
                 removeAllViews()
@@ -107,10 +158,111 @@ class CreateNewEventFragment : Fragment() {
                 }
             }
         })
-        createNewFragmentViewModel.addressText.observe(viewLifecycleOwner, Observer {
-            Log.d("taaag", "addressText observe $it")
-            binding.addressInput.setText(it)
+    }
+
+    private fun observeCreateEventUI() {
+        createNewFragmentViewModel.createEventUI.observe(viewLifecycleOwner, Observer {
+            when(it) {
+                is CreateEventUI.ValidationError -> {
+                    Log.d("taaag", "ValidationError inputType ${it.inputType}")
+
+                    validationError(it.inputType)
+                }
+            }
         })
+    }
+
+    /**
+     * Функиция создает AlertDialog для выбора загрузки фото соз галереи или с камеры
+     */
+    private fun selectImageSource() {
+        val options = arrayOf<CharSequence>(getString(R.string.take_photo_option), getString(R.string.choose_from_gallery_option), getString(R.string.cancel_option))
+        val alertBuilder = AlertDialog.Builder(context).apply {
+            setTitle(getString(R.string.add_photo_alter_title))
+            setItems(options) { dialog, item ->
+                when(options[item]) {
+                    getString(R.string.take_photo_option) -> {
+                        if (hasCameraPermissions()) {
+                            dispatchTakePictureIntent()
+                        }
+                    }
+                    getString(R.string.choose_from_gallery_option) -> {
+                        val galleryIntent = Intent(Intent.ACTION_PICK,  MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                        startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE)
+                    }
+                    getString(R.string.cancel_option) -> {
+                        dialog.dismiss()
+                    }
+                }
+            }
+        }
+        alertBuilder.show()
+    }
+
+    private fun dispatchTakePictureIntent() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(requireActivity().packageManager)?.also {
+                val photoFile = try {
+                    createImageFile()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    null
+                }
+                photoFile?.also {
+                    val photoURI = FileProvider.getUriForFile(
+                        requireContext(),
+                        "com.example.gowithme.fileprovider",
+                        it
+                    )
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE)
+                }
+            }
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        // Create an image file name
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val storageDir: File? = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+            "JPEG_${timeStamp}_", /* prefix */
+            ".jpg", /* suffix */
+            storageDir /* directory */
+        ).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            currentPhotoPath = absolutePath
+        }
+    }
+
+    private fun hasCameraPermissions(): Boolean {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(Manifest.permission.CAMERA), CAMERA_PERM_CODE)
+            Log.d("taaag", "hasCameraPermissions FALSE")
+            return false
+        }
+        Log.d("taaag", "hasCameraPermissions TRUE")
+        return true
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Log.d("taaag", "onRequestPermissionsResult requestCode $requestCode")
+        when (requestCode) {
+            CAMERA_PERM_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults.first() == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("taaag", "onRequestPermissionsResult CAMERA_PERM_CODE PERMISSION_GRANTED")
+                    dispatchTakePictureIntent()
+                } else {
+                    getString(R.string.text_camera_permission_not_granted).showToast(context)
+                }
+            }
+        }
     }
 
     private fun validationError(inputType: InputTypes) {
@@ -126,6 +278,8 @@ class CreateNewEventFragment : Fragment() {
     }
 
     companion object {
-        private const val CATEGORY_SELECTION_FRAGMENT_TAG = "CategorySelectionDialogFragment"
+        private const val CAMERA_REQUEST_CODE = 0
+        private const val GALLERY_REQUEST_CODE = 1
+        private const val CAMERA_PERM_CODE = 101
     }
 }

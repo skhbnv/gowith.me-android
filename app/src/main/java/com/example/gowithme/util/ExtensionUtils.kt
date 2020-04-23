@@ -3,6 +3,8 @@ package com.example.gowithme.util
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.res.Resources
+import android.content.res.Resources.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +46,12 @@ inline fun <reified VM : ViewModel> Fragment.sharedGraphViewModel(
 fun Date.toIsoFormat() =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault()).format(this)
 
 fun Date.format(pattern: String) =  SimpleDateFormat(pattern, Locale.getDefault()).format(this)
+
+val Int.dp: Int
+    get() = (this * getSystem().displayMetrics.density + 0.5f).toInt()
+
+val Float.dp: Int
+    get() = (this * getSystem().displayMetrics.density + 0.5f).toInt()
 
 fun Calendar.showDateTimePicker(context: Context, callback: (calendar: Calendar) -> Unit) {
     val dateListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
