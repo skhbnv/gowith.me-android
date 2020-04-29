@@ -1,12 +1,16 @@
 package com.example.gowithme.ui.create_new_event.viewmodel
 
+import android.net.Uri
 import android.util.Log
+import androidx.core.net.toFile
 import androidx.lifecycle.*
 import com.example.gowithme.data.models.request.CreateEventRequest
 import com.example.gowithme.data.models.response.CategoryResponse
+import com.example.gowithme.data.models.response.EventImageResponse
 import com.example.gowithme.data.network.event.IEventRepository
 import com.example.gowithme.util.Result
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.io.File
 
 class CreateNewEventViewModel(private var repository: IEventRepository) : ViewModel() {
@@ -25,6 +29,9 @@ class CreateNewEventViewModel(private var repository: IEventRepository) : ViewMo
         _categories.value?.filter { it.isChecked }
     }
 
+    private val _eventImage = MutableLiveData<EventImageResponse>()
+    private val eventImageIds = ArrayList<Int>()
+
     private val takenPhotos = ArrayList<File>()
 
     private val _addressText = MutableLiveData<String>()
@@ -37,6 +44,10 @@ class CreateNewEventViewModel(private var repository: IEventRepository) : ViewMo
     var description = ""
     var startDate = ""
     var endDate = ""
+
+    init {
+        _loading.value = false
+    }
 
     fun addPhotoFile(file: File) {
         takenPhotos.add(file)
@@ -74,10 +85,37 @@ class CreateNewEventViewModel(private var repository: IEventRepository) : ViewMo
         checkedCategoriesTrigger.value = null
     }
 
+    fun uploadImage(imageFile: File) {
+        _loading.value = true
+        viewModelScope.launch {
+            when (val result = repository.uploadImage(imageFile)) {
+                is Result.Success -> {
+                    eventImageIds.add(result.data.id)
+                    _createEventUI.value = CreateEventUI.EventImageUploaded(imageFile)
+                    Log.d("taaa", "Image upload Success ${result.data}")
+                }
+                is Result.Error -> {
+                    _createEventUI.value = CreateEventUI.EventImageUploadError(result.exception)
+                    when(result.exception) {
+                        is HttpException -> {
+                            Log.d("taaa", "Image upload Error ${result.exception.response()?.errorBody()?.string()}")
+                        }
+                        else -> {
+                            Log.d("taaa", "Image upload Error ${result.exception}")
+                        }
+                    }
+
+                }
+            }
+            _loading.value = false
+        }
+    }
+
     fun createEvent() {
         if (!checkRequestData()) {
             return
         }
+        _loading.value = true
         viewModelScope.launch {
             val createEventRequest = CreateEventRequest(
                 categories = checkedCategoriesLD.value?.map { it.id } ?: emptyList(),
@@ -88,7 +126,7 @@ class CreateNewEventViewModel(private var repository: IEventRepository) : ViewMo
                 start = startDate,
                 end = endDate,
                 price = price,
-                images = emptyList()
+                images = eventImageIds
             )
             when(val result = repository.createEvent(createEventRequest)) {
                 is Result.Success -> {
@@ -98,6 +136,7 @@ class CreateNewEventViewModel(private var repository: IEventRepository) : ViewMo
                     Log.d("taaag", "createEvent Error")
                 }
             }
+            _loading.value = false
         }
     }
 
@@ -147,6 +186,8 @@ class CreateNewEventViewModel(private var repository: IEventRepository) : ViewMo
 
 sealed class CreateEventUI {
 
+    data class EventImageUploaded(val imageFile: File) : CreateEventUI()
+    data class EventImageUploadError(val exception: Exception) : CreateEventUI()
     data class ValidationError(val inputType: InputTypes) : CreateEventUI()
 
 }

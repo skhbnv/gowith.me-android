@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -13,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.net.toFile
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -54,6 +56,7 @@ class CreateNewEventFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_create_new_event, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = createNewEventViewModel
         return binding.root
     }
 
@@ -123,19 +126,15 @@ class CreateNewEventFragment : Fragment() {
         when(requestCode) {
             CAMERA_REQUEST_CODE -> {
                 val imageFile = File(currentPhotoPath)
-//                createNewEventViewModel.addPhotoFile(imageFile)
+                createNewEventViewModel.uploadImage(imageFile)
                 Log.d("taaag", "dispatchTakePictureIntent ${imageFile.toUri()}")
-                eventImagesAdapter.addImageUri(imageFile.toUri())
 
-                // TODO uploadimage()
             }
             GALLERY_REQUEST_CODE -> {
                 data?.data?.let { selectedImage ->
-                    Log.d("taaag", "selectedImage $selectedImage")
-
-                    eventImagesAdapter.addImageUri(selectedImage)
-
-                    // TODO uploadimage()
+                    Log.d("taaag", "selectedImage ${getPath(selectedImage)}")
+                    val imageFile = File(getPath(selectedImage))
+                    createNewEventViewModel.uploadImage(imageFile)
                 }
 
             }
@@ -157,13 +156,21 @@ class CreateNewEventFragment : Fragment() {
         })
     }
 
+    /**
+     * ----------------------------------------------------- UI LiveData Observing -----------------------------------------------------
+     */
     private fun observeCreateEventUI() {
         createNewEventViewModel.createEventUI.observe(viewLifecycleOwner, Observer {
             when(it) {
                 is CreateEventUI.ValidationError -> {
                     Log.d("taaag", "ValidationError inputType ${it.inputType}")
-
                     validationError(it.inputType)
+                }
+                is CreateEventUI.EventImageUploaded -> {
+                    eventImagesAdapter.addImageUri(it.imageFile.toUri())
+                }
+                is CreateEventUI.EventImageUploadError -> {
+                    "Не удалось загрузить фото".showToast(context)
                 }
             }
         })
@@ -216,6 +223,14 @@ class CreateNewEventFragment : Fragment() {
                 }
             }
         }
+    }
+
+    fun getPath(uri: Uri): String {
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = requireActivity().managedQuery(uri, projection, null, null, null)
+        val column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        return cursor.getString(column_index)
     }
 
     @Throws(IOException::class)
