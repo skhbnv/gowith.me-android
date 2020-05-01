@@ -1,6 +1,7 @@
 package com.example.gowithme.data.network.token
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.example.gowithme.data.models.response.RefreshResponse
 import com.example.gowithme.util.PreferencesConst
 import com.example.gowithme.util.apiCall
@@ -11,6 +12,7 @@ interface TokenRepository {
     suspend fun refreshToken(): Result<RefreshResponse>
     fun saveToken(token: String)
     fun getAccessToken(): String
+    fun removeTokens()
 
 }
 
@@ -20,6 +22,7 @@ class TokenRepositoryImpl(
 ): TokenRepository {
 
     override suspend fun refreshToken() = apiCall {
+        Log.d("taaag", "getRefreshToken() = ${getRefreshToken()}")
         service.refreshToken(getRefreshToken())
     }
 
@@ -28,6 +31,11 @@ class TokenRepositoryImpl(
     }
 
     override fun getAccessToken() = pref.getString(PreferencesConst.ACCESS_TOKEN, null) ?: ""
+
+    override fun removeTokens() {
+        pref.edit().putString(PreferencesConst.ACCESS_TOKEN, "").apply()
+        pref.edit().putString(PreferencesConst.REFRESH_TOKEN, "").apply()
+    }
 
     private fun getRefreshToken() = pref.getString(PreferencesConst.REFRESH_TOKEN, null) ?: ""
 
