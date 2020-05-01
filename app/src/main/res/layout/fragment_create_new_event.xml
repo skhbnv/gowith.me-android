@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
@@ -30,13 +30,13 @@
                     android:id="@+id/eventImages"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="12dp"
                     android:clipToPadding="false"
                     android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/titleInputLayout"
@@ -73,11 +73,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/primaryDarkText"
                     android:layout_marginStart="@dimen/app_horizontal_margin"
                     android:layout_marginEnd="@dimen/app_horizontal_margin"
                     android:layout_marginBottom="8dp"
-                    android:text="Категории"/>
+                    android:text="Категории"
+                    android:textColor="@color/primaryDarkText" />
 
                 <LinearLayout
                     android:id="@+id/categoriesList"
@@ -172,7 +172,7 @@
                         android:id="@+id/priceInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number"/>
+                        android:inputType="number" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -180,19 +180,19 @@
                     android:id="@+id/isFreeSwitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:switchPadding="24dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="@dimen/app_horizontal_margin"
-                    android:layout_marginEnd="@dimen/app_horizontal_margin"
                     android:layout_gravity="end"
-                    android:text="Бесплатно"/>
+                    android:layout_marginStart="@dimen/app_horizontal_margin"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="@dimen/app_horizontal_margin"
+                    android:switchPadding="24dp"
+                    android:text="Бесплатно" />
 
                 <Button
                     android:id="@+id/createEventButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:layout_marginStart="@dimen/app_horizontal_margin"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="@dimen/app_horizontal_margin"
                     android:layout_marginBottom="8dp"
                     android:text="@string/create_event"
@@ -201,10 +201,10 @@
             </LinearLayout>
         </ScrollView>
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="@{viewModel.loading? View.VISIBLE : View.GONE}"/>
+
+        <include
+            layout="@layout/layout_loading"
+            app:isLoading="@{viewModel.loading}" />
+
     </FrameLayout>
 </layout>

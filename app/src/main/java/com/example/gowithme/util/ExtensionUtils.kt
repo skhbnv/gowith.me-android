@@ -2,9 +2,12 @@ package com.example.gowithme.util
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.ContentResolver
 import android.content.Context
 import android.content.res.Resources
 import android.content.res.Resources.*
+import android.net.Uri
+import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,6 +55,18 @@ val Int.dp: Int
 
 val Float.dp: Int
     get() = (this * getSystem().displayMetrics.density + 0.5f).toInt()
+
+fun ContentResolver.getFileName(fileUri: Uri): String {
+    var name = ""
+    val returnCursor = this.query(fileUri, null, null, null, null)
+    if (returnCursor != null) {
+        val nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+        returnCursor.moveToFirst()
+        name = returnCursor.getString(nameIndex)
+        returnCursor.close()
+    }
+    return name
+}
 
 fun Calendar.showDateTimePicker(context: Context, callback: (calendar: Calendar) -> Unit) {
     val dateListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->

@@ -45,10 +45,6 @@ class CreateNewEventViewModel(private var repository: IEventRepository) : ViewMo
     var startDate = ""
     var endDate = ""
 
-    init {
-        _loading.value = false
-    }
-
     fun addPhotoFile(file: File) {
         takenPhotos.add(file)
     }
@@ -75,6 +71,7 @@ class CreateNewEventViewModel(private var repository: IEventRepository) : ViewMo
 
                 }
             }
+            _loading.value = false
         }
     }
 

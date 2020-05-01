@@ -15,4 +15,6 @@
     <color name="white">#fff</color>
     <color name="primaryBlue">#00a5ff</color>
     <color name="loginBkColor">#f0f0f0</color>
+
+    <color name="blackout">#59000000</color>
 </resources>

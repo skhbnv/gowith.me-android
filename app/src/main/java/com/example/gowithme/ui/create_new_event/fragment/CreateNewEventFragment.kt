@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -14,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.net.toFile
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -30,13 +28,13 @@ import com.example.gowithme.util.*
 import kotlinx.android.synthetic.main.fragment_create_new_event.*
 import kotlinx.android.synthetic.main.item_textview.view.*
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class CreateNewEventFragment : Fragment() {
-
 
     private val createNewEventViewModel: CreateNewEventViewModel by sharedGraphViewModel(R.id.nav_create_new_event)
     private lateinit var binding: FragmentCreateNewEventBinding
@@ -131,10 +129,16 @@ class CreateNewEventFragment : Fragment() {
 
             }
             GALLERY_REQUEST_CODE -> {
-                data?.data?.let { selectedImage ->
-                    Log.d("taaag", "selectedImage ${getPath(selectedImage)}")
-                    val imageFile = File(getPath(selectedImage))
-                    createNewEventViewModel.uploadImage(imageFile)
+                data?.data?.let { uri ->
+                    val parcelFileDescriptor =
+                        requireContext().contentResolver.openFileDescriptor(uri, "r", null) ?: return
+                    val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+                    val file = File(requireContext().cacheDir, requireContext().contentResolver.getFileName(uri))
+                    val outputStream = FileOutputStream(file)
+                    inputStream.copyTo(outputStream)
+                    inputStream.close()
+                    outputStream.close()
+                    createNewEventViewModel.uploadImage(file)
                 }
 
             }
@@ -223,14 +227,6 @@ class CreateNewEventFragment : Fragment() {
                 }
             }
         }
-    }
-
-    fun getPath(uri: Uri): String {
-        val projection = arrayOf(MediaStore.Images.Media.DATA)
-        val cursor = requireActivity().managedQuery(uri, projection, null, null, null)
-        val column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-        cursor.moveToFirst()
-        return cursor.getString(column_index)
     }
 
     @Throws(IOException::class)
