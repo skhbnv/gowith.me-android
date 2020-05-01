@@ -70,7 +70,7 @@ fun ContentResolver.getFileName(fileUri: Uri): String {
     return name
 }
 
-fun buildAlert(context: Context?, title: String? = null, message: String? = null, ok: (() -> Unit)? = null, cancel: (() -> Unit)? = null) =
+fun showAlert(context: Context?, title: String? = null, message: String? = null, ok: (() -> Unit)? = null, cancel: (() -> Unit)? = null) =
     AlertDialog.Builder(context).apply {
         title?.let { setTitle(it) }
         message?.let { setMessage(it) }
@@ -84,7 +84,7 @@ fun buildAlert(context: Context?, title: String? = null, message: String? = null
                 it.invoke()
             }
         }
-    }
+    }.show()
 
 fun Calendar.showDateTimePicker(context: Context, callback: (calendar: Calendar) -> Unit) {
     val dateListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->

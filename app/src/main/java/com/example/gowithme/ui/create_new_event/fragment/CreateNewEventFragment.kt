@@ -122,22 +122,22 @@ class CreateNewEventFragment : Fragment() {
      * так как введуные данные будут потеряны
      */
     private fun setupBackNavigation() {
-        val alertDialog = buildAlert(
-            context = context,
-            title = getString(R.string.alert_title_are_you_sure_to_leave),
-            message = getString(R.string.alert_message_are_you_sure_to_leave),
-            ok = { findNavController().navigateUp() },
-            cancel = {}
-        )
         with(activity as MainActivity) {
+            toolbar.setNavigationOnClickListener {
+                activity?.onBackPressed()
+            }
             onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    alertDialog.show()
+                    showAlert(
+                        context = context,
+                        title = getString(R.string.alert_title_are_you_sure_to_leave),
+                        message = getString(R.string.alert_message_are_you_sure_to_leave),
+                        ok = { findNavController().navigateUp() },
+                        cancel = {}
+                    )
                 }
             })
-            toolbar.setNavigationOnClickListener {
-                alertDialog.show()
-            }
+
         }
     }
 

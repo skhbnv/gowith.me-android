@@ -1,12 +1,9 @@
 package com.example.gowithme.ui.create_new_event.viewmodel
 
-import android.net.Uri
 import android.util.Log
-import androidx.core.net.toFile
 import androidx.lifecycle.*
 import com.example.gowithme.data.models.request.CreateEventRequest
 import com.example.gowithme.data.models.response.CategoryResponse
-import com.example.gowithme.data.models.response.EventImageResponse
 import com.example.gowithme.data.network.event.IEventRepository
 import com.example.gowithme.util.Result
 import kotlinx.coroutines.launch

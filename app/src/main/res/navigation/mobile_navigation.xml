@@ -33,7 +33,7 @@
         <fragment
             android:id="@+id/mapAddressFragment"
             android:name="com.example.gowithme.ui.create_new_event.fragment.MapAddressFragment"
-            android:label="fragment_map_address"
+            android:label="@string/title_address_map"
             tools:layout="@layout/fragment_map_address" />
         <fragment
             android:id="@+id/createNewEventFragment"

@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentMapAddressBinding
 import com.example.gowithme.ui.create_new_event.viewmodel.CreateNewEventViewModel
@@ -27,6 +28,9 @@ class MapAddressFragment : Fragment(), OnMapReadyCallback, SearchView.OnQueryTex
     private lateinit var binding: FragmentMapAddressBinding
     private lateinit var map: GoogleMap
     private val createNewEventViewModel: CreateNewEventViewModel by sharedGraphViewModel(R.id.nav_create_new_event)
+    private val geocoder by lazy { Geocoder(activity, Locale.getDefault()) }
+    private var addressText = ""
+    private var addressLatLng: LatLng? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +45,13 @@ class MapAddressFragment : Fragment(), OnMapReadyCallback, SearchView.OnQueryTex
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         with(binding) {
+            readyButton.setOnClickListener {
+                addressLatLng?.let {
+                    createNewEventViewModel.setAddressText(this@MapAddressFragment.addressText)
+                    createNewEventViewModel.setLatLng(it.latitude, it.longitude)
+                    findNavController().navigateUp()
+                }
+            }
         }
     }
 
@@ -48,8 +59,21 @@ class MapAddressFragment : Fragment(), OnMapReadyCallback, SearchView.OnQueryTex
         map = googleMap
         map.mapType = GoogleMap.MAP_TYPE_NORMAL
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(43.238949, 76.889709), 14f))
-        setOnClickListener(map)
-//        setPoiClick(map)
+        setOnCameraIdleListener()
+    }
+
+    private fun setOnCameraIdleListener() {
+        map.setOnCameraIdleListener {
+            try {
+                val latLng = map.cameraPosition.target
+                val address = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
+                binding.addressText.text = address.first().getAddressLine(0)
+                addressLatLng = latLng
+                addressText = address.first().getAddressLine(0)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -66,35 +90,5 @@ class MapAddressFragment : Fragment(), OnMapReadyCallback, SearchView.OnQueryTex
 
     override fun onQueryTextChange(newText: String?): Boolean {
         return true
-    }
-
-    private fun setOnClickListener(map: GoogleMap) {
-        val geocoder = Geocoder(activity, Locale.getDefault())
-        val markerOptions = MarkerOptions()
-        var marker: Marker? = null
-        map.setOnMapClickListener { latLng ->
-            try {
-                Log.d("taaag", "latLng = ${latLng.latitude}, ${latLng.longitude}")
-                val address = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
-                marker?.remove()
-                markerOptions.position(latLng)
-                marker = map.addMarker(markerOptions)
-                createNewEventViewModel.setLatLng(latLng.latitude, latLng.longitude)
-                createNewEventViewModel.setAddressText(address.first().getAddressLine(0))
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
-
-    private fun setPoiClick(map: GoogleMap) {
-        map.setOnPoiClickListener { poi ->
-            val poiMarker = map.addMarker(
-                MarkerOptions()
-                    .position(poi.latLng)
-                    .title(poi.name)
-            )
-            poiMarker.showInfoWindow()
-        }
     }
 }

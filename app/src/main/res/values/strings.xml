@@ -42,5 +42,7 @@
     <string name="alert_title_are_you_sure_to_leave">Вы уверены, что хотите покинуть данный экран?</string>
     <string name="alert_message_are_you_sure_to_leave">Введунные данные будут потеряны.</string>
     <string name="error_text_empty_input_field">Заполните поле</string>
+    <string name="text_ready">Готов</string>
+    <string name="title_address_map">Адрес события</string>
 
 </resources>
