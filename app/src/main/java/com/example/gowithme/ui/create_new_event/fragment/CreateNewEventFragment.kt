@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
@@ -18,6 +19,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.gowithme.MainActivity
 import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentCreateNewEventBinding
 import com.example.gowithme.ui.create_new_event.adapter.ImagesRecyclerAdapter
@@ -25,6 +27,7 @@ import com.example.gowithme.ui.create_new_event.viewmodel.CreateEventUI
 import com.example.gowithme.ui.create_new_event.viewmodel.CreateNewEventViewModel
 import com.example.gowithme.ui.create_new_event.viewmodel.InputTypes
 import com.example.gowithme.util.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_create_new_event.*
 import kotlinx.android.synthetic.main.item_textview.view.*
 import java.io.File
@@ -59,7 +62,13 @@ class CreateNewEventFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // Вызываем диалог перед back navigation
+        setupBackNavigation()
+
+        // Загружаем возможные категории ивента
         createNewEventViewModel.getCategories()
+
+        // Накидываем литенеры на кнопки
         with(binding) {
             eventImages.adapter = eventImagesAdapter
 
@@ -84,6 +93,7 @@ class CreateNewEventFragment : Fragment() {
                 findNavController().navigate(direction)
             }
             isFreeSwitch.setOnCheckedChangeListener { _, isChecked ->
+                createNewEventViewModel.isFree = isChecked
                 when(isChecked) {
                     true -> {
                         priceInput.setText("Бесплатно")
@@ -106,6 +116,35 @@ class CreateNewEventFragment : Fragment() {
         }
     }
 
+
+    /**
+     * Спрашиваем хочет ли пользователь покинуть экран,
+     * так как введуные данные будут потеряны
+     */
+    private fun setupBackNavigation() {
+        val alertDialog = buildAlert(
+            context = context,
+            title = getString(R.string.alert_title_are_you_sure_to_leave),
+            message = getString(R.string.alert_message_are_you_sure_to_leave),
+            ok = { findNavController().navigateUp() },
+            cancel = {}
+        )
+        with(activity as MainActivity) {
+            onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    alertDialog.show()
+                }
+            })
+            toolbar.setNavigationOnClickListener {
+                alertDialog.show()
+            }
+        }
+    }
+
+
+    /**
+     * ----------------------------------------------------- Start LiveData Observing -----------------------------------------------------
+     */
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -117,32 +156,6 @@ class CreateNewEventFragment : Fragment() {
             Log.d("taaag", "addressText observe $it")
             binding.addressInput.setText(it)
         })
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when(requestCode) {
-            CAMERA_REQUEST_CODE -> {
-                val imageFile = File(currentPhotoPath)
-                createNewEventViewModel.uploadImage(imageFile)
-                Log.d("taaag", "dispatchTakePictureIntent ${imageFile.toUri()}")
-
-            }
-            GALLERY_REQUEST_CODE -> {
-                data?.data?.let { uri ->
-                    val parcelFileDescriptor =
-                        requireContext().contentResolver.openFileDescriptor(uri, "r", null) ?: return
-                    val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
-                    val file = File(requireContext().cacheDir, requireContext().contentResolver.getFileName(uri))
-                    val outputStream = FileOutputStream(file)
-                    inputStream.copyTo(outputStream)
-                    inputStream.close()
-                    outputStream.close()
-                    createNewEventViewModel.uploadImage(file)
-                }
-
-            }
-        }
     }
 
     private fun observeCheckedCategories() {
@@ -178,6 +191,46 @@ class CreateNewEventFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun validationError(inputType: InputTypes) {
+        when(inputType) {
+            InputTypes.TITLE -> titleInput.error = getString(R.string.error_text_empty_input_field)
+            InputTypes.DESCRIPTION -> descriptionInput.error = getString(R.string.error_text_empty_input_field)
+            InputTypes.CATEGORY -> getString(R.string.error_text_empty_input_field).showToast(context)
+            InputTypes.ADDRESS -> addressInput.error = getString(R.string.error_text_empty_input_field)
+            InputTypes.START -> startDateInput.error = getString(R.string.error_text_empty_input_field)
+            InputTypes.END -> endDateInput.error = getString(R.string.error_text_empty_input_field)
+            InputTypes.PRICE -> priceInput.error = getString(R.string.error_text_empty_input_field)
+        }
+    }
+
+     //----------------------------------------------------- End LiveData Observing -----------------------------------------------------
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode) {
+            CAMERA_REQUEST_CODE -> {
+                val imageFile = File(currentPhotoPath)
+                createNewEventViewModel.uploadImage(imageFile)
+                Log.d("taaag", "dispatchTakePictureIntent ${imageFile.toUri()}")
+
+            }
+            GALLERY_REQUEST_CODE -> {
+                data?.data?.let { uri ->
+                    val parcelFileDescriptor =
+                        requireContext().contentResolver.openFileDescriptor(uri, "r", null) ?: return
+                    val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+                    val file = File(requireContext().cacheDir, requireContext().contentResolver.getFileName(uri))
+                    val outputStream = FileOutputStream(file)
+                    inputStream.copyTo(outputStream)
+                    inputStream.close()
+                    outputStream.close()
+                    createNewEventViewModel.uploadImage(file)
+                }
+            }
+        }
     }
 
     /**
@@ -270,18 +323,6 @@ class CreateNewEventFragment : Fragment() {
                     getString(R.string.text_camera_permission_not_granted).showToast(context)
                 }
             }
-        }
-    }
-
-    private fun validationError(inputType: InputTypes) {
-        when(inputType) {
-            InputTypes.TITLE -> titleInput.error = "Invalid"
-            InputTypes.DESCRIPTION -> descriptionInput.error = "Invalid"
-            InputTypes.CATEGORY -> "Category is empty".showToast(context)
-            InputTypes.ADDRESS -> addressInput.error = "Invalid"
-            InputTypes.START -> startDateInput.error = "Invalid"
-            InputTypes.END -> endDateInput.error = "Invalid"
-            InputTypes.PRICE -> priceInput.error = "Invalid"
         }
     }
 

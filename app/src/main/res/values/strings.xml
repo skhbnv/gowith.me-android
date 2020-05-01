@@ -37,5 +37,10 @@
     <string name="choose_from_gallery_option">Выбрать фото из галереи</string>
     <string name="cancel_option">Отменить</string>
     <string name="text_camera_permission_not_granted">Нет разрешения для использования камеры</string>
+    <string name="text_yes">Да</string>
+    <string name="text_no">Нет</string>
+    <string name="alert_title_are_you_sure_to_leave">Вы уверены, что хотите покинуть данный экран?</string>
+    <string name="alert_message_are_you_sure_to_leave">Введунные данные будут потеряны.</string>
+    <string name="error_text_empty_input_field">Заполните поле</string>
 
 </resources>

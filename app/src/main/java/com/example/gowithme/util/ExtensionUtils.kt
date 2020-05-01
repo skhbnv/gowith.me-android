@@ -1,5 +1,6 @@
 package com.example.gowithme.util
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.ContentResolver
@@ -18,6 +19,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
+import com.example.gowithme.R
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.koin.getViewModel
 import org.koin.core.parameter.ParametersDefinition
@@ -67,6 +69,22 @@ fun ContentResolver.getFileName(fileUri: Uri): String {
     }
     return name
 }
+
+fun buildAlert(context: Context?, title: String? = null, message: String? = null, ok: (() -> Unit)? = null, cancel: (() -> Unit)? = null) =
+    AlertDialog.Builder(context).apply {
+        title?.let { setTitle(it) }
+        message?.let { setMessage(it) }
+        ok?.let {
+            setPositiveButton(context?.getString(R.string.text_yes)) { _, _ ->
+                it.invoke()
+            }
+        }
+        cancel?.let {
+            setNegativeButton(context?.getString(R.string.text_no)) { _, _ ->
+                it.invoke()
+            }
+        }
+    }
 
 fun Calendar.showDateTimePicker(context: Context, callback: (calendar: Calendar) -> Unit) {
     val dateListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->

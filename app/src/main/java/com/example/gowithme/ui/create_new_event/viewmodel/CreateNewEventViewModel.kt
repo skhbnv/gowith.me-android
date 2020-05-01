@@ -29,10 +29,7 @@ class CreateNewEventViewModel(private var repository: IEventRepository) : ViewMo
         _categories.value?.filter { it.isChecked }
     }
 
-    private val _eventImage = MutableLiveData<EventImageResponse>()
     private val eventImageIds = ArrayList<Int>()
-
-    private val takenPhotos = ArrayList<File>()
 
     private val _addressText = MutableLiveData<String>()
     val  addressText: LiveData<String> get() = _addressText
@@ -44,10 +41,7 @@ class CreateNewEventViewModel(private var repository: IEventRepository) : ViewMo
     var description = ""
     var startDate = ""
     var endDate = ""
-
-    fun addPhotoFile(file: File) {
-        takenPhotos.add(file)
-    }
+    var isFree = false
 
     fun setAddressText(text: String) {
         Log.d("taaag", "setAddressText $text")
@@ -122,7 +116,7 @@ class CreateNewEventViewModel(private var repository: IEventRepository) : ViewMo
                 longitude = longitude,
                 start = startDate,
                 end = endDate,
-                price = price,
+                price = if(isFree) "0" else price,
                 images = eventImageIds
             )
             when(val result = repository.createEvent(createEventRequest)) {
@@ -171,14 +165,6 @@ class CreateNewEventViewModel(private var repository: IEventRepository) : ViewMo
         return isValid
     }
 
-    override fun onCleared() {
-        // Удалить файлы из памяти
-        takenPhotos.forEach {
-            it.delete()
-        }
-        Log.d("taaag", "-----------------------------------------------------<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
-        super.onCleared()
-    }
 }
 
 sealed class CreateEventUI {
