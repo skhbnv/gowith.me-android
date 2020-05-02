@@ -1,11 +1,15 @@
 package com.example.gowithme.ui.create_new_event.fragment
 
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.gowithme.R
@@ -24,6 +28,10 @@ import java.util.*
 
 
 class MapAddressFragment : Fragment(), OnMapReadyCallback, SearchView.OnQueryTextListener {
+
+    companion object {
+        private const val REQUEST_LOCATION_PERMISSION = 1
+    }
 
     private lateinit var binding: FragmentMapAddressBinding
     private lateinit var map: GoogleMap
@@ -60,6 +68,7 @@ class MapAddressFragment : Fragment(), OnMapReadyCallback, SearchView.OnQueryTex
         map.mapType = GoogleMap.MAP_TYPE_NORMAL
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(43.238949, 76.889709), 14f))
         setOnCameraIdleListener()
+        enableMyLocation()
     }
 
     private fun setOnCameraIdleListener() {
@@ -72,6 +81,31 @@ class MapAddressFragment : Fragment(), OnMapReadyCallback, SearchView.OnQueryTex
                 addressText = address.first().getAddressLine(0)
             } catch (e: Exception) {
                 e.printStackTrace()
+            }
+        }
+    }
+
+    private fun checkLocationPermissions(): Boolean =
+        (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+
+    private fun enableMyLocation() {
+        if (checkLocationPermissions()) {
+            map.isMyLocationEnabled = true
+        } else {
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_PERMISSION)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_LOCATION_PERMISSION) {
+            if (grantResults.isNotEmpty() && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                enableMyLocation()
             }
         }
     }
