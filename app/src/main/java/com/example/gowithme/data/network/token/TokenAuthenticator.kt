@@ -15,7 +15,7 @@ class TokenAuthenticator(
 ) : Authenticator {
 
     override fun authenticate(route: Route?, response: Response): Request? {
-        Log.d("taaag", "---------")
+        Log.d("taaag", "authenticate")
 
         if (!isRequestWithAccessToken(response)) {
             Log.d("taaag", "isRequestWithAccessToken")
@@ -25,14 +25,17 @@ class TokenAuthenticator(
 
             when (val result = repository.refreshToken()) {
                 is Result.Success -> {
+                    Log.d("taaag", "refreshToken Success ${result.data.access}")
                     repository.saveToken(result.data.access)
                 }
                 is Result.Error -> {
+                    Log.d("taaag", "refreshToken Error")
+                    repository.removeTokens()
                     return@runBlocking null
                 }
             }
-
-            return@runBlocking newRequestWithAccessToken(response.request(), repository.getToken())
+            Log.d("taaag", "newRequestWithAccessToken ${repository.getAccessToken()}")
+            return@runBlocking newRequestWithAccessToken(response.request(), repository.getAccessToken())
         }
     }
 

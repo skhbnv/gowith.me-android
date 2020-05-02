@@ -45,7 +45,6 @@ class MapListFragment: Fragment() {
         setEventsLocally()
         observeFields()
         mapToggleButton.setOnClickListener{
-            navController.navigate(R.id.action_nav_map_list_to_map_fragment)
         }
     }
 
@@ -91,7 +90,6 @@ class MapListFragment: Fragment() {
             _onClick = { clickedEvent ->
                 val bundle = Bundle()
                 bundle.putSerializable(EventsKeyWord.EVENT_KEY_WORD, clickedEvent)
-                navController.navigate(R.id.action_nav_map_list_to_eventPageFragment, bundle)
             },
             _context = (activity as Context),
             layoutType = FULL_SIZE

@@ -2,6 +2,7 @@ package com.example.gowithme.util
 
 object PreferencesConst {
 
+    const val TOKEN_PREFERENCES = "TOKEN_PREFERENCES"
     const val ACCESS_TOKEN = "access_token"
     const val REFRESH_TOKEN = "refresh_token"
 

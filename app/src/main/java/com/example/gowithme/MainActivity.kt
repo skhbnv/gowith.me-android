@@ -1,19 +1,20 @@
 package com.example.gowithme
 
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var navController : NavController
+
+    private val navController by lazy { findNavController(R.id.nav_host_fragment) }
+    private val mainViewModel by viewModel<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,76 +23,37 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initUi() {
-        setSupportActionBar(toolbar)
-
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        val appBarConfiguration = AppBarConfiguration(
+            setOf( R.id.nav_home, R.id.nav_map_list, R.id.nav_favorites, R.id.nav_profile )
+        )
 
-        val navController = findNavController(R.id.nav_host_fragment)
+        setSupportActionBar(toolbar)
+        setupActionBarWithNavController(navController, appBarConfiguration)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.nav_home -> {
-//                    location_image, city_name
-                    val theTitle = resources.getText(R.string.events_in).toString() + " Almaty"
-                    val cityText = SpannableString(theTitle)
-                    cityText.setSpan(ForegroundColorSpan(resources.getColor(R.color.colorPrimary)),
-                        10,
-                        theTitle.length,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                        )
-
-                    title_bar.text = cityText
-                    image_end.visibility = View.VISIBLE
-                    image_end.background = resources.getDrawable(R.drawable.location)
                     showBottomNav()
                 }
                 R.id.nav_map_list -> {
-//                     funnel
                     showBottomNav()
-                    title_bar?.text = resources.getText(R.string.nearby_events)
-                    image_end.visibility = View.VISIBLE
-                    back_button.visibility = View.GONE
-                    image_end.background = resources.getDrawable(R.drawable.funnel)
-                }
-                R.id.nav_map -> {
-//                     funnel
-                    showBottomNav()
-                    title_bar?.text = resources.getText(R.string.nearby_events)
-                    image_end.visibility = View.VISIBLE
-                    back_button.visibility = View.GONE
-                    image_end.background = resources.getDrawable(R.drawable.funnel)
                 }
                 R.id.nav_favorites -> {
-//                    nothing
-                    image_end.visibility = View.GONE
-                    back_button.visibility = View.GONE
-                    title_bar?.text = resources.getText(R.string.subscriptions)
-
                     showBottomNav()
                 }
                 R.id.nav_profile -> {
-//                    nothing
-                    back_button.visibility = View.GONE
-                    image_end.visibility = View.GONE
                     showBottomNav()
                 }
-                R.id.eventPageFragment -> {
-                    back_button.visibility = View.VISIBLE
-                    back_button.setOnClickListener {
-                        onBackPressed()
-                    }
-                    image_end.visibility = View.GONE
+                else -> {
                     hideBottomNav()
-                }
-                R.id.nav_add_new_event -> {
-                    back_button.visibility = View.GONE
-                    image_end.visibility = View.GONE
-                    showBottomNav()
                 }
             }
         }
         navView.setupWithNavController(navController)
     }
+
+    override fun onSupportNavigateUp(): Boolean = navController.navigateUp()
 
     private fun showBottomNav() {
         nav_view.visibility = View.VISIBLE

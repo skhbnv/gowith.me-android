@@ -87,7 +87,6 @@ class FavoritesFragment : Fragment() {
             _onClick = { clickedEvent ->
                 val bundle = Bundle()
                 bundle.putSerializable(EVENT_KEY_WORD, clickedEvent)
-                navController.navigate(R.id.action_nav_favorites_to_eventPageFragment, bundle)
             },
             _context = (activity as Context),
             layoutType = FULL_SIZE

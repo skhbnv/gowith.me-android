@@ -1,6 +1,7 @@
 package com.example.gowithme.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gowithme.MainViewModel
 import com.example.gowithme.R
 import com.example.gowithme.data.models.ParentModel
 import com.example.gowithme.responses.GeneralEvents
@@ -19,20 +21,24 @@ import com.example.gowithme.util.EventsKeyWord.EVENT_KEY_WORD
 import com.example.gowithme.util.RecyclerLayoutsType.COMING_SOON
 import com.example.gowithme.util.RecyclerLayoutsType.NEARBY_EVENTS
 import com.example.gowithme.util.RecyclerLayoutsType.POSTERS
+import com.example.gowithme.util.showToast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_create_new_event.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.math.log
 
 class HomeFragment : Fragment() {
 
     private lateinit var navController: NavController
 
     private val homeViewModel by viewModel<HomeViewModel>()
+    private val mainViewModel by sharedViewModel<MainViewModel>()
+
     private var onChildClick: ((GeneralEvents) -> Unit) = { child ->
         val bundle = Bundle()
         bundle.putSerializable(EVENT_KEY_WORD, child)
-        navController.navigate(R.id.action_nav_home_to_eventPageFragment, bundle)
     }
 
     private val homeMainRecyclerAdapter by lazy { HomeMainRecyclerAdapter() }
@@ -46,46 +52,26 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         homeViewModel.getEvents()
         with(view) {
             rv_parent.layoutManager = LinearLayoutManager(context)
             rv_parent.adapter = homeMainRecyclerAdapter
         }
-
-//        homeViewModel.getEvents()
-//        setEventsLocally()
-//        observeViewModel()
-//        navController = Navigation.findNavController(view)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        mainViewModel.loginState.observe(viewLifecycleOwner, Observer {
+            "Is login $it".showToast(context)
+        })
+
         homeViewModel.eventsLD.observe(viewLifecycleOwner, Observer {
+            Log.d("taaag", "eventsLD")
             homeMainRecyclerAdapter.addEventList("Events", it)
             homeMainRecyclerAdapter.addEventList("Events", it)
             homeMainRecyclerAdapter.addEventList("Events", it)
         })
-    }
-
-    private fun observeViewModel() {
-        homeViewModel.events.observe(viewLifecycleOwner, Observer { list ->
-            initRecycler(list as ArrayList<GeneralEvents>)
-        })
-    }
-
-    private fun setEventsLocally() {
-        val jsonStr: String? = homeViewModel.loadJsonFromAsset(context!!.assets.open("general2"))
-        val gson = Gson()
-        val clicks =
-            gson.fromJson<Array<GeneralEvents>>(jsonStr, Array<GeneralEvents>::class.java)
-        val list = ArrayList<GeneralEvents>()
-
-        for (click in clicks) {
-            list.add(click)
-        }
-        homeViewModel.events.value = list
     }
 
     private fun initRecycler(list: ArrayList<GeneralEvents>) {

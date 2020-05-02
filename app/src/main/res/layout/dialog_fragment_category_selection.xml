@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="title"
+            type="String" />
+
+    </data>
+
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:orientation="vertical"
+            android:paddingEnd="@dimen/app_horizontal_margin"
+            android:paddingStart="@dimen/app_horizontal_margin"
+            tools:context=".ui.create_new_event.fragment.CategorySelectionDialogFragment">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@{title}"
+                android:textSize="24sp"
+                android:textColor="@color/primaryDarkText"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
+
+                tools:text="Text" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/categoriesList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_checkbox"/>
+
+        </LinearLayout>
+</layout>

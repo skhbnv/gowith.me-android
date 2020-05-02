@@ -9,7 +9,7 @@ import com.example.gowithme.util.inflate
 import kotlinx.android.synthetic.main.event_card.view.*
 
 class HorizontalEventRecyclerAdapter(
-    private val events: List<EventResponse>
+    private val events: List<EventResponse.Result>
 ) : RecyclerView.Adapter<HorizontalEventRecyclerAdapter.HorizontalEventViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HorizontalEventViewHolder =
@@ -22,7 +22,7 @@ class HorizontalEventRecyclerAdapter(
     }
 
     inner class HorizontalEventViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(event: EventResponse) {
+        fun bindView(event: EventResponse.Result) {
             with(itemView) {
                 title.text = event.title
                 message.text = event.description

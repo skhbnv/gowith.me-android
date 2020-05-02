@@ -9,9 +9,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.example.gowithme.BuildConfig
 import com.example.gowithme.data.network.token.TokenRepositoryImpl
+import com.example.gowithme.util.PreferencesConst
 import org.koin.android.ext.koin.androidContext
 
 private const val RETROFIT_NAME = "without_client"
+private const val PREFERENCES_NAME = "Token Preferences"
 
 val tokenModule = module {
 
@@ -26,14 +28,13 @@ val tokenModule = module {
         get<Retrofit>(named(RETROFIT_NAME)).create(TokenService::class.java)
     }
 
-    single<SharedPreferences> {
+    single<SharedPreferences>(named(PreferencesConst.TOKEN_PREFERENCES)) {
         androidContext().getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
     }
 
     single {
-        TokenRepositoryImpl(get(), get())
+        TokenRepositoryImpl(get(), get(named(PreferencesConst.TOKEN_PREFERENCES)))
     }
 
 }
 
-private const val PREFERENCES_NAME = "Token Preferences"

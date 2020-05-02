@@ -72,7 +72,6 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
         observeViewModel()
         eventPageViewModel.selectedGeneralEvents.value = selectedEvent
         mainActivityInstance?.toolbar?.apply {
-            title_bar.text = selectedEvent!!.title
         }
     }
 
