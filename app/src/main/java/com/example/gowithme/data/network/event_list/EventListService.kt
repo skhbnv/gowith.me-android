@@ -1,5 +1,6 @@
 package com.example.gowithme.data.network.event_list
 
+import androidx.paging.PagedList
 import com.example.gowithme.data.models.response.EventResponse
 import com.example.gowithme.data.models.response.PagingResponse
 import retrofit2.http.GET

@@ -28,9 +28,7 @@ data class EventResponse(
     @SerializedName("title")
     val title: String,
     @SerializedName("view_counter")
-    val viewCounter: Int,
-    @SerializedName("subscriptions_counter")
-    val subscriptionsCounter: Int
+    val viewCounter: Int
 ) {
     data class Author(
         @SerializedName("first_name")

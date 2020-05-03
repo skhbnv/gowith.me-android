@@ -16,8 +16,8 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.coming_soon_card.view.*
 
 import kotlinx.android.synthetic.main.nearby_card.view.*
-import kotlinx.android.synthetic.main.nearby_card.view.startDate
-import kotlinx.android.synthetic.main.nearby_card.view.description
+import kotlinx.android.synthetic.main.nearby_card.view.date_time
+import kotlinx.android.synthetic.main.nearby_card.view.message
 import kotlinx.android.synthetic.main.nearby_card.view.title
 import kotlinx.android.synthetic.main.nearby_card.view.will_come
 import kotlinx.android.synthetic.main.poster_card.view.*
@@ -83,20 +83,20 @@ class ChildAdapter(private val children: List<GeneralEvents>,
     inner class NearbyViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         val title: TextView? = itemView.title
-        private val message: TextView? = itemView.description
-        private val dateTime: TextView? = itemView.startDate
+        private val message: TextView? = itemView.message
+        private val dateTime: TextView? = itemView.date_time
         private val willCome: TextView? = itemView.will_come
-//        private val fullSizePoster: ImageView? = itemView.full_size_poster
+        private val fullSizePoster: ImageView? = itemView.full_size_poster
 
         fun bind(child: GeneralEvents) {
             itemView.setOnClickListener {
                 onClick.invoke(child)
             }
 
-//            fullSizePoster?.visibility = View.VISIBLE
-//            fullSizePoster?.let {
-//                Picasso.get().load(child.poster_url).fit().centerCrop().into(it)
-//            }
+            fullSizePoster?.visibility = View.VISIBLE
+            fullSizePoster?.let {
+                Picasso.get().load(child.poster_url).fit().centerCrop().into(it)
+            }
             title?.text = child.title
             dateTime?.text = getNeededDateTime(child.date)
             willCome?.text = child.subscribers.toString()
@@ -124,8 +124,8 @@ class ChildAdapter(private val children: List<GeneralEvents>,
 
     inner class PosterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView? = itemView.title
-        private val message: TextView? = itemView.description
-        private val dateTime: TextView? = itemView.startDate
+        private val message: TextView? = itemView.message
+        private val dateTime: TextView? = itemView.date_time
         private val willCome: TextView? = itemView.will_come
         private val poster: ImageView? = itemView.poster
 

@@ -7,6 +7,9 @@ import retrofit2.http.*
 
 interface EventService {
 
+    @GET("api/v1/event/all")
+    suspend fun getEvents(): PagingResponse<EventResponse>
+
     @GET("api/v1/event/categories")
     suspend fun getCategories(): List<CategoryResponse>
 
@@ -21,11 +24,5 @@ interface EventService {
         @Part image: MultipartBody.Part,
         @Part("description") description: String? = null
     ): CreateEventImageResponse
-
-    @GET("api/v1/event/all")
-    suspend fun getEventList(
-        @Query("page") page : Int = 1,
-        @Query("ordering") ordering: String = ""
-    ) : PagingResponse<EventResponse>
 
 }

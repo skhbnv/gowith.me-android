@@ -43,7 +43,7 @@
             tools:text="Большой стендап" />
 
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -69,7 +69,7 @@
             android:src="@drawable/dotted"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description" />
+            app:layout_constraintTop_toBottomOf="@+id/message" />
 
         <ImageView
             android:id="@+id/date_time_img"
@@ -85,7 +85,7 @@
             />
 
         <TextView
-            android:id="@+id/startDate"
+            android:id="@+id/date_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"

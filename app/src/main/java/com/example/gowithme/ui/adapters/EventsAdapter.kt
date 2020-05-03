@@ -11,7 +11,9 @@ import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.util.RecyclerLayoutsType.BRIEF_INFO
 import com.example.gowithme.util.RecyclerLayoutsType.FULL_SIZE
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.category_card.view.*
 import kotlinx.android.synthetic.main.event_card.view.*
+import kotlinx.android.synthetic.main.fragment_profile.view.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -57,10 +59,10 @@ class EventsAdapter(
     inner class EventsViewHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
         private var title = v.title
         private var poster = v.back_poster
-        private var dateTime = v.startDate
+        private var dateTime = v.date_time
         private var price = v.price
         private var views = v.views
-        private var message = v.description
+        private var message = v.message
         private var whenTime = v.when_time
         private var avatar = v.avatar_img
         private var name = v.author_name
