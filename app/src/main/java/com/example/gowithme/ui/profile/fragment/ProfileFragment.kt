@@ -58,6 +58,9 @@ class ProfileFragment : Fragment() {
             myEvents.setOnClickListener {
 
             }
+            savedEvents.setOnClickListener {
+
+            }
         }
     }
 
