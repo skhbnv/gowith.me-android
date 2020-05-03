@@ -69,7 +69,6 @@ class HomeFragment : Fragment() {
         homeViewModel.eventsLD.observe(viewLifecycleOwner, Observer {
             Log.d("taaag", "eventsLD")
             homeMainRecyclerAdapter.addEventList("Events", it)
-            homeMainRecyclerAdapter.addEventList("Events", it)
         })
     }
 
