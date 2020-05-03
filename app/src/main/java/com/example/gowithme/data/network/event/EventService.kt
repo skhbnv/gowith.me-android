@@ -3,11 +3,9 @@ package com.example.gowithme.data.network.event
 import com.example.gowithme.data.models.request.CreateEventRequest
 import com.example.gowithme.data.models.response.CategoryResponse
 import com.example.gowithme.data.models.response.CreateEventResponse
-import com.example.gowithme.data.models.response.EventImageResponse
+import com.example.gowithme.data.models.response.CreateEventImageResponse
 import com.example.gowithme.data.models.response.EventResponse
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import retrofit2.http.*
 
 interface EventService {
@@ -28,6 +26,6 @@ interface EventService {
     suspend fun uploadImage(
         @Part image: MultipartBody.Part,
         @Part("description") description: String? = null
-    ): EventImageResponse
+    ): CreateEventImageResponse
 
 }

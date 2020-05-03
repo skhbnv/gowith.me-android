@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.gowithme.ui.profile.ProfileViewModel" />
@@ -12,14 +13,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        >
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="15dp"
-            >
+            android:paddingBottom="15dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/imageView"
@@ -34,20 +33,19 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                     />
+                    android:layout_height="match_parent" />
 
             </androidx.cardview.widget.CardView>
 
 
             <TextView
                 android:id="@+id/name"
-                android:text="@{viewModel.profileInfo.fullName}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/profile_margin_start"
                 android:layout_marginTop="25dp"
                 android:fontFamily="sans-serif-black"
+                android:text="@{viewModel.profileInfo.fullName}"
                 android:textColor="#000"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -65,8 +63,7 @@
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@id/name"
-                tools:text="Посетил ивентов:"
-                />
+                tools:text="Посетил ивентов:" />
 
             <TextView
                 android:id="@+id/events_created"
@@ -133,10 +130,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:layout_marginTop="36dp"
-                android:textColor="#212121"
                 android:fontFamily="sans-serif-medium"
-                android:textSize="18sp"
                 android:text="@string/last_activity"
+                android:textColor="#212121"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
 
@@ -170,45 +167,45 @@
 
             <TextView
                 android:id="@+id/my_events"
-                android:textColor="#212121"
-                android:fontFamily="sans-serif"
-                android:textSize="18sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view2"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Мои события" />
+                android:fontFamily="sans-serif"
+                android:text="Мои события"
+                android:textColor="#212121"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <TextView
                 android:id="@+id/my_friends"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#212121"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
                 android:fontFamily="sans-serif"
+                android:text="Мои подписки"
+                android:textColor="#212121"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/my_events"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:text="Мои подписки" />
+                app:layout_constraintTop_toBottomOf="@+id/my_events" />
 
             <TextView
                 android:id="@+id/my_comments"
-                android:textColor="#212121"
-                android:fontFamily="sans-serif"
-                android:textSize="18sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
+                android:fontFamily="sans-serif"
+                android:text="Мои комментарии"
+                android:textColor="#212121"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/my_friends"
-                android:text="Мои комментарии" />
+                app:layout_constraintTop_toBottomOf="@id/my_friends" />
 
             <View
                 android:id="@+id/view3"
@@ -220,17 +217,17 @@
 
             <TextView
                 android:id="@+id/notifications"
-                android:textColor="#212121"
-                android:fontFamily="sans-serif"
-                android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
+                android:fontFamily="sans-serif"
+                android:text="Уведомления"
+                android:textColor="#212121"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view3"
-                android:text="Уведомления" />
+                app:layout_constraintTop_toBottomOf="@id/view3" />
 
             <Switch
                 android:id="@+id/notifications_switcher"
@@ -240,19 +237,20 @@
                 android:layout_marginRight="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view3" />
+
             <TextView
                 android:id="@+id/other_cities"
-                android:textColor="#212121"
-                android:fontFamily="sans-serif"
-                android:textSize="18sp"
                 android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
+                android:fontFamily="sans-serif"
+                android:text="Показывать события из других городов"
+                android:textColor="#212121"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/notifications"
-                android:text="Показывать события из других городов" />
+                app:layout_constraintTop_toBottomOf="@id/notifications" />
 
             <Switch
                 android:id="@+id/other_cities_switcher"
