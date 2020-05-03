@@ -50,7 +50,7 @@ class ProfileFragment : Fragment() {
         with(binding) {
             viewEventsRecycler.adapter = viewedEventsRecyclerAdapter
             myFollowers.setOnClickListener {
-
+                //as asdasd
             }
             myFollowing.setOnClickListener {
 
