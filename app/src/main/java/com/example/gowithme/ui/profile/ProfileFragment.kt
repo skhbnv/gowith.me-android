@@ -5,10 +5,9 @@ import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.example.gowithme.BuildConfig
 import com.example.gowithme.MainActivity
 import com.example.gowithme.MainViewModel
 import com.example.gowithme.R
@@ -31,11 +30,6 @@ class ProfileFragment : Fragment() {
     private val mainViewModel by sharedViewModel<MainViewModel>()
     private val profileViewModel by viewModel<ProfileViewModel>()
 
-    private var adapterClickListener: (GeneralEvents) -> Unit = {
-        val bundle = Bundle()
-        bundle.putSerializable(EVENT_KEY_WORD, it)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,6 +45,12 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         profileViewModel.getMyInfo()
         setupOptionMenu()
+
+        with(binding) {
+            myFollowers.setOnClickListener {
+
+            }
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -60,6 +60,15 @@ class ProfileFragment : Fragment() {
             if (!it) {
                 val direction = ProfileFragmentDirections.actionGlobalLoginFragment(R.id.nav_profile)
                 findNavController().navigate(direction)
+            }
+        })
+
+        profileViewModel.profileInfo.observe(viewLifecycleOwner, Observer {
+            it.images.firstOrNull()?.let {
+                with(binding.avatarImage) {
+                    this.contentDescription = it.description
+                    Glide.with(context).load(BuildConfig.BASE_URL + it.image.substring(1)).into(this)
+                }
             }
         })
     }
@@ -83,14 +92,5 @@ class ProfileFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.profile_toolbar, menu)
         super.onCreateOptionsMenu(menu, inflater)
-    }
-
-
-    private fun observeFields() {
-
-    }
-
-    private fun setEventsLocally() {
-
     }
 }
