@@ -17,6 +17,7 @@ import com.example.gowithme.data.models.ParentModel
 import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.ui.adapters.ParentAdapter
 import com.example.gowithme.ui.home.adapter.HomeMainRecyclerAdapter
+import com.example.gowithme.ui.home.adapter.HorizontalEventRecyclerAdapter
 import com.example.gowithme.util.EventsKeyWord.EVENT_KEY_WORD
 import com.example.gowithme.util.RecyclerLayoutsType.COMING_SOON
 import com.example.gowithme.util.RecyclerLayoutsType.NEARBY_EVENTS
@@ -42,6 +43,8 @@ class HomeFragment : Fragment() {
     }
 
     private val homeMainRecyclerAdapter by lazy { HomeMainRecyclerAdapter() }
+    private val newEventsRecyclerAdapter by lazy { HorizontalEventRecyclerAdapter() }
+    private val mostViewedEventsRecyclerAdapter by lazy { HorizontalEventRecyclerAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,8 +57,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         homeViewModel.getEvents()
         with(view) {
-            rv_parent.layoutManager = LinearLayoutManager(context)
-            rv_parent.adapter = homeMainRecyclerAdapter
+            newEventsRecycler.adapter = newEventsRecyclerAdapter
+            mostViewedEventsRecycler.adapter = mostViewedEventsRecyclerAdapter
         }
     }
 
@@ -66,21 +69,12 @@ class HomeFragment : Fragment() {
             "Is login $it".showToast(context)
         })
 
-        homeViewModel.eventsLD.observe(viewLifecycleOwner, Observer {
-            Log.d("taaag", "eventsLD")
-            homeMainRecyclerAdapter.addEventList("Events", it)
-        })
-    }
-
-    private fun initRecycler(list: ArrayList<GeneralEvents>) {
-        val parentList = ArrayList<ParentModel>()
-        parentList.add(ParentModel("События неподалёку", list, NEARBY_EVENTS))
-        parentList.add(ParentModel("Афиша", list, POSTERS))
-        parentList.add(ParentModel("Вот-вот начнется", list, COMING_SOON ))
-
-        rv_parent.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            adapter = ParentAdapter(parentList, onChildClick = onChildClick)
-        }
+//        homeViewModel.eventsLD.observe(viewLifecycleOwner, Observer {
+//            Log.d("taaag", "eventsLD")
+//            homeMainRecyclerAdapter.addEventList("Events", it)
+//        })
+//
+        homeViewModel.newEvents.observe(viewLifecycleOwner, Observer(newEventsRecyclerAdapter::setEvents))
+        homeViewModel.mostViewedEvents.observe(viewLifecycleOwner, Observer(mostViewedEventsRecyclerAdapter::setEvents))
     }
 }

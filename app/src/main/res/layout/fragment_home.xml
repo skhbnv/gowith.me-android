@@ -1,13 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/newEventsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primaryDarkText"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginTop="28dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/list_title_new_events"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/newEventsRecycler" />
+
+    <ImageView
+        android:id="@+id/allNewEventsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_arrow_forward"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/newEventsTitle"
+        tools:ignore="ContentDescription" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_parent"
+        android:id="@+id/newEventsRecycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/newEventsTitle"/>
 
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/mostViewedEventsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primaryDarkText"
+        android:textSize="20sp"
+        android:text="@string/list_title_most_viewed_events"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginTop="28dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/newEventsRecycler"
+        app:layout_constraintBottom_toTopOf="@id/mostViewedEventsRecycler" />
+
+    <ImageView
+        android:id="@+id/allMostViewedEventsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_arrow_forward"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/mostViewedEventsTitle"
+        tools:ignore="ContentDescription" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mostViewedEventsRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mostViewedEventsTitle"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

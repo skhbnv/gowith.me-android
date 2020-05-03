@@ -15,14 +15,15 @@ interface IEventRepository {
     suspend fun getEventCategories(): Result<List<CategoryResponse>>
     suspend fun createEvent(request: CreateEventRequest): Result<CreateEventResponse>
     suspend fun uploadImage(image: File): Result<CreateEventImageResponse>
-
+    suspend fun getNewEvents() : Result<PagingResponse<EventResponse>>
+    suspend fun getMostViewedEvents() : Result<PagingResponse<EventResponse>>
 }
 
 class EventRepository(
     private val service: EventService
 ) : IEventRepository {
 
-    override suspend fun getEvents(): Result<PagingResponse<EventResponse>> = apiCall { service.getEvents() }
+    override suspend fun getEvents(): Result<PagingResponse<EventResponse>> = apiCall { service.getEventList() }
 
     override suspend fun getEventCategories(): Result<List<CategoryResponse>> = apiCall { service.getCategories() }
 
@@ -33,5 +34,9 @@ class EventRepository(
         val imageToUpload = MultipartBody.Part.createFormData("image", image.name, requestImageFile)
         service.uploadImage(imageToUpload, image.name)
     }
+
+    override suspend fun getNewEvents(): Result<PagingResponse<EventResponse>> = apiCall { service.getEventList(1, "created") }
+
+    override suspend fun getMostViewedEvents(): Result<PagingResponse<EventResponse>> = apiCall { service.getEventList(1, "view_counter") }
 
 }

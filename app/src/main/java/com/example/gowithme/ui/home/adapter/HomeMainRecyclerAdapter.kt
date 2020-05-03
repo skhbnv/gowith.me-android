@@ -34,7 +34,7 @@ class HomeMainRecyclerAdapter: RecyclerView.Adapter<HomeMainRecyclerAdapter.Home
             with(itemView) {
                 title.text = eventsName
                 innerRecycler.setRecycledViewPool(viewPool)
-                innerRecycler.adapter = HorizontalEventRecyclerAdapter(events)
+                innerRecycler.adapter = HorizontalEventRecyclerAdapter().apply { setEvents(events) }
             }
         }
     }

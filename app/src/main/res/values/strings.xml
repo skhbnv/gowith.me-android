@@ -56,5 +56,7 @@
     <string name="title_event_list_my_events">Мои ивенты</string>
     <string name="title_event_list_saved_events">Сохраненные ивенты</string>
     <string name="title_event_list">Сприсок событий</string>
+    <string name="list_title_new_events">Новые события</string>
+    <string name="list_title_most_viewed_events">Самые просматриваемые</string>
 
 </resources>
