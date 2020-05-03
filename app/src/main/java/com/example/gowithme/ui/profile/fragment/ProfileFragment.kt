@@ -55,6 +55,9 @@ class ProfileFragment : Fragment() {
             myFollowing.setOnClickListener {
 
             }
+            myEvents.setOnClickListener {
+
+            }
         }
     }
 
