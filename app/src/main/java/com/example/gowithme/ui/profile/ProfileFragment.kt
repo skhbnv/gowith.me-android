@@ -12,9 +12,8 @@ import com.example.gowithme.MainActivity
 import com.example.gowithme.MainViewModel
 import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentProfileBinding
-import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.ui.adapters.EventsAdapter
-import com.example.gowithme.util.EventsKeyWord.EVENT_KEY_WORD
+import com.example.gowithme.ui.profile.adapter.ViewedEventsRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,6 +26,7 @@ class ProfileFragment : Fragment() {
     private val mainActivityInstance by lazy {
         (activity as MainActivity?)
     }
+    private val viewedEventsRecyclerAdapter by lazy { ViewedEventsRecyclerAdapter() }
     private val mainViewModel by sharedViewModel<MainViewModel>()
     private val profileViewModel by viewModel<ProfileViewModel>()
 
@@ -47,6 +47,7 @@ class ProfileFragment : Fragment() {
         setupOptionMenu()
 
         with(binding) {
+            viewEventsRecycler.adapter = viewedEventsRecyclerAdapter
             myFollowers.setOnClickListener {
 
             }
@@ -71,6 +72,8 @@ class ProfileFragment : Fragment() {
                 }
             }
         })
+
+        profileViewModel.viewedEvents.observe(viewLifecycleOwner, Observer(viewedEventsRecyclerAdapter::setEventList))
     }
 
     private fun setupOptionMenu() {

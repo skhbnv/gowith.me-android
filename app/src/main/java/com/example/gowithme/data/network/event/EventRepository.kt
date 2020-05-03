@@ -1,10 +1,7 @@
 package com.example.gowithme.data.network.event
 
 import com.example.gowithme.data.models.request.CreateEventRequest
-import com.example.gowithme.data.models.response.CategoryResponse
-import com.example.gowithme.data.models.response.CreateEventResponse
-import com.example.gowithme.data.models.response.CreateEventImageResponse
-import com.example.gowithme.data.models.response.EventResponse
+import com.example.gowithme.data.models.response.*
 import com.example.gowithme.util.Result
 import com.example.gowithme.util.apiCall
 import okhttp3.MediaType
@@ -14,7 +11,7 @@ import java.io.File
 
 interface IEventRepository {
 
-    suspend fun getEvents(): Result<EventResponse>
+    suspend fun getEvents(): Result<PagingResponse<EventResponse>>
     suspend fun getEventCategories(): Result<List<CategoryResponse>>
     suspend fun createEvent(request: CreateEventRequest): Result<CreateEventResponse>
     suspend fun uploadImage(image: File): Result<CreateEventImageResponse>
@@ -25,7 +22,7 @@ class EventRepository(
     private val service: EventService
 ) : IEventRepository {
 
-    override suspend fun getEvents(): Result<EventResponse> = apiCall { service.getEvents() }
+    override suspend fun getEvents(): Result<PagingResponse<EventResponse>> = apiCall { service.getEvents() }
 
     override suspend fun getEventCategories(): Result<List<CategoryResponse>> = apiCall { service.getCategories() }
 

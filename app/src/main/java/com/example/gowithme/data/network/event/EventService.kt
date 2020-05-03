@@ -1,17 +1,14 @@
 package com.example.gowithme.data.network.event
 
 import com.example.gowithme.data.models.request.CreateEventRequest
-import com.example.gowithme.data.models.response.CategoryResponse
-import com.example.gowithme.data.models.response.CreateEventResponse
-import com.example.gowithme.data.models.response.CreateEventImageResponse
-import com.example.gowithme.data.models.response.EventResponse
+import com.example.gowithme.data.models.response.*
 import okhttp3.MultipartBody
 import retrofit2.http.*
 
 interface EventService {
 
     @GET("api/v1/event/all")
-    suspend fun getEvents(): EventResponse
+    suspend fun getEvents(): PagingResponse<EventResponse>
 
     @GET("api/v1/event/categories")
     suspend fun getCategories(): List<CategoryResponse>

@@ -154,14 +154,18 @@
                 tools:ignore="ContentDescription" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/viewEventsRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:clipToPadding="false"
                 android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                tools:listitem="@layout/item_viewed_event"/>
 
             <View
                 android:id="@+id/view2"
@@ -169,7 +173,7 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="15dp"
                 android:background="#30212121"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+                app:layout_constraintTop_toBottomOf="@+id/viewEventsRecycler" />
 
             <TextView
                 android:id="@+id/myFollowers"
