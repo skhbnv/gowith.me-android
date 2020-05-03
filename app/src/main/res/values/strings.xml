@@ -23,7 +23,7 @@
 
     <!--  Auth  -->
 
-<!--    Create Event -->
+    <!--    Create Event -->
     <string name="add_photo_alter_title">Добавить фото</string>
     <string name="take_photo_option">Сделать фото</string>
     <string name="choose_from_gallery_option">Выбрать фото из галереи</string>
@@ -47,5 +47,8 @@
     <string name="text_email">email: %1$s</string>
     <string name="text_phone_number">Тел. : %1$s</string>
     <string name="text_edit">Редактировать</string>
+
+    <string name="text_price">Цена: %1$s</string>
+    <string name="text_free">Бесплатно</string>
 
 </resources>
