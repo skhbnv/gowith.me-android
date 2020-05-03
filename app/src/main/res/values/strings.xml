@@ -52,4 +52,9 @@
     <string name="text_free">Бесплатно</string>
     <string name="text_start_date">Начало: %1$s</string>
 
+    <string name="title_event_list_viewed_events">Последняя активность</string>
+    <string name="title_event_list_my_events">Мои ивенты</string>
+    <string name="title_event_list_saved_events">Сохраненные ивенты</string>
+    <string name="title_event_list">Сприсок событий</string>
+
 </resources>

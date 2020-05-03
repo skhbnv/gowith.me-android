@@ -10,15 +10,15 @@ import com.example.gowithme.util.apiCall
 import kotlinx.coroutines.CoroutineScope
 
 interface IEventListRepository {
-    fun getViewEvents(scope: CoroutineScope) : LiveData<PagedList<EventResponse>>
+    fun getEventList(scope: CoroutineScope, eventListType: EventListType) : LiveData<PagedList<EventResponse>>
 }
 
 class EventListRepository(
     private val service: EventListService
 ) : IEventListRepository {
 
-    override fun getViewEvents(scope: CoroutineScope): LiveData<PagedList<EventResponse>> {
-        val source = PagedKeyedEventDataSource.EventDataSourceFactory(service, scope)
+    override fun getEventList(scope: CoroutineScope, eventListType: EventListType): LiveData<PagedList<EventResponse>> {
+        val source = PagedKeyedEventDataSource.EventDataSourceFactory(service, scope, eventListType)
         return source.toLiveData(pageSize = 10)
     }
 }

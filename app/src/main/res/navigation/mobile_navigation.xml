@@ -25,7 +25,11 @@
         android:label="ProfileFragment" >
         <action
             android:id="@+id/action_nav_profile_to_eventListFragment"
-            app:destination="@id/eventListFragment" />
+            app:destination="@id/eventListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <action
         android:id="@+id/action_global_loginFragment"
@@ -59,5 +63,9 @@
         android:id="@+id/eventListFragment"
         android:name="com.example.gowithme.ui.event_list.fragment.EventListFragment"
         android:label="fragment_event_list"
-        tools:layout="@layout/fragment_event_list" />
+        tools:layout="@layout/fragment_event_list" >
+        <argument
+            android:name="eventListType"
+            app:argType="com.example.gowithme.data.network.event_list.EventListType" />
+    </fragment>
 </navigation>

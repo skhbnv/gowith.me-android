@@ -11,6 +11,7 @@ import com.example.gowithme.BuildConfig
 import com.example.gowithme.MainActivity
 import com.example.gowithme.MainViewModel
 import com.example.gowithme.R
+import com.example.gowithme.data.network.event_list.EventListType
 import com.example.gowithme.databinding.FragmentProfileBinding
 import com.example.gowithme.ui.adapters.EventsAdapter
 import com.example.gowithme.ui.profile.viewmodel.ProfileViewModel
@@ -50,7 +51,7 @@ class ProfileFragment : Fragment() {
         with(binding) {
             viewEventsRecycler.adapter = viewedEventsRecyclerAdapter
             allViewedEvents.setOnClickListener {
-                val direction = ProfileFragmentDirections.actionNavProfileToEventListFragment()
+                val direction = ProfileFragmentDirections.actionNavProfileToEventListFragment(EventListType.VIEWED_EVENTS)
                 findNavController().navigate(direction)
             }
             myFollowers.setOnClickListener {
@@ -60,10 +61,12 @@ class ProfileFragment : Fragment() {
 
             }
             myEvents.setOnClickListener {
-
+                val direction = ProfileFragmentDirections.actionNavProfileToEventListFragment(EventListType.MY_EVENTS)
+                findNavController().navigate(direction)
             }
             savedEvents.setOnClickListener {
-
+                val direction = ProfileFragmentDirections.actionNavProfileToEventListFragment(EventListType.SAVED_EVENTS)
+                findNavController().navigate(direction)
             }
         }
     }

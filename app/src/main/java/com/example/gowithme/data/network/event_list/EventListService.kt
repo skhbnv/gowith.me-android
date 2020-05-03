@@ -13,4 +13,14 @@ interface EventListService {
         @Query("page") page : Int
     ) : PagingResponse<EventResponse>
 
+    @GET("api/v1/account/me/events")
+    suspend fun getMyEvents(
+        @Query("page") page : Int
+    ) : PagingResponse<EventResponse>
+
+    @GET("api/v1/account/me/saved-events")
+    suspend fun getSavedEvents(
+        @Query("page") page : Int
+    ) : PagingResponse<EventResponse>
+
 }
