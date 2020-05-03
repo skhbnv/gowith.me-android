@@ -48,6 +48,8 @@ inline fun <reified VM : ViewModel> Fragment.sharedGraphViewModel(
     getKoin().getViewModel(owner, VM::class, qualifier, parameters)
 }
 
+fun String.tenge() = "$this ₸"
+
 fun Date.toIsoFormat() =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault()).format(this)
 
 fun Date.format(pattern: String) =  SimpleDateFormat(pattern, Locale.getDefault()).format(this)

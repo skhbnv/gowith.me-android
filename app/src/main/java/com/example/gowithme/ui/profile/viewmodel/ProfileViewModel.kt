@@ -1,4 +1,4 @@
-package com.example.gowithme.ui.profile
+package com.example.gowithme.ui.profile.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData

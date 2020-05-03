@@ -96,7 +96,7 @@ class CreateNewEventFragment : Fragment() {
                 createNewEventViewModel.isFree = isChecked
                 when(isChecked) {
                     true -> {
-                        priceInput.setText("Бесплатно")
+                        priceInput.setText(getString(R.string.text_free))
                         priceInput.isEnabled = false
                     }
                     false -> {

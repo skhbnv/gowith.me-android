@@ -12,6 +12,7 @@ import retrofit2.Retrofit
 import com.example.gowithme.BuildConfig
 import com.example.gowithme.data.network.auth.AuthService
 import com.example.gowithme.data.network.event.EventService
+import com.example.gowithme.data.network.event_list.EventListService
 import com.example.gowithme.data.network.profile.ProfileService
 import com.example.gowithme.util.NetworkConst.HEADER_AUTH
 import com.example.gowithme.util.NetworkConst.TOKEN_PREFIX
@@ -71,6 +72,10 @@ val networkModule = module {
 
     single<ProfileService> {
         get<Retrofit>(named(RETROFIT_NAME)).create(ProfileService::class.java)
+    }
+
+    single<EventListService> {
+        get<Retrofit>(named(RETROFIT_NAME)).create(EventListService::class.java)
     }
 }
 

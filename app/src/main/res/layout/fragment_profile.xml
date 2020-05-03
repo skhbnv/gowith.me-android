@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.gowithme.ui.profile.ProfileViewModel" />
+            type="com.example.gowithme.ui.profile.viewmodel.ProfileViewModel" />
     </data>
 
     <ScrollView
@@ -144,7 +144,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/view" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/allViewedEvents"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"

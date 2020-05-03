@@ -22,7 +22,7 @@ data class EventResponse(
     @SerializedName("longitude")
     val longitude: String,
     @SerializedName("price")
-    val price: String,
+    val price: Int,
     @SerializedName("start")
     val start: String,
     @SerializedName("title")
