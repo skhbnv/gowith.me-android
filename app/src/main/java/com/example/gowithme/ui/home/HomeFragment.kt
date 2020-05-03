@@ -70,7 +70,6 @@ class HomeFragment : Fragment() {
             Log.d("taaag", "eventsLD")
             homeMainRecyclerAdapter.addEventList("Events", it)
             homeMainRecyclerAdapter.addEventList("Events", it)
-            homeMainRecyclerAdapter.addEventList("Events", it)
         })
     }
 
