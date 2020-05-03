@@ -1,21 +1,21 @@
-package com.example.gowithme.ui.profile
+package com.example.gowithme.ui.profile.fragment
 
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.example.gowithme.BuildConfig
 import com.example.gowithme.MainActivity
 import com.example.gowithme.MainViewModel
 import com.example.gowithme.R
+import com.example.gowithme.data.network.event_list.EventListType
 import com.example.gowithme.databinding.FragmentProfileBinding
-import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.ui.adapters.EventsAdapter
-import com.example.gowithme.util.EventsKeyWord.EVENT_KEY_WORD
+import com.example.gowithme.ui.profile.viewmodel.ProfileViewModel
+import com.example.gowithme.ui.profile.adapter.ViewedEventsRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,13 +28,9 @@ class ProfileFragment : Fragment() {
     private val mainActivityInstance by lazy {
         (activity as MainActivity?)
     }
+    private val viewedEventsRecyclerAdapter by lazy { ViewedEventsRecyclerAdapter() }
     private val mainViewModel by sharedViewModel<MainViewModel>()
     private val profileViewModel by viewModel<ProfileViewModel>()
-
-    private var adapterClickListener: (GeneralEvents) -> Unit = {
-        val bundle = Bundle()
-        bundle.putSerializable(EVENT_KEY_WORD, it)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +47,28 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         profileViewModel.getMyInfo()
         setupOptionMenu()
+
+        with(binding) {
+            viewEventsRecycler.adapter = viewedEventsRecyclerAdapter
+            allViewedEvents.setOnClickListener {
+                val direction = ProfileFragmentDirections.actionNavProfileToEventListFragment(EventListType.VIEWED_EVENTS)
+                findNavController().navigate(direction)
+            }
+            myFollowers.setOnClickListener {
+
+            }
+            myFollowing.setOnClickListener {
+
+            }
+            myEvents.setOnClickListener {
+                val direction = ProfileFragmentDirections.actionNavProfileToEventListFragment(EventListType.MY_EVENTS)
+                findNavController().navigate(direction)
+            }
+            savedEvents.setOnClickListener {
+                val direction = ProfileFragmentDirections.actionNavProfileToEventListFragment(EventListType.SAVED_EVENTS)
+                findNavController().navigate(direction)
+            }
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -58,10 +76,24 @@ class ProfileFragment : Fragment() {
 
         mainViewModel.loginState.observe(viewLifecycleOwner, Observer {
             if (!it) {
-                val direction = ProfileFragmentDirections.actionGlobalLoginFragment(R.id.nav_profile)
+                val direction =
+                    ProfileFragmentDirections.actionGlobalLoginFragment(
+                        R.id.nav_profile
+                    )
                 findNavController().navigate(direction)
             }
         })
+
+        profileViewModel.profileInfo.observe(viewLifecycleOwner, Observer {
+            it.images.firstOrNull()?.let {
+                with(binding.avatarImage) {
+                    this.contentDescription = it.description
+                    Glide.with(context).load(BuildConfig.BASE_URL + it.image.substring(1)).into(this)
+                }
+            }
+        })
+
+        profileViewModel.viewedEvents.observe(viewLifecycleOwner, Observer(viewedEventsRecyclerAdapter::setEventList))
     }
 
     private fun setupOptionMenu() {
@@ -83,14 +115,5 @@ class ProfileFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.profile_toolbar, menu)
         super.onCreateOptionsMenu(menu, inflater)
-    }
-
-
-    private fun observeFields() {
-
-    }
-
-    private fun setEventsLocally() {
-
     }
 }

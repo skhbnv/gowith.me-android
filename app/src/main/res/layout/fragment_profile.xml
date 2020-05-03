@@ -4,50 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.example.gowithme.ui.profile.ProfileViewModel" />
+            type="com.example.gowithme.ui.profile.viewmodel.ProfileViewModel" />
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        >
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="15dp"
-            >
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/imageView"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                app:cardCornerRadius="75dp"
-                app:cardElevation="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:id="@+id/avatarImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                     />
+                    android:layout_margin="4dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_person"
+                    tools:ignore="ContentDescription" />
 
             </androidx.cardview.widget.CardView>
 
 
             <TextView
                 android:id="@+id/name"
-                android:text="@{viewModel.profileInfo.fullName}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/profile_margin_start"
                 android:layout_marginTop="25dp"
                 android:fontFamily="sans-serif-black"
+                android:text="@{viewModel.profileInfo.fullName}"
                 android:textColor="#000"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -55,31 +57,32 @@
                 tools:text="Джон Сноу" />
 
             <TextView
-                android:id="@+id/events_visited"
+                android:id="@+id/phoneNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/profile_margin_start"
                 android:layout_marginTop="15dp"
                 android:fontFamily="sans-serif-medium"
+                android:text="@{ viewModel.profileInfo.phone }"
                 android:textColor="#3F3F3F"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@id/name"
-                tools:text="Посетил ивентов:"
-                />
+                tools:text="@string/text_phone_number" />
 
             <TextView
-                android:id="@+id/events_created"
+                android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/profile_margin_start"
                 android:layout_marginTop="15dp"
                 android:fontFamily="sans-serif-medium"
+                android:text="@{ viewModel.profileInfo.email }"
                 android:textColor="#3F3F3F"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@id/events_visited"
-                tools:text="оздал ивентов: " />
+                app:layout_constraintTop_toBottomOf="@id/phoneNumber"
+                tools:text="@string/text_email" />
 
             <ImageView
                 android:id="@+id/location_img"
@@ -89,7 +92,8 @@
                 android:layout_marginTop="15dp"
                 android:src="@drawable/location"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@id/events_created" />
+                app:layout_constraintTop_toBottomOf="@id/email"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/city_name"
@@ -101,17 +105,17 @@
                 android:textColor="#212121"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/location_img"
-                app:layout_constraintTop_toBottomOf="@id/events_created"
+                app:layout_constraintTop_toBottomOf="@id/email"
                 tools:text="Алматы" />
 
             <Button
                 android:id="@+id/button"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="20dp"
+                android:layout_height="48dp"
+                android:layout_margin="16dp"
                 android:background="@drawable/categories_bg"
                 android:fontFamily="sans-serif-black"
-                android:text="Редактировать"
+                android:text="@string/text_edit"
                 android:textAllCaps="false"
                 android:textColor="#fff"
                 android:textSize="16sp"
@@ -131,34 +135,37 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:layout_marginTop="36dp"
-                android:textColor="#212121"
+                android:layout_margin="16dp"
                 android:fontFamily="sans-serif-medium"
-                android:textSize="18sp"
                 android:text="@string/last_activity"
+                android:textColor="#212121"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/allViewedEvents"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_margin="16dp"
                 android:src="@drawable/ic_arrow_forward"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view" />
+                app:layout_constraintTop_toBottomOf="@+id/view"
+                tools:ignore="ContentDescription" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/viewEventsRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:clipToPadding="false"
                 android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                tools:listitem="@layout/item_viewed_event"/>
 
             <View
                 android:id="@+id/view2"
@@ -166,49 +173,71 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="15dp"
                 android:background="#30212121"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+                app:layout_constraintTop_toBottomOf="@+id/viewEventsRecycler" />
 
             <TextView
-                android:id="@+id/my_events"
-                android:textColor="#212121"
-                android:fontFamily="sans-serif"
-                android:textSize="18sp"
+                android:id="@+id/myFollowers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_ripple"
+                android:fontFamily="sans-serif"
+                android:paddingStart="16dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="10dp"
+                android:text="@{ @string/text_my_followers(viewModel.profileInfo.followersCount) }"
+                android:textColor="#212121"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view2"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:text="Мои события" />
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <TextView
-                android:id="@+id/my_friends"
+                android:id="@+id/myFollowing"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#212121"
+                android:background="@drawable/bg_ripple"
                 android:fontFamily="sans-serif"
+                android:paddingStart="16dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="10dp"
+                android:text="@{ @string/text_my_following(viewModel.profileInfo.followingCount) }"
+                android:textColor="#212121"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/my_events"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:text="Мои подписки" />
+                app:layout_constraintTop_toBottomOf="@+id/myFollowers" />
 
             <TextView
-                android:id="@+id/my_comments"
-                android:textColor="#212121"
-                android:fontFamily="sans-serif"
-                android:textSize="18sp"
+                android:id="@+id/myEvents"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
+                android:background="@drawable/bg_ripple"
+                android:fontFamily="sans-serif"
+                android:paddingStart="16dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="10dp"
+                android:text="@{ @string/text_my_events(viewModel.profileInfo.eventsCreatedCount) }"
+                android:textColor="#212121"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/my_friends"
-                android:text="Мои комментарии" />
+                app:layout_constraintTop_toBottomOf="@id/myFollowing" />
+
+            <TextView
+                android:id="@+id/savedEvents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_ripple"
+                android:fontFamily="sans-serif"
+                android:paddingStart="16dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="10dp"
+                android:text="@{ @string/text_saved_events(viewModel.profileInfo.savedEventsCount) }"
+                android:textColor="#212121"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/myEvents" />
 
             <View
                 android:id="@+id/view3"
@@ -216,52 +245,50 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="15dp"
                 android:background="#30212121"
-                app:layout_constraintTop_toBottomOf="@+id/my_comments" />
+                app:layout_constraintTop_toBottomOf="@+id/savedEvents" />
 
             <TextView
                 android:id="@+id/notifications"
-                android:textColor="#212121"
-                android:fontFamily="sans-serif"
-                android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_margin="16dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/text_notifications"
+                android:textColor="#212121"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view3"
-                android:text="Уведомления" />
+                app:layout_constraintTop_toBottomOf="@id/view3" />
 
             <Switch
                 android:id="@+id/notifications_switcher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_margin="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view3" />
-            <TextView
-                android:id="@+id/other_cities"
-                android:textColor="#212121"
-                android:fontFamily="sans-serif"
-                android:textSize="18sp"
-                android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/notifications"
-                android:text="Показывать события из других городов" />
 
-            <Switch
-                android:id="@+id/other_cities_switcher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/notifications_switcher" />
+            <!--            <TextView-->
+            <!--                android:id="@+id/other_cities"-->
+            <!--                android:layout_width="290dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginLeft="20dp"-->
+            <!--                android:layout_marginTop="20dp"-->
+            <!--                android:layout_marginRight="20dp"-->
+            <!--                android:fontFamily="sans-serif"-->
+            <!--                android:text="Показывать события из других городов"-->
+            <!--                android:textColor="#212121"-->
+            <!--                android:textSize="18sp"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/notifications" />-->
+
+            <!--            <Switch-->
+            <!--                android:id="@+id/other_cities_switcher"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="20dp"-->
+            <!--                android:layout_marginRight="20dp"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/notifications_switcher" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

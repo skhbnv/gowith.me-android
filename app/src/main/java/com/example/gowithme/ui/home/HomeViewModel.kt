@@ -12,8 +12,8 @@ import java.io.InputStream
 
 class HomeViewModel(var repository: IEventRepository) : ViewModel() {
 
-    private val _events = MutableLiveData<List<EventResponse.Result>>()
-    val eventsLD: LiveData<List<EventResponse.Result>> get() = _events
+    private val _events = MutableLiveData<List<EventResponse>>()
+    val eventsLD: LiveData<List<EventResponse>> get() = _events
 
     fun getEvents() {
         viewModelScope.launch {

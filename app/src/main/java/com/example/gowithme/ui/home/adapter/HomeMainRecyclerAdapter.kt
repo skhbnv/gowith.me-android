@@ -12,9 +12,9 @@ class HomeMainRecyclerAdapter: RecyclerView.Adapter<HomeMainRecyclerAdapter.Home
 
     private val viewPool by lazy { RecyclerView.RecycledViewPool() }
     private val eventsListNames = ArrayList<String>()
-    private val eventsLists = ArrayList<List<EventResponse.Result>>()
+    private val eventsLists = ArrayList<List<EventResponse>>()
 
-    fun addEventList(eventsName: String, events: List<EventResponse.Result>) {
+    fun addEventList(eventsName: String, events: List<EventResponse>) {
         eventsListNames.add(eventsName)
         eventsLists.add(events)
         notifyItemInserted(eventsListNames.lastIndex)
@@ -30,7 +30,7 @@ class HomeMainRecyclerAdapter: RecyclerView.Adapter<HomeMainRecyclerAdapter.Home
     }
 
     inner class HomeRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(eventsName: String, events: List<EventResponse.Result>) {
+        fun bindView(eventsName: String, events: List<EventResponse>) {
             with(itemView) {
                 title.text = eventsName
                 innerRecycler.setRecycledViewPool(viewPool)
