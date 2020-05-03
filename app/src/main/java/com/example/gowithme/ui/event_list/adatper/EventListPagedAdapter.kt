@@ -29,7 +29,7 @@ class EventListPagedAdapter :
         fun bind(item: EventResponse?) {
             with(binding) {
                 if (item != null) {
-                    title.text = item.title
+                    title.text = item.title + item.id
                     description.text = item.description
                     glide.load(BuildConfig.BASE_URL + item.images.firstOrNull()?.image?.substring(1))
                         .into(eventImage)
@@ -37,8 +37,10 @@ class EventListPagedAdapter :
                         .into(authorImage)
                     authorName.text = "${item.author.firstName} ${item.author.lastName}"
                     viewCount.text = item.viewCounter.toString()
-                    startDate.text = item.start
-                    price.text = if(item.price == 0) root.context.getString(R.string.text_free) else item.price.toString().tenge()
+                    startDate.text = root.context.getString(R.string.text_start_date, item.start)
+                    price.text = if(item.price == 0) root.context.getString(R.string.text_free) else {
+                        root.context.getString(R.string.text_price, item.price.toString().tenge())
+                    }
                 }
             }
         }

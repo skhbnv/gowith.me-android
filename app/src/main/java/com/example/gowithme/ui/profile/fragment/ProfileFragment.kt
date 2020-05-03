@@ -49,6 +49,10 @@ class ProfileFragment : Fragment() {
 
         with(binding) {
             viewEventsRecycler.adapter = viewedEventsRecyclerAdapter
+            allViewedEvents.setOnClickListener {
+                val direction = ProfileFragmentDirections.actionNavProfileToEventListFragment()
+                findNavController().navigate(direction)
+            }
             myFollowers.setOnClickListener {
 
             }

@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,6 +20,7 @@
                 android:id="@+id/eventImage"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
+                android:scaleType="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -43,8 +45,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
                 android:maxLength="100"
                 android:maxLines="2"
                 android:textColor="@color/primaryDarkText"
@@ -58,6 +60,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="4dp"
                 app:layout_constraintEnd_toStartOf="@id/authorName"
                 app:layout_constraintTop_toBottomOf="@id/eventImage" />
 
@@ -102,8 +105,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:drawableStart="@drawable/ic_eye"
+                android:drawablePadding="8dp"
                 android:gravity="center"
                 android:textColor="@color/primaryDarkText"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -116,8 +121,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:text="Начало: 8 Feb, 08:30"
+                android:text="@string/text_start_date"
+                android:textColor="@color/primaryDarkText"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/barrier" />

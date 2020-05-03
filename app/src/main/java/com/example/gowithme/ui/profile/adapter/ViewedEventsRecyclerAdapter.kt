@@ -43,7 +43,7 @@ class ViewedEventsRecyclerAdapter : RecyclerView.Adapter<ViewedEventsRecyclerAda
                 event.author.image?.image?.let {
                     glide.load(BuildConfig.BASE_URL + it.substring(1)).into(authorImage)
                 }
-                authorName.text = "${event.author.firstName} ${event.author.lastName}"
+                authorName.text = "${event.author.firstName} ${event.author.lastName} ${event.id}"
             }
         }
     }

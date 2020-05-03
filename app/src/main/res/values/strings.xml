@@ -50,5 +50,6 @@
 
     <string name="text_price">Цена: %1$s</string>
     <string name="text_free">Бесплатно</string>
+    <string name="text_start_date">Начало: %1$s</string>
 
 </resources>
