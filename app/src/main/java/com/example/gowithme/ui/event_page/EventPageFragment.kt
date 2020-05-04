@@ -1,12 +1,14 @@
 package com.example.gowithme.ui.event_page
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.gowithme.BuildConfig
@@ -17,6 +19,7 @@ import com.example.gowithme.data.models.response.EventResponse
 import com.example.gowithme.databinding.FragmentEventPageBinding
 import com.example.gowithme.ui.event_page.adapter.EventImageSliderAdapter
 import com.example.gowithme.util.format
+import com.example.gowithme.util.showAlert
 import com.example.gowithme.util.tenge
 import com.example.gowithme.util.toDate
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -25,6 +28,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EventPageFragment : Fragment(), OnMapReadyCallback {
@@ -56,14 +60,21 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
         val mapFrag: SupportMapFragment =
             (childFragmentManager.findFragmentById(R.id.eventMap) as SupportMapFragment)
         mapFrag.getMapAsync(this)
+        eventPageViewModel.getEventDetails(eventId)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        (activity as MainActivity).toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
         with(binding) {
             subscribeOnEvent.setOnClickListener {
                 eventPageViewModel.subscribeOnEvent(eventId)
+                if (mainViewModel.userInfo?.telegramUsername.isNullOrBlank()) {
+                    showAlert(context, title = "Добавьте username телеграмма, чтобы присоедениться к чату события", ok = {})
+                }
             }
         }
     }
@@ -72,7 +83,10 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
         super.onActivityCreated(savedInstanceState)
         mainViewModel.loginState.observe(viewLifecycleOwner, Observer {
             if (!it) {
-                binding.subscribeOnEvent.visibility = View.GONE
+                with(binding) {
+                    subscribeOnEvent.visibility = View.GONE
+                    joinToChat.visibility = View.GONE
+                }
             }
         })
         eventPageViewModel.eventDetailsUI.observe(viewLifecycleOwner, Observer {
@@ -96,20 +110,27 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
             event.author.image?.image?.let {
                 glide.load(BuildConfig.BASE_URL + it.substring(1)).into(authorImage)
             }
-            startDate.text = event.start.toDate().format("dd MMM, hh:mm")
-            endDate.text = event.end.toDate().format("dd MMM, hh:mm")
+            startDate.text = context?.getString(R.string.text_start_date, event.start.toDate().format("dd MMM, hh:mm"))
+            endDate.text = context?.getString(R.string.text_end_date, event.end.toDate().format("dd MMM, hh:mm"))
             val sydney = LatLng(event.latitude, event.longitude)
             mMap.addMarker(MarkerOptions().position(sydney).title("Здесь"))
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 13f))
             imageSlider.setSliderAdapter(eventImageSliderAdapter)
 
             eventImageSliderAdapter.setImages(event.images)
+            likeCheckBox.isChecked = event.isLiked
+
+            subscribeCount.text = getString(R.string.text_users_subscribed, event.subscriptionsCounter.toString())
+            Log.d("taaag", "mainViewModel.userInfo?.id = ${mainViewModel.userInfo?.id} , ${event.author.id}")
+            if (mainViewModel.userInfo?.id == event.author.id) {
+                subscribeOnEvent.visibility = View.GONE
+                joinToChat.visibility = View.GONE
+            }
         }
     }
 
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        eventPageViewModel.getEventDetails(eventId)
     }
 }

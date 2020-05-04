@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gowithme.MainViewModel
@@ -56,6 +57,10 @@ class HomeFragment : Fragment() {
         with(view) {
             rv_parent.layoutManager = LinearLayoutManager(context)
             rv_parent.adapter = homeMainRecyclerAdapter
+            homeMainRecyclerAdapter.setOnEventClickedListener {
+                val direction = HomeFragmentDirections.actionNavHomeToEventPageFragment(it)
+                findNavController().navigate(direction)
+            }
         }
     }
 

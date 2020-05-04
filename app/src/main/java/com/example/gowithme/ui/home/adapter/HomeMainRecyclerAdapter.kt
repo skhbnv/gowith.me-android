@@ -13,7 +13,11 @@ class HomeMainRecyclerAdapter: RecyclerView.Adapter<HomeMainRecyclerAdapter.Home
     private val viewPool by lazy { RecyclerView.RecycledViewPool() }
     private val eventsListNames = ArrayList<String>()
     private val eventsLists = ArrayList<List<EventResponse>>()
+    private var onEventClickedListener: ((Int) -> Unit)? = null
 
+    fun setOnEventClickedListener(listener: (Int) -> Unit) {
+        onEventClickedListener = listener
+    }
     fun addEventList(eventsName: String, events: List<EventResponse>) {
         eventsListNames.add(eventsName)
         eventsLists.add(events)
@@ -34,7 +38,10 @@ class HomeMainRecyclerAdapter: RecyclerView.Adapter<HomeMainRecyclerAdapter.Home
             with(itemView) {
                 title.text = eventsName
                 innerRecycler.setRecycledViewPool(viewPool)
-                innerRecycler.adapter = HorizontalEventRecyclerAdapter(events)
+                innerRecycler.adapter = HorizontalEventRecyclerAdapter(events).apply {
+                    setOnEventClickedListener { onEventClickedListener?.invoke(it) }
+                }
+
             }
         }
     }

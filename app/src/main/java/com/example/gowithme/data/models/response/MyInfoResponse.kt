@@ -28,7 +28,9 @@ data class MyInfoResponse(
     @SerializedName("phone")
     val phone: String,
     @SerializedName("saved_events_count")
-    val savedEventsCount: Int
+    val savedEventsCount: Int,
+    @SerializedName("telegram_username")
+    val telegramUsername: String
 ) {
     val fullName get() = "$firstName $lastName"
 }

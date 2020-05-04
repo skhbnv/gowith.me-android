@@ -12,6 +12,12 @@ class HorizontalEventRecyclerAdapter(
     private val events: List<EventResponse>
 ) : RecyclerView.Adapter<HorizontalEventRecyclerAdapter.HorizontalEventViewHolder>() {
 
+    private var onEventClickedListener: ((Int) -> Unit)? = null
+
+    fun setOnEventClickedListener(listener: (Int) -> Unit) {
+        onEventClickedListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HorizontalEventViewHolder =
         HorizontalEventViewHolder(parent.inflate(R.layout.nearby_card))
 
@@ -26,6 +32,9 @@ class HorizontalEventRecyclerAdapter(
             with(itemView) {
                 title.text = event.title
                 message.text = event.description
+                this.setOnClickListener {
+                    onEventClickedListener?.invoke(event.id)
+                }
             }
         }
     }

@@ -9,7 +9,11 @@
         android:id="@+id/nav_home"
         android:name="com.example.gowithme.ui.home.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_eventPageFragment"
+            app:destination="@id/eventPageFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/loginFragment"
@@ -67,6 +71,9 @@
         <argument
             android:name="eventListType"
             app:argType="com.example.gowithme.data.network.event_list.EventListType" />
+        <action
+            android:id="@+id/action_eventListFragment_to_eventPageFragment"
+            app:destination="@id/eventPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventPageFragment"

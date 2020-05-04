@@ -51,10 +51,12 @@
     <string name="text_price">Цена: %1$s</string>
     <string name="text_free">Бесплатно</string>
     <string name="text_start_date">Начало: %1$s</string>
+    <string name="text_end_date">Конец: %1$s</string>
 
     <string name="title_event_list_viewed_events">Последняя активность</string>
     <string name="title_event_list_my_events">Мои ивенты</string>
     <string name="title_event_list_saved_events">Сохраненные ивенты</string>
     <string name="title_event_list">Сприсок событий</string>
+    <string name="text_users_subscribed">Подписалось на событие: %1$s</string>
 
 </resources>

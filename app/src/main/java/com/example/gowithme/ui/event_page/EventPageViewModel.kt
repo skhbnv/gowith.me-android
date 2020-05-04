@@ -1,5 +1,6 @@
 package com.example.gowithme.ui.event_page
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.gowithme.data.models.response.EventResponse
 import com.example.gowithme.data.network.event.IEventRepository
@@ -13,12 +14,16 @@ class EventPageViewModel(var repository: IEventRepository) : ViewModel(){
     val eventDetailsUI: LiveData<EventPageUI> get() = _eventDetailsUI
 
     fun getEventDetails(id: Int) {
+        Log.d("taaag", "getEventDetails")
+
         viewModelScope.launch {
             when(val result = repository.getEventDetails(id)) {
                 is Result.Success -> {
+                    Log.d("taaag", "getEventDetails Success ${result.data}")
                     _eventDetailsUI.value = EventPageUI.EventLoaded(result.data)
                 }
                 is Result.Error -> {
+                    Log.d("taaag", "getEventDetails ${result.exception}")
                     _eventDetailsUI.value = EventPageUI.EventLoadError(result.exception)
                 }
             }

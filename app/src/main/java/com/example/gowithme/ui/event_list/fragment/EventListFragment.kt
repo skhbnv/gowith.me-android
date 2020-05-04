@@ -45,7 +45,7 @@ class EventListFragment : Fragment() {
         eventList.adapter = eventListPagedAdapter
 
         eventListPagedAdapter.setOnEventClickedListener {
-            val direction = EventListFragmentDirections.actionGlobalEventPageFragment(it)
+            val direction = EventListFragmentDirections.actionEventListFragmentToEventPageFragment(it)
             findNavController().navigate(direction)
         }
 

@@ -17,6 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <TextView
@@ -63,11 +64,13 @@
                 android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/like"
+                    android:id="@+id/likeCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
+                    android:background="@drawable/bg_like"
+                    android:button="@null"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/imageSlider"/>
 
@@ -80,8 +83,8 @@
                     android:drawablePadding="8dp"
                     android:gravity="center"
                     android:textColor="@color/primaryDarkText"
-                    app:layout_constraintBottom_toBottomOf="@id/like"
-                    app:layout_constraintStart_toEndOf="@id/like"
+                    app:layout_constraintBottom_toBottomOf="@id/likeCheckBox"
+                    app:layout_constraintStart_toEndOf="@id/likeCheckBox"
                     tools:text="100" />
 
 
@@ -93,9 +96,9 @@
                     android:drawablePadding="8dp"
                     android:gravity="center"
                     android:textColor="@color/primaryDarkText"
-                    app:layout_constraintBottom_toBottomOf="@id/like"
+                    app:layout_constraintBottom_toBottomOf="@id/likeCheckBox"
                     app:layout_constraintStart_toEndOf="@id/viewCount"
-                    tools:text="Подписалось на событие: 5000" />
+                    tools:text="@string/text_users_subscribed" />
 
             </LinearLayout>
 
@@ -114,7 +117,7 @@
                 android:drawablePadding="8dp"
                 android:gravity="center"
                 android:textColor="@color/primaryDarkText"
-                app:layout_constraintTop_toBottomOf="@id/like"
+                app:layout_constraintTop_toBottomOf="@id/likeCheckBox"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="8 Feb, 08:30"/>
 
@@ -214,8 +217,21 @@
             <Button
                 android:id="@+id/subscribeOnEvent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:textColor="@color/white"
                 android:text="Подписаться"
+                android:background="@drawable/categories_bg"
+                android:textAllCaps="false"
+                android:layout_marginBottom="16dp"
+                />
+
+            <Button
+                android:id="@+id/joinToChat"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textColor="@color/white"
+                android:text="Присоедениться к чату"
+                android:background="@drawable/categories_bg"
                 android:textAllCaps="false"
                 android:layout_marginBottom="16dp"
                 />
