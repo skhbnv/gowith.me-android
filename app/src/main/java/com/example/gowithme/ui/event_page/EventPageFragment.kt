@@ -14,6 +14,7 @@ import com.example.gowithme.MainActivity
 import com.example.gowithme.R
 import com.example.gowithme.data.models.response.EventResponse
 import com.example.gowithme.databinding.FragmentEventPageBinding
+import com.example.gowithme.ui.event_page.adapter.EventImageSliderAdapter
 import com.example.gowithme.util.format
 import com.example.gowithme.util.tenge
 import com.example.gowithme.util.toDate
@@ -38,6 +39,7 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
     private val glide by lazy { Glide.with(requireContext()) }
     private val safeArgs by navArgs<EventPageFragmentArgs>()
     private val eventId by lazy { safeArgs.eventId }
+    private val eventImageSliderAdapter by lazy { EventImageSliderAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,7 +59,9 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        with(binding) {
 
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -89,6 +93,9 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
             val sydney = LatLng(event.latitude, event.longitude)
             mMap.addMarker(MarkerOptions().position(sydney).title("Здесь"))
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 13f))
+            imageSlider.setSliderAdapter(eventImageSliderAdapter)
+
+            eventImageSliderAdapter.setImages(event.images)
         }
     }
 

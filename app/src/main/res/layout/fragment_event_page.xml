@@ -22,56 +22,84 @@
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textColor="@color/primaryDarkText"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="24sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                tools:text="asdasdasdsad"/>
 
-            <com.synnapps.carouselview.CarouselView
-                android:id="@+id/carouselView"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:fillColor="#FFFFFFFF"
-                app:pageColor="#00000000"
-                app:radius="6dp"
-                app:slideInterval="3500"
-                app:strokeColor="#FF777777"
-                app:strokeWidth="1dp"
-                app:layout_constraintTop_toTopOf="parent"/>
+                android:layout_height="wrap_content">
+                <com.smarteist.autoimageslider.SliderView
+                    android:id="@+id/imageSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:background="@color/white"
+                    app:sliderAnimationDuration="600"
+                    app:sliderAutoCycleDirection="back_and_forth"
+                    app:sliderAutoCycleEnabled="true"
+                    app:sliderIndicatorAnimationDuration="600"
+                    app:sliderIndicatorGravity="center_horizontal|bottom"
+                    app:sliderIndicatorMargin="15dp"
+                    app:sliderIndicatorOrientation="horizontal"
+                    app:sliderIndicatorPadding="3dp"
+                    app:sliderIndicatorRadius="2dp"
+                    app:sliderIndicatorSelectedColor="#5A5A5A"
+                    app:sliderIndicatorUnselectedColor="#FFF"
+                    app:sliderScrollTimeInSec="1"
+                    app:sliderStartAutoCycle="true" />
+            </androidx.cardview.widget.CardView>
 
-            <CheckBox
-                android:id="@+id/like"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/carouselView"/>
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageSlider"/>
+
+                <TextView
+                    android:id="@+id/viewCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:drawableStart="@drawable/ic_eye"
+                    android:drawablePadding="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/primaryDarkText"
+                    app:layout_constraintBottom_toBottomOf="@id/like"
+                    app:layout_constraintStart_toEndOf="@id/like"
+                    tools:text="100" />
 
 
-            <TextView
-                android:id="@+id/viewCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:drawableStart="@drawable/ic_eye"
-                android:drawablePadding="8dp"
-                android:gravity="center"
-                android:textColor="@color/primaryDarkText"
-                app:layout_constraintBottom_toBottomOf="@id/like"
-                app:layout_constraintStart_toEndOf="@id/like"
-                tools:text="asdasd" />
+                <TextView
+                    android:id="@+id/subscribeCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:drawablePadding="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/primaryDarkText"
+                    app:layout_constraintBottom_toBottomOf="@id/like"
+                    app:layout_constraintStart_toEndOf="@id/viewCount"
+                    tools:text="Подписалось на событие: 5000" />
 
-            <TextView
-                android:id="@+id/subscribeCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:drawablePadding="8dp"
-                android:gravity="center"
-                android:textColor="@color/primaryDarkText"
-                app:layout_constraintBottom_toBottomOf="@id/like"
-                app:layout_constraintStart_toEndOf="@id/viewCount"
-                tools:text="Подписалось на событие: 5000" />
+            </LinearLayout>
+
+
 
 
             <TextView
@@ -81,6 +109,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginStart="16dp"
                 android:drawableStart="@drawable/date_time"
                 android:drawablePadding="8dp"
                 android:gravity="center"
@@ -96,6 +125,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginStart="16dp"
                 android:drawableStart="@drawable/date_time"
                 android:drawablePadding="8dp"
                 android:gravity="center"
@@ -105,46 +135,88 @@
                 tools:text="8 Feb, 08:30"/>
 
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/authorImage"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                app:layout_constraintTop_toBottomOf="@id/endDate"
-                app:layout_constraintStart_toStartOf="parent"
-                />
-
-            <TextView
-                android:id="@+id/authorName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/authorImage"
-                app:layout_constraintBottom_toBottomOf="@id/authorImage"
-                app:layout_constraintTop_toTopOf="@id/authorImage"/>
-
-
             <TextView
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@id/authorImage"
+                android:textColor="@color/primaryDarkText"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 tools:text="assssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"/>
+
 
             <TextView
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/text_price"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
                 android:textColor="@color/primaryDarkText"
                 app:layout_constraintTop_toBottomOf="@id/description"
                 app:layout_constraintStart_toStartOf="parent"
                 />
 
-            <FrameLayout
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primaryDarkText"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Автор"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp"
+                android:gravity="bottom">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/authorImage"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/endDate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/authorName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/primaryDarkText"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@id/authorImage"
+                    app:layout_constraintBottom_toBottomOf="@id/authorImage"
+                    app:layout_constraintTop_toTopOf="@id/authorImage"
+                    tools:text="Kuanysh Sultan"/>
+            </LinearLayout>
+
+
+            <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/categories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/price"
+                android:layout_marginBottom="16dp"
+                app:flexWrap="wrap"
+                app:alignItems="stretch"
+                app:alignContent="stretch"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Подписаться"
+                android:textAllCaps="false"
+                android:layout_marginBottom="16dp"
                 />
 
             <fragment
@@ -157,6 +229,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="16sp"
+                android:textColor="@color/primaryDarkText"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
                 android:text="Комментарии"/>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -165,199 +244,6 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="true"
                 app:layout_constraintTop_toBottomOf="@id/eventMap"/>
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="15dp"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:layout_marginRight="15dp"-->
-<!--                android:layout_marginBottom="8dp"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:baselineAligned="false">-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:layout_height="match_parent">-->
-<!--                    <ImageView-->
-<!--                        android:layout_width="24dp"-->
-<!--                        android:layout_height="24dp"-->
-<!--                        android:src="@drawable/date_time" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/date_time"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:date="@{viewModel.selectedGeneralEvents.date}"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:fontFamily="sans-serif-medium"-->
-<!--                        android:gravity="center"-->
-<!--                        android:textSize="15sp"-->
-<!--                        tools:text="8 Feb, 08:30" />-->
-
-<!--                </LinearLayout>-->
-
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:gravity="center"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <ImageView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:src="@drawable/ic_eye" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/views"-->
-<!--                        android:text="@{viewModel.selectedGeneralEvents.views}"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="5dp"-->
-<!--                        android:fontFamily="sans-serif-medium"-->
-<!--                        android:textSize="15sp"-->
-<!--                        tools:text="50" />-->
-<!--                </LinearLayout>-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:gravity="end"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/price"-->
-<!--                        android:text="@{viewModel.selectedGeneralEvents.price}"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:fontFamily="sans-serif-medium"-->
-<!--                        android:gravity="end"-->
-<!--                        android:textSize="15sp"-->
-<!--                        tools:text="7 500" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="5dp"-->
-<!--                        android:fontFamily="sans-serif-medium"-->
-<!--                        android:gravity="end"-->
-<!--                        android:textSize="15sp"-->
-<!--                        android:text="@string/kzt" />-->
-
-<!--                </LinearLayout>-->
-<!--            </LinearLayout>-->
-
-<!--            <View-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="1dp"-->
-<!--                android:layout_marginStart="24dp"-->
-<!--                android:layout_marginEnd="24dp"-->
-<!--                android:background="#3F3F3F" />-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="15dp"-->
-<!--                android:orientation="horizontal">-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <androidx.cardview.widget.CardView-->
-<!--                        android:id="@+id/imageView"-->
-<!--                        android:layout_width="75dp"-->
-<!--                        android:layout_height="75dp"-->
-<!--                        android:layout_marginStart="15dp"-->
-<!--                         app:cardCornerRadius="75dp"-->
-<!--                        app:cardElevation="0dp"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:src="@drawable/index" />-->
-
-<!--                    </androidx.cardview.widget.CardView>-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:orientation="vertical">-->
-
-<!--                        <TextView-->
-<!--                            android:text="@{viewModel.selectedDetailEvents.author.first_name}"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="0dp"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:gravity="center"-->
-<!--                            android:textColor="#000"-->
-<!--                            android:textSize="16sp"-->
-<!--                            tools:text="Джейк Салли" />-->
-
-<!--                        <TextView-->
-<!--                            android:date="@{viewModel.selectedDetailEvents.creationDate}"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="0dp"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:gravity="center"-->
-<!--                            tools:text="Джейк Салли" />-->
-<!--                    </LinearLayout>-->
-
-<!--                </LinearLayout>-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:orientation="vertical">-->
-
-<!--                    <androidx.recyclerview.widget.RecyclerView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:orientation="horizontal"-->
-<!--                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@{@string/followers_num(viewModel.selectedDetailEvents.total_subscribers)}"-->
-<!--                        />-->
-<!--                </LinearLayout>-->
-
-<!--            </LinearLayout>-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="15dp">-->
-
-<!--                <TextView-->
-<!--                    android:text="@{viewModel.selectedDetailEvents.description}"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textAlignment="textStart"-->
-<!--                    tools:text="треккинговая обувь с жесткой подошвой;-->
-<!--            плотные носки (чтобы не натереть мозоль);-->
-<!--            спортивные штаны/шорты;-->
-<!--            термобелье / футболка;-->
-<!--            флисовая кофта;-->
-<!--            ветровка-дождевик;-->
-<!--            перчатки;-->
-<!--            бафф;-->
-<!--            солнцезащитные очки;-->
-<!--            головной убор (кепка, панама, бандана);" />-->
-
-<!--            </LinearLayout>-->
-
-
 
         </LinearLayout>
     </ScrollView>
