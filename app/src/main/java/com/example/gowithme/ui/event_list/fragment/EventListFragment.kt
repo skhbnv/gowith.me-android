@@ -44,6 +44,11 @@ class EventListFragment : Fragment() {
 
         eventList.adapter = eventListPagedAdapter
 
+        eventListPagedAdapter.setOnEventClickedListener {
+            val direction = EventListFragmentDirections.actionGlobalEventPageFragment(it)
+            findNavController().navigate(direction)
+        }
+
     }
 
     private fun setTitle() {

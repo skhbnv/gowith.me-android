@@ -15,7 +15,7 @@ interface IEventRepository {
     suspend fun getEventCategories(): Result<List<CategoryResponse>>
     suspend fun createEvent(request: CreateEventRequest): Result<CreateEventResponse>
     suspend fun uploadImage(image: File): Result<CreateEventImageResponse>
-
+    suspend fun getEventDetails(id: Int): Result<EventResponse>
 }
 
 class EventRepository(
@@ -33,5 +33,7 @@ class EventRepository(
         val imageToUpload = MultipartBody.Part.createFormData("image", image.name, requestImageFile)
         service.uploadImage(imageToUpload, image.name)
     }
+
+    override suspend fun getEventDetails(id: Int): Result<EventResponse> = apiCall { service.getEventDetails(id) }
 
 }

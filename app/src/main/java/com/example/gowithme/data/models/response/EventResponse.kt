@@ -18,9 +18,9 @@ data class EventResponse(
     @SerializedName("is_saved")
     val isSaved: Boolean,
     @SerializedName("latitude")
-    val latitude: String,
+    val latitude: Double,
     @SerializedName("longitude")
-    val longitude: String,
+    val longitude: Double,
     @SerializedName("price")
     val price: Int,
     @SerializedName("start")

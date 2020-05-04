@@ -15,6 +15,13 @@ import com.example.gowithme.util.tenge
 
 class EventListPagedAdapter :
     PagedListAdapter<EventResponse, EventListPagedAdapter.EventViewHolder>(EVENT_COMPARATOR) {
+
+    private var onEventClickedListener: ((Int) -> Unit)? = null
+
+    fun setOnEventClickedListener(listener: (Int) -> Unit) {
+        onEventClickedListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder =
         EventViewHolder(parent.inflateBinding(R.layout.item_event_list))
 
@@ -40,6 +47,9 @@ class EventListPagedAdapter :
                     startDate.text = root.context.getString(R.string.text_start_date, item.start)
                     price.text = if(item.price == 0) root.context.getString(R.string.text_free) else {
                         root.context.getString(R.string.text_price, item.price.toString().tenge())
+                    }
+                    root.setOnClickListener {
+                        onEventClickedListener?.invoke(item.id)
                     }
                 }
             }

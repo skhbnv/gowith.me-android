@@ -25,4 +25,9 @@ interface EventService {
         @Part("description") description: String? = null
     ): CreateEventImageResponse
 
+    @GET("api/v1/event/detail/{id}")
+    suspend fun getEventDetails(
+        @Path("id") id: Int
+    ): EventResponse
+
 }

@@ -68,4 +68,19 @@
             android:name="eventListType"
             app:argType="com.example.gowithme.data.network.event_list.EventListType" />
     </fragment>
+    <fragment
+        android:id="@+id/eventPageFragment"
+        android:name="com.example.gowithme.ui.event_page.EventPageFragment"
+        android:label="EventPageFragment" >
+        <argument
+            android:name="eventId"
+            app:argType="integer" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_eventPageFragment"
+        app:destination="@id/eventPageFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
 </navigation>
