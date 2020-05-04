@@ -189,6 +189,9 @@ class CreateNewEventFragment : Fragment() {
                 is CreateEventUI.EventImageUploadError -> {
                     "Не удалось загрузить фото".showToast(context)
                 }
+                is CreateEventUI.EventCreated -> {
+                    findNavController().navigateUp()
+                }
             }
         })
     }

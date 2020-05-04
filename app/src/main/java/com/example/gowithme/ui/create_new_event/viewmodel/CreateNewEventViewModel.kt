@@ -118,7 +118,7 @@ class CreateNewEventViewModel(private var repository: IEventRepository) : ViewMo
             )
             when(val result = repository.createEvent(createEventRequest)) {
                 is Result.Success -> {
-                    Log.d("taaag", "createEvent Success")
+                    _createEventUI.value = CreateEventUI.EventCreated
                 }
                 is Result.Error -> {
                     Log.d("taaag", "createEvent Error")
@@ -169,6 +169,7 @@ sealed class CreateEventUI {
     data class EventImageUploaded(val imageFile: File) : CreateEventUI()
     data class EventImageUploadError(val exception: Exception) : CreateEventUI()
     data class ValidationError(val inputType: InputTypes) : CreateEventUI()
+    object EventCreated : CreateEventUI()
 
 }
 
