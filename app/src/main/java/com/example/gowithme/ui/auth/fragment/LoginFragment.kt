@@ -47,6 +47,9 @@ class LoginFragment : Fragment() {
                 )
                 authViewModel.login(request)
             }
+            registerButton.setOnClickListener {
+                findNavController().navigate(R.id.action_loginFragment_to_registration)
+            }
         }
     }
 

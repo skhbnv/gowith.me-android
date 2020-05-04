@@ -23,7 +23,11 @@ class MainViewModel(
         loadUserInfo()
         // TODO add token verify
     }
-    
+
+    fun checkLoginStatus() {
+        _loginState.value = repository.getAccessToken().isNotBlank()
+    }
+
     private fun loadUserInfo() {
         viewModelScope.launch { 
             when(val result = repository.getMyInfo()) {

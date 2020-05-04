@@ -54,6 +54,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         homeViewModel.getEvents()
+        mainViewModel.checkLoginStatus()
         with(view) {
             rv_parent.layoutManager = LinearLayoutManager(context)
             rv_parent.adapter = homeMainRecyclerAdapter

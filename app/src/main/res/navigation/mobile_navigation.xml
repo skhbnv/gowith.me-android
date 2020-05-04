@@ -22,6 +22,11 @@
         <argument
             android:name="next"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_loginFragment_to_registration"
+            app:destination="@id/registration"
+            app:popUpTo="@+id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/nav_profile"
@@ -90,4 +95,44 @@
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right" />
+    <navigation
+        android:id="@+id/registration"
+        app:startDestination="@id/checkPhoneFragment" >
+        <fragment
+            android:id="@+id/confirmPhoneFragment"
+            android:name="com.example.gowithme.ui.auth.fragment.ConfirmPhoneFragment"
+            android:label="ConfirmPhoneFragment">
+            <action
+                android:id="@+id/action_confirmPhoneFragment_to_registerFragment"
+                app:destination="@id/registerFragment"
+                app:popUpTo="@+id/confirmPhoneFragment"
+                app:popUpToInclusive="true" />
+        </fragment>
+        <fragment
+            android:id="@+id/checkPhoneFragment"
+            android:name="com.example.gowithme.ui.auth.fragment.CheckPhoneFragment"
+            android:label="CheckPhoneFragment">
+            <action
+                android:id="@+id/action_checkPhoneFragment_to_confirmPhoneFragment"
+                app:destination="@id/confirmPhoneFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_out_left"
+                app:popExitAnim="@anim/slide_out_right"
+                app:popUpTo="@+id/checkPhoneFragment"
+                app:popUpToInclusive="true" />
+        </fragment>
+        <fragment
+            android:id="@+id/registerFragment"
+            android:name="com.example.gowithme.ui.auth.fragment.RegisterFragment"
+            android:label="RegisterFragment" >
+            <action
+                android:id="@+id/action_registerFragment_to_favCategorySelectionDialogFragment"
+                app:destination="@id/favCategorySelectionDialogFragment" />
+        </fragment>
+        <dialog
+            android:id="@+id/favCategorySelectionDialogFragment"
+            android:name="com.example.gowithme.ui.auth.fragment.FavCategorySelectionDialogFragment"
+            android:label="FavCategorySelectionDialogFragment" />
+    </navigation>
 </navigation>
