@@ -30,7 +30,7 @@ val repoModule = module {
     }
 
     single {
-        MainRepository(get(named(PreferencesConst.TOKEN_PREFERENCES)))
+        MainRepository(get(named(PreferencesConst.TOKEN_PREFERENCES)), get())
     }
 
     single {

@@ -212,6 +212,7 @@
                 app:alignContent="stretch"/>
 
             <Button
+                android:id="@+id/subscribeOnEvent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Подписаться"

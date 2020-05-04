@@ -7,6 +7,7 @@ import com.example.gowithme.util.apiCall
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import java.io.File
 
 interface IEventRepository {
@@ -16,6 +17,7 @@ interface IEventRepository {
     suspend fun createEvent(request: CreateEventRequest): Result<CreateEventResponse>
     suspend fun uploadImage(image: File): Result<CreateEventImageResponse>
     suspend fun getEventDetails(id: Int): Result<EventResponse>
+    suspend fun subscribeOnEvent(id: Int): Result<ResponseBody>
 }
 
 class EventRepository(
@@ -35,5 +37,7 @@ class EventRepository(
     }
 
     override suspend fun getEventDetails(id: Int): Result<EventResponse> = apiCall { service.getEventDetails(id) }
+
+    override suspend fun subscribeOnEvent(id: Int): Result<ResponseBody> = apiCall { service.subscribeOnEvent(id) }
 
 }

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.gowithme.BuildConfig
 import com.example.gowithme.MainActivity
+import com.example.gowithme.MainViewModel
 import com.example.gowithme.R
 import com.example.gowithme.data.models.response.EventResponse
 import com.example.gowithme.databinding.FragmentEventPageBinding
@@ -40,6 +41,7 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
     private val safeArgs by navArgs<EventPageFragmentArgs>()
     private val eventId by lazy { safeArgs.eventId }
     private val eventImageSliderAdapter by lazy { EventImageSliderAdapter() }
+    private val mainViewModel by viewModel<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,13 +62,19 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding) {
-
+            subscribeOnEvent.setOnClickListener {
+                eventPageViewModel.subscribeOnEvent(eventId)
+            }
         }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        mainViewModel.loginState.observe(viewLifecycleOwner, Observer {
+            if (!it) {
+                binding.subscribeOnEvent.visibility = View.GONE
+            }
+        })
         eventPageViewModel.eventDetailsUI.observe(viewLifecycleOwner, Observer {
             when(it) {
                 is EventPageUI.EventLoaded -> {

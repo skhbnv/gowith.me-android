@@ -24,11 +24,27 @@ class EventPageViewModel(var repository: IEventRepository) : ViewModel(){
             }
         }
     }
+
+    fun subscribeOnEvent(id: Int) {
+        viewModelScope.launch {
+            when(val result = repository.subscribeOnEvent(id)) {
+                is Result.Success -> {
+                    _eventDetailsUI.value = EventPageUI.OnEventSubscribeSuccess
+                }
+                is Result.Error -> {
+                    _eventDetailsUI.value = EventPageUI.OnEventSubscribeError(result.exception)
+                }
+            }
+        }
+    }
 }
 
 sealed class EventPageUI {
 
     data class EventLoaded(val event: EventResponse) : EventPageUI()
     data class EventLoadError(val exception: Exception) : EventPageUI()
+
+    object OnEventSubscribeSuccess : EventPageUI()
+    data class OnEventSubscribeError(val exception: Exception) : EventPageUI()
 
 }
