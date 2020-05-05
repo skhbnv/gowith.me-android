@@ -121,10 +121,13 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
             likeCheckBox.isChecked = event.isLiked
 
             subscribeCount.text = getString(R.string.text_users_subscribed, event.subscriptionsCounter.toString())
-            Log.d("taaag", "mainViewModel.userInfo?.id = ${mainViewModel.userInfo?.id} , ${event.author.id}")
+            Log.d("taaag", "event.isSubscribed ${event.isSubscribed}")
             if (mainViewModel.userInfo?.id == event.author.id) {
                 subscribeOnEvent.visibility = View.GONE
                 joinToChat.visibility = View.GONE
+            }
+            if (event.isSubscribed) {
+                subscribeOnEvent.visibility = View.GONE
             }
         }
     }

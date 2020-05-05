@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.nearby_card.view.*
 import kotlinx.android.synthetic.main.nearby_card.view.date_time
 import kotlinx.android.synthetic.main.nearby_card.view.message
 import kotlinx.android.synthetic.main.nearby_card.view.title
-import kotlinx.android.synthetic.main.nearby_card.view.will_come
 import kotlinx.android.synthetic.main.poster_card.view.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat

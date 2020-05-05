@@ -18,11 +18,20 @@ interface IEventRepository {
     suspend fun uploadImage(image: File): Result<CreateEventImageResponse>
     suspend fun getEventDetails(id: Int): Result<EventResponse>
     suspend fun subscribeOnEvent(id: Int): Result<ResponseBody>
+
+    suspend fun getUpComingEvents() : Result<PagingResponse<EventResponse>>
+    suspend fun getNewEvents() : Result<PagingResponse<EventResponse>>
+    suspend fun getMostViewedEvents() : Result<PagingResponse<EventResponse>>
 }
 
 class EventRepository(
     private val service: EventService
 ) : IEventRepository {
+    override suspend fun getUpComingEvents(): Result<PagingResponse<EventResponse>> = apiCall { service.getEvents("start") }
+
+    override suspend fun getNewEvents(): Result<PagingResponse<EventResponse>> = apiCall { service.getEvents("created") }
+
+    override suspend fun getMostViewedEvents(): Result<PagingResponse<EventResponse>> = apiCall { service.getEvents("-view_counter") }
 
     override suspend fun getEvents(): Result<PagingResponse<EventResponse>> = apiCall { service.getEvents() }
 

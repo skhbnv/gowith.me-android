@@ -3,10 +3,14 @@ package com.example.gowithme.ui.home.adapter
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.gowithme.BuildConfig
 import com.example.gowithme.R
 import com.example.gowithme.data.models.response.EventResponse
+import com.example.gowithme.util.format
 import com.example.gowithme.util.inflate
-import kotlinx.android.synthetic.main.event_card.view.*
+import com.example.gowithme.util.toDate
+import kotlinx.android.synthetic.main.nearby_card.view.*
 
 class HorizontalEventRecyclerAdapter(
     private val events: List<EventResponse>
@@ -28,13 +32,18 @@ class HorizontalEventRecyclerAdapter(
     }
 
     inner class HorizontalEventViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val glide = Glide.with(itemView.context)
+
         fun bindView(event: EventResponse) {
             with(itemView) {
+                event.images.firstOrNull()?.image?.let { glide.load(BuildConfig.BASE_URL + it.substring(1)).into(full_size_poster) }
                 title.text = event.title
                 message.text = event.description
                 this.setOnClickListener {
                     onEventClickedListener?.invoke(event.id)
                 }
+                date_time.text = context?.getString(R.string.text_start_date, event.start.toDate().format("dd MMM, hh:mm"))
+                viewCounter.text = event.viewCounter.toString()
             }
         }
     }
