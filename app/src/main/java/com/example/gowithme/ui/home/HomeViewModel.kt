@@ -24,7 +24,22 @@ class HomeViewModel(var repository: IEventRepository) : ViewModel() {
             val upComing = async { repository.getUpComingEvents() }
             val new = async { repository.getNewEvents() }
             val most = async { repository.getMostViewedEvents() }
+
+            val special = async { repository.getSpecialEvents() }
+
             val list = ArrayList<NamedEventList>()
+            when (val result = special.await()) {
+                is Result.Success -> {
+                    Log.d("taaag", "Success ${result.data}")
+                    if (result.data.results.isNotEmpty()){
+                        list.add(NamedEventList("Специально для вас", result.data.results))
+                    }
+                }
+
+                is Result.Error -> {
+                    Log.d("taaag", "Error ${result.exception}")
+                }
+            }
             when (val result = most.await()) {
                 is Result.Success -> {
                     Log.d("taaag", "Success ${result.data}")

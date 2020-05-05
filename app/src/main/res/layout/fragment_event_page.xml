@@ -59,7 +59,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -127,8 +127,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
                 android:drawableStart="@drawable/date_time"
                 android:drawablePadding="8dp"
                 android:gravity="center"
@@ -137,6 +137,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="8 Feb, 08:30"/>
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Адресс"
+                android:textSize="16sp"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/primaryDarkText"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginStart="16dp"
+                />
+
+            <TextView
+                android:id="@+id/addressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/primaryDarkText"/>
 
             <TextView
                 android:id="@+id/description"
@@ -223,6 +242,8 @@
                 android:background="@drawable/categories_bg"
                 android:textAllCaps="false"
                 android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 />
 
             <Button
@@ -234,6 +255,8 @@
                 android:background="@drawable/categories_bg"
                 android:textAllCaps="false"
                 android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 />
 
             <fragment

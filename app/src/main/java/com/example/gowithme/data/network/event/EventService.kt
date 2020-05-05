@@ -14,6 +14,9 @@ interface EventService {
         @Query("ordering") ordering: String = ""
     ): PagingResponse<EventResponse>
 
+    @GET("api/v1/event/special")
+    suspend fun getSpecialEvents(): PagingResponse<EventResponse>
+
     @GET("api/v1/event/categories")
     suspend fun getCategories(): List<CategoryResponse>
 

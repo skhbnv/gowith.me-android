@@ -22,14 +22,17 @@ interface IEventRepository {
     suspend fun getUpComingEvents() : Result<PagingResponse<EventResponse>>
     suspend fun getNewEvents() : Result<PagingResponse<EventResponse>>
     suspend fun getMostViewedEvents() : Result<PagingResponse<EventResponse>>
+    suspend fun getSpecialEvents() : Result<PagingResponse<EventResponse>>
 }
 
 class EventRepository(
     private val service: EventService
 ) : IEventRepository {
+    override suspend fun getSpecialEvents(): Result<PagingResponse<EventResponse>> = apiCall { service.getSpecialEvents() }
+
     override suspend fun getUpComingEvents(): Result<PagingResponse<EventResponse>> = apiCall { service.getEvents("start") }
 
-    override suspend fun getNewEvents(): Result<PagingResponse<EventResponse>> = apiCall { service.getEvents("created") }
+    override suspend fun getNewEvents(): Result<PagingResponse<EventResponse>> = apiCall { service.getEvents("-created") }
 
     override suspend fun getMostViewedEvents(): Result<PagingResponse<EventResponse>> = apiCall { service.getEvents("-view_counter") }
 

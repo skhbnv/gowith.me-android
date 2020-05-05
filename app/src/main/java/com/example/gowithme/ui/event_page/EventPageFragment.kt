@@ -1,5 +1,6 @@
 package com.example.gowithme.ui.event_page
 
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -30,6 +31,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 class EventPageFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
@@ -39,6 +41,7 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
     }
 
     private lateinit var binding: FragmentEventPageBinding
+    private val geocoder by lazy { Geocoder(activity, Locale.getDefault()) }
 
     private val eventPageViewModel by viewModel<EventPageViewModel>()
     private val glide by lazy { Glide.with(requireContext()) }
@@ -103,7 +106,9 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
             title.text = event.title
             description.text = event.description
             viewCount.text = event.viewCounter.toString()
-            price.text = if(event.price == 0) root.context.getString(R.string.text_free) else {
+            price.text = if(event.price == 0) {
+                root.context.getString(R.string.text_price, root.context.getString(R.string.text_free))
+            } else {
                 root.context.getString(R.string.text_price, event.price.toString().tenge())
             }
             authorName.text = "${event.author.firstName} ${event.author.lastName}"
@@ -112,10 +117,13 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
             }
             startDate.text = context?.getString(R.string.text_start_date, event.start.toDate().format("dd MMM, hh:mm"))
             endDate.text = context?.getString(R.string.text_end_date, event.end.toDate().format("dd MMM, hh:mm"))
-            val sydney = LatLng(event.latitude, event.longitude)
-            mMap.addMarker(MarkerOptions().position(sydney).title("Здесь"))
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 13f))
+            val latLng = LatLng(event.latitude, event.longitude)
+            mMap.addMarker(MarkerOptions().position(latLng).title("Здесь"))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f))
             imageSlider.setSliderAdapter(eventImageSliderAdapter)
+
+            val address = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
+            addressText.text = address.first().getAddressLine(0)
 
             eventImageSliderAdapter.setImages(event.images)
             likeCheckBox.isChecked = event.isLiked
