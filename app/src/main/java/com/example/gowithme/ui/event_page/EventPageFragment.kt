@@ -58,6 +58,7 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_event_page, container, false)
         binding.executePendingBindings()
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = eventPageViewModel
 
         val mapFrag: SupportMapFragment =
@@ -75,10 +76,12 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
         with(binding) {
             subscribeOnEvent.setOnClickListener {
                 eventPageViewModel.subscribeOnEvent(eventId)
+                eventPageViewModel.getEventDetails(eventId)
                 if (mainViewModel.userInfo?.telegramUsername.isNullOrBlank()) {
                     showAlert(context, title = "Добавьте username телеграмма, чтобы присоедениться к чату события", ok = {})
                 }
             }
+            imageSlider.setSliderAdapter(eventImageSliderAdapter)
         }
     }
 
@@ -120,7 +123,6 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
             val latLng = LatLng(event.latitude, event.longitude)
             mMap.addMarker(MarkerOptions().position(latLng).title("Здесь"))
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f))
-            imageSlider.setSliderAdapter(eventImageSliderAdapter)
 
             val address = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
             addressText.text = address.first().getAddressLine(0)
