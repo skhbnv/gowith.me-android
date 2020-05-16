@@ -11,13 +11,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.gowithme.BuildConfig
+import com.example.gowithme.MainViewModel
 
 import com.example.gowithme.R
 import com.example.gowithme.data.network.event_list.EventListType
 import com.example.gowithme.data.network.user.UserListType
 import com.example.gowithme.data.network.user.UserListTypeEnum
 import com.example.gowithme.databinding.FragmentUserProfileDetailsBinding
+import com.example.gowithme.ui.user_profile.viewmodel.ProfileDetailsUI
 import com.example.gowithme.ui.user_profile.viewmodel.UserProfileViewModel
+import com.example.gowithme.util.showAlert
 import kotlinx.android.synthetic.main.fragment_user_profile_details.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Exception
@@ -28,6 +31,7 @@ class UserProfileDetailsFragment : Fragment() {
     private val userProfileViewModel by viewModel<UserProfileViewModel>()
     private val safeArgs by navArgs<UserProfileDetailsFragmentArgs>()
     private val userId by lazy { safeArgs.userId }
+    private val mainViewModel by viewModel<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,11 +78,32 @@ class UserProfileDetailsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        userProfileViewModel.profileDetailsUI.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is ProfileDetailsUI.ProfileDetailsLoadError -> {
+                    showAlert(context, message = getString(R.string.text_loading_error), ok = {})
+                }
+            }
+        })
+
         userProfileViewModel.profileInfo.observe(viewLifecycleOwner, Observer {
             it.images.firstOrNull()?.image?.let {
                 Glide.with(binding.root.context)
                     .load(BuildConfig.BASE_URL + it.substring(1))
                     .into(avatarImage)
+            }
+        })
+        mainViewModel.loginState.observe(viewLifecycleOwner, Observer {
+            with(binding) {
+                if(it) {
+                    followButton.setOnClickListener {
+                        userProfileViewModel.subscribeOrUnSubscribe(userId)
+                    }
+                } else {
+                    followButton.setOnClickListener {
+                        showAlert(context, message = getString(R.string.text_pls_auth), ok = {})
+                    }
+                }
             }
         })
     }

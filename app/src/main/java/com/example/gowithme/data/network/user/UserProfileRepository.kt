@@ -9,12 +9,15 @@ import com.example.gowithme.data.network.user.UserListType
 import com.example.gowithme.util.Result
 import com.example.gowithme.util.apiCall
 import kotlinx.coroutines.CoroutineScope
+import okhttp3.ResponseBody
 
 interface IUserProfileRepository {
 
     fun getUserList(listType: UserListType, scope: CoroutineScope) : LiveData<PagedList<ShortUserInfo>>
 
     suspend fun getUserProfileInfo(userId: Int) : Result<ProfileInfoResponse>
+    suspend fun subscribeOnUser(userId: Int) : Result<ResponseBody>
+    suspend fun unSubscribeFromUser(userId: Int) : Result<ResponseBody>
 }
 
 class UserProfileRepository(
@@ -27,5 +30,9 @@ class UserProfileRepository(
     }
 
     override suspend fun getUserProfileInfo(userId: Int): Result<ProfileInfoResponse> = apiCall { service.getUserProfileInfo(userId) }
+
+    override suspend fun subscribeOnUser(userId: Int): Result<ResponseBody> = apiCall { service.subscribeOnUser(userId) }
+
+    override suspend fun unSubscribeFromUser(userId: Int): Result<ResponseBody> = apiCall { service.unSubscribeFromUser(userId) }
 
 }

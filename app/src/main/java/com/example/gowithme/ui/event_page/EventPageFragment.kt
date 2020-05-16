@@ -73,13 +73,6 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        (activity as MainActivity).toolbar.setNavigationOnClickListener {
-            try {
-                findNavController().navigateUp()
-            } catch (e: Exception) {
-                e.stackTrace
-            }
-        }
         with(binding) {
             subscribeOnEvent.setOnClickListener {
                 eventPageViewModel.subscribeOnEvent(eventId)

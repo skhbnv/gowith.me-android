@@ -71,5 +71,11 @@
     <string name="title_most_viewed_list">Популярные</string>
     <string name="title_upcoming_list">Вот вот начнется</string>
     <string name="title_new_list">Новые</string>
+    <string name="text_pls_auth">Пожалуйста, авторизуйтесь</string>
+    <string name="text_loading_error">Извините произошла неизвестная ошибка. Попробуйте еще раз</string>
+
+    <string name="text_subscribe_on_user">Подписаться</string>
+    <string name="text_unsubscribe_from_user">Отписаться</string>
+
 
 </resources>

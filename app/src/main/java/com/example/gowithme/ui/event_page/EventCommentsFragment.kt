@@ -70,7 +70,7 @@ class EventCommentsFragment : Fragment() {
             with(binding) {
                 if (!it) {
                     send.setOnClickListener {
-                        showAlert(context, message = "Пожалуйста, авторизуйтесь", ok = {})
+                        showAlert(context, message = getString(R.string.text_pls_auth), ok = {})
                     }
                 } else {
                     send.setOnClickListener {

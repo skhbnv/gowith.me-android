@@ -30,7 +30,9 @@ data class ProfileInfoResponse(
     @SerializedName("saved_events_count")
     val savedEventsCount: Int,
     @SerializedName("telegram_username")
-    val telegramUsername: String
+    val telegramUsername: String,
+    @SerializedName("is_me_follower")
+    val isMeFollower: Boolean
 ) {
     val fullName get() = "$firstName $lastName"
 }
