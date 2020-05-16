@@ -36,11 +36,8 @@ class EventListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as MainActivity).toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
         setTitle()
-        eventListViewModel.loadEvents(eventListType)
+        eventListViewModel.loadEvents(eventListType, safeArgs.id)
 
         eventList.adapter = eventListPagedAdapter
 

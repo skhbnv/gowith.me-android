@@ -11,14 +11,14 @@ class EventListViewMode(
     private val repository: IEventListRepository
 ) : ViewModel() {
 
-    private val _eventListType = MutableLiveData<EventListType>()
+    private val _eventListType = MutableLiveData<Pair<EventListType, Int>>()
 
     val eventList = Transformations.switchMap(_eventListType) {
-        repository.getEventList(viewModelScope, it)
+        repository.getEventList(viewModelScope, it.first, it.second)
     }
 
-    fun loadEvents(eventListType: EventListType) {
-        _eventListType.value = eventListType
+    fun loadEvents(eventListType: EventListType, id: Int) {
+        _eventListType.value = eventListType to id
     }
 
 }

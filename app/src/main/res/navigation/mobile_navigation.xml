@@ -82,6 +82,10 @@
         <action
             android:id="@+id/action_eventListFragment_to_eventPageFragment"
             app:destination="@id/eventPageFragment" />
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
     <fragment
         android:id="@+id/eventPageFragment"
@@ -153,5 +157,18 @@
         <argument
             android:name="eventId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_userListFragment_to_userProfileDetailsFragment"
+            app:destination="@id/userProfileDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userProfileDetailsFragment"
+        android:name="com.example.gowithme.ui.user_profile.details.fragment.UserProfileDetailsFragment"
+        android:label="UserProfileDetailsFragment" >
+        <argument android:name="userId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_userProfileDetailsFragment_to_eventListFragment"
+            app:destination="@id/eventListFragment" />
     </fragment>
 </navigation>

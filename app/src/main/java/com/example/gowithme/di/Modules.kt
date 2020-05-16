@@ -14,7 +14,7 @@ import com.example.gowithme.ui.event_list.viewmodel.EventListViewMode
 import com.example.gowithme.ui.event_page.EventPageViewModel
 import com.example.gowithme.ui.home.HomeViewModel
 import com.example.gowithme.ui.profile.viewmodel.ProfileViewModel
-import com.example.gowithme.ui.user_profile.viewmodel.UserProfileListViewModel
+import com.example.gowithme.ui.user_profile.viewmodel.UserProfileViewModel
 import com.example.gowithme.util.PreferencesConst
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -84,7 +84,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        UserProfileListViewModel(get<UserProfileRepository>())
+        UserProfileViewModel(get<UserProfileRepository>())
     }
 
 }

@@ -12,7 +12,8 @@ import kotlinx.coroutines.launch
 class PagedKeyedEventDataSource(
     private val service: EventListService,
     private val scope: CoroutineScope,
-    private val eventListType: EventListType
+    private val eventListType: EventListType,
+    private val id: Int
 ) : PageKeyedDataSource<Int, EventResponse>() {
 
     override fun loadInitial(
@@ -20,7 +21,7 @@ class PagedKeyedEventDataSource(
         callback: LoadInitialCallback<Int, EventResponse>
     ) {
         scope.launch {
-            when (val result = getEventList(eventListType, 1)) {
+            when (val result = getEventList(eventListType, 1, id)) {
                 is Result.Success -> {
                     Log.d("taaag", "loadInitial Success")
                     callback.onResult(result.data.results, null, 2)
@@ -34,7 +35,7 @@ class PagedKeyedEventDataSource(
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, EventResponse>) {
         scope.launch {
-            when (val result = getEventList(eventListType, params.key)) {
+            when (val result = getEventList(eventListType, params.key, id)) {
                 is Result.Success -> {
                     Log.d("taaag", "loadAfter Success")
                     callback.onResult(result.data.results, params.key + 1)
@@ -49,7 +50,7 @@ class PagedKeyedEventDataSource(
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, EventResponse>) {}
 
-    private suspend fun getEventList(eventListType: EventListType, page: Int) = when (eventListType) {
+    private suspend fun getEventList(eventListType: EventListType, page: Int, id: Int) = when (eventListType) {
         EventListType.VIEWED_EVENTS -> apiCall { service.getViewEvents(page) }
         EventListType.MY_EVENTS -> apiCall { service.getMyEvents(page) }
         EventListType.SAVED_EVENTS -> apiCall { service.getSavedEvents(page) }
@@ -58,15 +59,17 @@ class PagedKeyedEventDataSource(
         EventListType.MOST_VIEWED -> apiCall { service.getEvents(page, "-view_counter") }
         EventListType.SPECIAL -> apiCall { service.getSpecialEvents(page) }
         EventListType.UPCOMING -> apiCall { service.getEvents(page, "start") }
+        EventListType.USER_EVENTS -> apiCall { service.getUserEvents(id, page) }
     }
 
     class EventDataSourceFactory(
         private val service: EventListService,
         private val scope: CoroutineScope,
-        private val eventListType: EventListType
+        private val eventListType: EventListType,
+        private val id: Int
     ): DataSource.Factory<Int, EventResponse>() {
         override fun create(): DataSource<Int, EventResponse> {
-            return PagedKeyedEventDataSource(service, scope, eventListType)
+            return PagedKeyedEventDataSource(service, scope, eventListType, id)
         }
     }
 }

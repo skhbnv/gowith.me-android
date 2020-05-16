@@ -1,7 +1,7 @@
 package com.example.gowithme.data.network.main
 
 import android.content.SharedPreferences
-import com.example.gowithme.data.models.response.MyInfoResponse
+import com.example.gowithme.data.models.response.ProfileInfoResponse
 import com.example.gowithme.data.network.profile.ProfileService
 import com.example.gowithme.util.PreferencesConst
 import com.example.gowithme.util.Result
@@ -12,10 +12,10 @@ interface IMainRepository {
 
     fun getAccessToken(): String
     fun removeTokens()
-    fun saveMyInfo(info: MyInfoResponse)
-    fun getMyInfoLocal() : MyInfoResponse?
+    fun saveMyInfo(info: ProfileInfoResponse)
+    fun getMyInfoLocal() : ProfileInfoResponse?
 
-    suspend fun getMyInfo(): Result<MyInfoResponse>
+    suspend fun getMyInfo(): Result<ProfileInfoResponse>
 
 }
 
@@ -23,18 +23,18 @@ class MainRepository(
     private val pref: SharedPreferences,
     private val profileService: ProfileService
 ) : IMainRepository {
-    override fun getMyInfoLocal(): MyInfoResponse? {
+    override fun getMyInfoLocal(): ProfileInfoResponse? {
         val json = pref.getString(PreferencesConst.PROFILE_INFO, null)
-        return if (json != null) Gson().fromJson(json, MyInfoResponse::class.java) else null
+        return if (json != null) Gson().fromJson(json, ProfileInfoResponse::class.java) else null
     }
 
-    override fun saveMyInfo(info: MyInfoResponse) {
+    override fun saveMyInfo(info: ProfileInfoResponse) {
         pref.edit().putString(PreferencesConst.PROFILE_INFO, Gson().toJson(info)).apply()
     }
 
 
 
-    override suspend fun getMyInfo(): Result<MyInfoResponse> = apiCall { profileService.getMyInfo() }
+    override suspend fun getMyInfo(): Result<ProfileInfoResponse> = apiCall { profileService.getMyInfo() }
 
 
     override fun getAccessToken(): String =

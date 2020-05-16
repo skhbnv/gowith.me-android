@@ -42,6 +42,12 @@
     <string name="text_my_followers">Мои подписчики (%1$s)</string>
     <string name="text_my_following">Мои подписки (%1$s)</string>
     <string name="text_my_events">Мои ивенты (%1$s)</string>
+
+    <string name="text_followers">Подписчики (%1$s)</string>
+    <string name="text_following">Подписки (%1$s)</string>
+    <string name="text_events">Ивенты (%1$s)</string>
+
+
     <string name="text_saved_events">Сохраненные ивенты (%1$s)</string>
     <string name="text_notifications">Уведомления</string>
     <string name="text_email">email: %1$s</string>

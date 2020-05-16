@@ -7,5 +7,6 @@ enum class EventListType {
     NEW,
     MOST_VIEWED,
     SPECIAL,
-    UPCOMING
+    UPCOMING,
+    USER_EVENTS
 }

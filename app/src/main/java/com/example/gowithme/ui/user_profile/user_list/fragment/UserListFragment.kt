@@ -8,19 +8,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentUserListBinding
 import com.example.gowithme.ui.user_profile.user_list.adapter.UserListPagedAdapter
-import com.example.gowithme.ui.user_profile.viewmodel.UserProfileListViewModel
+import com.example.gowithme.ui.user_profile.viewmodel.UserProfileViewModel
+import java.lang.Exception
 
 class UserListFragment : Fragment() {
 
     private lateinit var binding: FragmentUserListBinding
-    private val userListPagedAdapter by lazy { UserListPagedAdapter() }
-    private val viewModel by viewModel<UserProfileListViewModel>()
+    private val onProfileClicked : (Int) -> Unit = { userId ->
+        val direction = UserListFragmentDirections.actionUserListFragmentToUserProfileDetailsFragment(userId)
+        try {
+            findNavController().navigate(direction)
+        } catch (e: Exception) {
+            e.stackTrace
+        }
+    }
+    private val userListPagedAdapter by lazy { UserListPagedAdapter(onProfileClicked) }
+    private val viewModel by viewModel<UserProfileViewModel>()
     private val safeArgs by navArgs<UserListFragmentArgs>()
     private val eventId by lazy { safeArgs.eventId }
 

@@ -13,8 +13,9 @@ import com.example.gowithme.data.models.response.ShortUserInfo
 import com.example.gowithme.databinding.ItemShortUserProfileBinding
 import com.example.gowithme.util.inflateBinding
 
-class UserListPagedAdapter :
-    PagedListAdapter<ShortUserInfo, UserListPagedAdapter.ViewHolder>(USER_COMPARATOR) {
+class UserListPagedAdapter(
+    private val onProfileClicked : (Int) -> Unit
+) : PagedListAdapter<ShortUserInfo, UserListPagedAdapter.ViewHolder>(USER_COMPARATOR) {
 
     companion object {
         private val USER_COMPARATOR = object : DiffUtil.ItemCallback<ShortUserInfo>() {
@@ -43,6 +44,9 @@ class UserListPagedAdapter :
                 if (userInfo != null) {
                     name.text = "${userInfo.firstName} ${userInfo.lastName}"
                     userInfo.image?.image?.let { glide.load(BuildConfig.BASE_URL + it.substring(1)).into(avatar) }
+                    root.setOnClickListener {
+                        onProfileClicked.invoke(userInfo.id)
+                    }
                 }
             }
         }
