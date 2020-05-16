@@ -31,6 +31,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.Exception
 import java.util.*
 
 class EventPageFragment : Fragment(), OnMapReadyCallback {
@@ -71,7 +72,11 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         (activity as MainActivity).toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            try {
+                findNavController().navigateUp()
+            } catch (e: Exception) {
+                e.stackTrace
+            }
         }
         with(binding) {
             subscribeOnEvent.setOnClickListener {

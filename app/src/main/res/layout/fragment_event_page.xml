@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.gowithme.ui.event_page.EventPageViewModel" />
@@ -12,12 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,18 +28,19 @@
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/primaryDarkText"
-                    android:fontFamily="sans-serif-medium"
-                    android:textSize="24sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    tools:text="asdasdasdsad"/>
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/primaryDarkText"
+                    android:textSize="24sp"
+                    tools:text="asdasdasdsad" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <com.smarteist.autoimageslider.SliderView
                         android:id="@+id/imageSlider"
                         android:layout_width="match_parent"
@@ -72,12 +72,12 @@
                         android:id="@+id/likeCheckBox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
                         android:background="@drawable/bg_like"
                         android:button="@null"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/imageSlider"/>
+                        app:layout_constraintTop_toBottomOf="@id/imageSlider" />
 
                     <TextView
                         android:id="@+id/viewCount"
@@ -108,51 +108,48 @@
                 </LinearLayout>
 
 
-
-
                 <TextView
                     android:id="@+id/startDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginStart="16dp"
                     android:drawableStart="@drawable/date_time"
                     android:drawablePadding="8dp"
                     android:gravity="center"
                     android:textColor="@color/primaryDarkText"
-                    app:layout_constraintTop_toBottomOf="@id/likeCheckBox"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:text="8 Feb, 08:30"/>
+                    app:layout_constraintTop_toBottomOf="@id/likeCheckBox"
+                    tools:text="8 Feb, 08:30" />
 
                 <TextView
                     android:id="@+id/endDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginStart="16dp"
                     android:layout_marginBottom="8dp"
                     android:drawableStart="@drawable/date_time"
                     android:drawablePadding="8dp"
                     android:gravity="center"
                     android:textColor="@color/primaryDarkText"
-                    app:layout_constraintTop_toBottomOf="@id/startDate"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:text="8 Feb, 08:30"/>
+                    app:layout_constraintTop_toBottomOf="@id/startDate"
+                    tools:text="8 Feb, 08:30" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Адресс"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="16dp"
-                    android:textColor="@color/primaryDarkText"
-                    android:fontFamily="sans-serif-medium"
                     android:layout_marginStart="16dp"
-                    />
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Адресс"
+                    android:textColor="@color/primaryDarkText"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/addressText"
@@ -160,60 +157,59 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:textColor="@color/primaryDarkText"/>
+                    android:textColor="@color/primaryDarkText" />
 
                 <TextView
                     android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@id/authorImage"
-                    android:textColor="@color/primaryDarkText"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    tools:text="assssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"/>
+                    android:textColor="@color/primaryDarkText"
+                    app:layout_constraintTop_toBottomOf="@id/authorImage"
+                    tools:text="assssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" />
 
 
                 <TextView
                     android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/text_price"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
+                    android:text="@string/text_price"
                     android:textColor="@color/primaryDarkText"
-                    app:layout_constraintTop_toBottomOf="@id/description"
                     app:layout_constraintStart_toStartOf="parent"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/description" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/primaryDarkText"
-                    android:fontFamily="sans-serif-medium"
-                    android:layout_marginBottom="8dp"
-                    android:textSize="16sp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="Автор"/>
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Автор"
+                    android:textColor="@color/primaryDarkText"
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginBottom="16dp"
-                    android:gravity="bottom">
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/authorImage"
                         android:layout_width="44dp"
                         android:layout_height="44dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
-                        app:layout_constraintTop_toBottomOf="@id/endDate"
                         app:layout_constraintStart_toStartOf="parent"
-                        />
+                        app:layout_constraintTop_toBottomOf="@id/endDate" />
 
                     <TextView
                         android:id="@+id/authorName"
@@ -221,10 +217,10 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/primaryDarkText"
                         android:textSize="18sp"
-                        app:layout_constraintStart_toEndOf="@id/authorImage"
                         app:layout_constraintBottom_toBottomOf="@id/authorImage"
+                        app:layout_constraintStart_toEndOf="@id/authorImage"
                         app:layout_constraintTop_toTopOf="@id/authorImage"
-                        tools:text="Kuanysh Sultan"/>
+                        tools:text="Kuanysh Sultan" />
                 </LinearLayout>
 
 
@@ -232,57 +228,55 @@
                     android:id="@+id/categories"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/price"
                     android:layout_marginBottom="16dp"
-                    app:flexWrap="wrap"
+                    app:alignContent="stretch"
                     app:alignItems="stretch"
-                    app:alignContent="stretch"/>
+                    app:flexWrap="wrap"
+                    app:layout_constraintTop_toBottomOf="@id/price" />
 
                 <Button
                     android:id="@+id/subscribeOnEvent"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:textColor="@color/white"
-                    android:text="Подписаться"
-                    android:background="@drawable/categories_bg"
-                    android:textAllCaps="false"
-                    android:layout_marginBottom="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    />
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/categories_bg"
+                    android:text="Подписаться"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/joinToChat"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:textColor="@color/white"
-                    android:text="Присоедениться к чату"
-                    android:background="@drawable/categories_bg"
-                    android:textAllCaps="false"
-                    android:layout_marginBottom="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    />
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/categories_bg"
+                    android:text="Присоедениться к чату"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
 
                 <fragment
                     android:id="@+id/eventMap"
                     android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    app:layout_constraintTop_toBottomOf="@id/categories"/>
+                    app:layout_constraintTop_toBottomOf="@id/categories" />
 
                 <Button
                     android:id="@+id/comments"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:textColor="@color/white"
-                    android:text="Комментарии"
-                    android:background="@drawable/categories_bg"
-                    android:textAllCaps="false"
-                    android:layout_marginBottom="16dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    />
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/categories_bg"
+                    android:text="Комментарии"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
         </ScrollView>

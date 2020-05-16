@@ -11,10 +11,12 @@ import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import com.example.gowithme.MainViewModel
 
 import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentEventCommentsBinding
 import com.example.gowithme.ui.event_page.adapter.CommentRecyclerAdapter
+import com.example.gowithme.util.showAlert
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -25,6 +27,7 @@ class EventCommentsFragment : Fragment() {
     private val safeArgs by navArgs<EventCommentsFragmentArgs>()
     private val eventId by lazy { safeArgs.eventId }
     private val eventPageViewModel by viewModel<EventPageViewModel>()
+    private val mainViewModel by viewModel<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,12 +43,7 @@ class EventCommentsFragment : Fragment() {
         eventPageViewModel.getComments(eventId)
         with(binding) {
             commentList.adapter = commentRecyclerAdapter
-            send.setOnClickListener {
-                Log.d("taaag", comment.text.toString())
-                if (comment.text.toString().isNotBlank()) {
-                    eventPageViewModel.postComment(eventId, comment.text.toString())
-                }
-            }
+
         }
     }
 
@@ -64,6 +62,23 @@ class EventCommentsFragment : Fragment() {
                     binding.comment.setText("")
                     val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(view?.windowToken, 0)
+                }
+            }
+        })
+
+        mainViewModel.loginState.observe(viewLifecycleOwner, Observer {
+            with(binding) {
+                if (!it) {
+                    send.setOnClickListener {
+                        showAlert(context, message = "Пожалуйста, авторизуйтесь", ok = {})
+                    }
+                } else {
+                    send.setOnClickListener {
+                        Log.d("taaag", comment.text.toString())
+                        if (comment.text.toString().isNotBlank()) {
+                            eventPageViewModel.postComment(eventId, comment.text.toString())
+                        }
+                    }
                 }
             }
         })
