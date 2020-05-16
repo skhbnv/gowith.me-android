@@ -32,7 +32,7 @@ class UserListFragment : Fragment() {
     private val userListPagedAdapter by lazy { UserListPagedAdapter(onProfileClicked) }
     private val viewModel by viewModel<UserProfileViewModel>()
     private val safeArgs by navArgs<UserListFragmentArgs>()
-    private val eventId by lazy { safeArgs.eventId }
+    private val listType by lazy { safeArgs.listType }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +45,7 @@ class UserListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getEventSubscribers(eventId)
+        viewModel.getEventSubscribers(listType)
 
         with(binding) {
             recycler.adapter = userListPagedAdapter

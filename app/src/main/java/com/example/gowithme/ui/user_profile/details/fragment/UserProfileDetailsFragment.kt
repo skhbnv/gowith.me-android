@@ -14,6 +14,8 @@ import com.example.gowithme.BuildConfig
 
 import com.example.gowithme.R
 import com.example.gowithme.data.network.event_list.EventListType
+import com.example.gowithme.data.network.user.UserListType
+import com.example.gowithme.data.network.user.UserListTypeEnum
 import com.example.gowithme.databinding.FragmentUserProfileDetailsBinding
 import com.example.gowithme.ui.user_profile.viewmodel.UserProfileViewModel
 import kotlinx.android.synthetic.main.fragment_user_profile_details.*
@@ -55,6 +57,16 @@ class UserProfileDetailsFragment : Fragment() {
                 } catch (e: Exception) {
                     e.stackTrace
                 }
+            }
+            followers.setOnClickListener {
+                val direction = UserProfileDetailsFragmentDirections
+                    .actionUserProfileDetailsFragmentToUserListFragment(UserListType(UserListTypeEnum.USER_FOLLOWERS, userId))
+                findNavController().navigate(direction)
+            }
+            following.setOnClickListener {
+                val direction = UserProfileDetailsFragmentDirections
+                    .actionUserProfileDetailsFragmentToUserListFragment(UserListType(UserListTypeEnum.USER_FOLLOWING, userId))
+                findNavController().navigate(direction)
             }
         }
     }

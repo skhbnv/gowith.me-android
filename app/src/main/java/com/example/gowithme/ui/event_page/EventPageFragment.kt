@@ -19,6 +19,8 @@ import com.example.gowithme.R
 import com.example.gowithme.data.models.response.EventResponse
 import com.example.gowithme.databinding.FragmentEventPageBinding
 import com.example.gowithme.ui.event_page.adapter.EventImageSliderAdapter
+import com.example.gowithme.data.network.user.UserListType
+import com.example.gowithme.data.network.user.UserListTypeEnum
 import com.example.gowithme.util.format
 import com.example.gowithme.util.showAlert
 import com.example.gowithme.util.tenge
@@ -98,7 +100,12 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
             }
 
             subscribeCount.setOnClickListener {
-                val direction = EventPageFragmentDirections.actionEventPageFragmentToUserListFragment(eventId)
+                val userListType =
+                    UserListType(
+                        UserListTypeEnum.EVENT_SUBSCRIBERS,
+                        eventId
+                    )
+                val direction = EventPageFragmentDirections.actionEventPageFragmentToUserListFragment(userListType)
                 try {
                     findNavController().navigate(direction)
                 } catch (e: Exception) {

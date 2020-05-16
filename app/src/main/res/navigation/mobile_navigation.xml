@@ -42,6 +42,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_nav_profile_to_userListFragment"
+            app:destination="@id/userListFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_loginFragment"
@@ -154,12 +157,12 @@
         android:id="@+id/userListFragment"
         android:name="com.example.gowithme.ui.user_profile.user_list.fragment.UserListFragment"
         android:label="UserListFragment" >
-        <argument
-            android:name="eventId"
-            app:argType="integer" />
         <action
             android:id="@+id/action_userListFragment_to_userProfileDetailsFragment"
             app:destination="@id/userProfileDetailsFragment" />
+        <argument
+            android:name="listType"
+            app:argType="com.example.gowithme.data.network.user.UserListType" />
     </fragment>
     <fragment
         android:id="@+id/userProfileDetailsFragment"
@@ -170,5 +173,8 @@
         <action
             android:id="@+id/action_userProfileDetailsFragment_to_eventListFragment"
             app:destination="@id/eventListFragment" />
+        <action
+            android:id="@+id/action_userProfileDetailsFragment_to_userListFragment"
+            app:destination="@id/userListFragment" />
     </fragment>
 </navigation>

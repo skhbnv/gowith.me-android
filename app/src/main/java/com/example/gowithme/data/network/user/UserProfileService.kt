@@ -15,9 +15,32 @@ interface UserProfileService {
         @Query("page") page: Int
     ): PagingResponse<ShortUserInfo>
 
+    @GET("api/v1/account/me/following")
+    suspend fun getMyFollowing(
+        @Query("page") page: Int
+    ): PagingResponse<ShortUserInfo>
+
+    @GET("api/v1/account/me/followers")
+    suspend fun getMyFollowers(
+        @Query("page") page: Int
+    ): PagingResponse<ShortUserInfo>
+
+
     @GET("api/v1/account/profile/{id}")
     suspend fun getUserProfileInfo(
         @Path("id") id: Int
     ) : ProfileInfoResponse
+
+    @GET("api/v1/account/profile/{id}/followers")
+    suspend fun getUserFollowers(
+        @Path("id") id: Int,
+        @Query("page") page: Int
+    ): PagingResponse<ShortUserInfo>
+
+    @GET("api/v1/account/profile/{id}/following")
+    suspend fun getUserFollowing(
+        @Path("id") id: Int,
+        @Query("page") page: Int
+    ): PagingResponse<ShortUserInfo>
 
 }

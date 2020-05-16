@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class PagedKeyedUserProfileDataSource(
-    private val eventId: Int,
+    private val listType: UserListType,
     private val service: UserProfileService,
     private val scope: CoroutineScope
 ) : PageKeyedDataSource<Int, ShortUserInfo>() {
@@ -45,15 +45,23 @@ class PagedKeyedUserProfileDataSource(
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, ShortUserInfo>) {}
 
-    private suspend fun getEventSubscribers(page: Int) = apiCall { service.getEventSubscribers(eventId, page) }
+    private suspend fun getEventSubscribers(page: Int) = when(listType.type) {
+        UserListTypeEnum.EVENT_SUBSCRIBERS -> apiCall { service.getEventSubscribers(listType.id, page) }
+        UserListTypeEnum.MY_FOLLOWERS -> apiCall { service.getMyFollowers(page) }
+        UserListTypeEnum.MY_FOLLOWING -> apiCall { service.getMyFollowing(page) }
+        UserListTypeEnum.USER_FOLLOWERS -> apiCall { service.getUserFollowers(listType.id, page) }
+        UserListTypeEnum.USER_FOLLOWING -> apiCall { service.getUserFollowing(listType.id, page) }
+    }
+
+
 
     class Factory(
-        private val eventId: Int,
+        private val listType: UserListType,
         private val service: UserProfileService,
         private val scope: CoroutineScope
     ) : DataSource.Factory<Int, ShortUserInfo>() {
         override fun create(): DataSource<Int, ShortUserInfo> {
-            return PagedKeyedUserProfileDataSource(eventId, service, scope)
+            return PagedKeyedUserProfileDataSource(listType, service, scope)
         }
     }
 }

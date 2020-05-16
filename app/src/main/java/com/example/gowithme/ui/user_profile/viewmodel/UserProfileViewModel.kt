@@ -3,6 +3,7 @@ package com.example.gowithme.ui.user_profile.viewmodel
 import androidx.lifecycle.*
 import com.example.gowithme.data.models.response.ProfileInfoResponse
 import com.example.gowithme.data.network.user.IUserProfileRepository
+import com.example.gowithme.data.network.user.UserListType
 import com.example.gowithme.util.Result
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -11,14 +12,14 @@ class UserProfileViewModel(
     private val repository: IUserProfileRepository
 ) : ViewModel() {
 
-    private val _eventId = MutableLiveData<Int>()
+    private val _eventId = MutableLiveData<UserListType>()
 
     val usersList = Transformations.switchMap(_eventId) {
-        repository.getEventSubscribersList(it, viewModelScope)
+        repository.getUserList(it, viewModelScope)
     }
 
-    fun getEventSubscribers(eventId: Int) {
-        _eventId.value = eventId
+    fun getEventSubscribers(listType: UserListType) {
+        _eventId.value = listType
     }
 
     // ------------------------- Profile details ------------------------------------
