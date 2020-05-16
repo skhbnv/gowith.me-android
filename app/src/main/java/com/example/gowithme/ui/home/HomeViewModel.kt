@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.example.gowithme.data.models.response.EventResponse
 import com.example.gowithme.data.network.ApiRepository
 import com.example.gowithme.data.network.event.IEventRepository
+import com.example.gowithme.data.network.event_list.EventListType
 import com.example.gowithme.responses.GeneralEvents
 import com.example.gowithme.ui.home.model.NamedEventList
 import com.example.gowithme.util.Result
@@ -32,7 +33,7 @@ class HomeViewModel(var repository: IEventRepository) : ViewModel() {
                 is Result.Success -> {
                     Log.d("taaag", "Success ${result.data}")
                     if (result.data.results.isNotEmpty()){
-                        list.add(NamedEventList("Специально для вас", result.data.results))
+                        list.add(NamedEventList(EventListType.SPECIAL, "Специально для вас", result.data.results))
                     }
                 }
 
@@ -43,7 +44,7 @@ class HomeViewModel(var repository: IEventRepository) : ViewModel() {
             when (val result = most.await()) {
                 is Result.Success -> {
                     Log.d("taaag", "Success ${result.data}")
-                    list.add(NamedEventList("Популярные", result.data.results))
+                    list.add(NamedEventList(EventListType.MOST_VIEWED, "Популярные", result.data.results))
                 }
 
                 is Result.Error -> {
@@ -53,7 +54,7 @@ class HomeViewModel(var repository: IEventRepository) : ViewModel() {
             when (val result = upComing.await()) {
                 is Result.Success -> {
                     Log.d("taaag", "Success ${result.data}")
-                    list.add(NamedEventList("Вот вот начнется", result.data.results))
+                    list.add(NamedEventList(EventListType.UPCOMING, "Вот вот начнется", result.data.results))
                 }
 
                 is Result.Error -> {
@@ -63,7 +64,7 @@ class HomeViewModel(var repository: IEventRepository) : ViewModel() {
             when (val result = new.await()) {
                 is Result.Success -> {
                     Log.d("taaag", "Success ${result.data}")
-                    list.add(NamedEventList("Новые", result.data.results))
+                    list.add(NamedEventList(EventListType.NEW, "Новые", result.data.results))
                 }
 
                 is Result.Error -> {

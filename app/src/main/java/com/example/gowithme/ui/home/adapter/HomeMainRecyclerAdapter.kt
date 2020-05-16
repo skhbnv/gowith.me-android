@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gowithme.R
 import com.example.gowithme.data.models.response.EventResponse
+import com.example.gowithme.data.network.event_list.EventListType
 import com.example.gowithme.ui.home.model.NamedEventList
 import com.example.gowithme.util.inflate
 import kotlinx.android.synthetic.main.item_home_main.view.*
@@ -14,6 +15,7 @@ class HomeMainRecyclerAdapter: RecyclerView.Adapter<HomeMainRecyclerAdapter.Home
     private val viewPool by lazy { RecyclerView.RecycledViewPool() }
     private val eventLists = ArrayList<NamedEventList>()
     private var onEventClickedListener: ((Int) -> Unit)? = null
+    var onAllButtonClicked: ((EventListType) -> Unit)? = null
 
     fun setOnEventClickedListener(listener: (Int) -> Unit) {
         onEventClickedListener = listener
@@ -31,17 +33,24 @@ class HomeMainRecyclerAdapter: RecyclerView.Adapter<HomeMainRecyclerAdapter.Home
     override fun getItemCount(): Int = eventLists.size
 
     override fun onBindViewHolder(holder: HomeRecyclerViewHolder, position: Int) {
-        holder.bindView(eventLists[position].name, eventLists[position].events)
+        holder.bindView(eventLists[position])
     }
 
     inner class HomeRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(eventsName: String, events: List<EventResponse>) {
+        fun bindView(namedEventList: NamedEventList) {
             with(itemView) {
-                title.text = eventsName
+                title.text = when(namedEventList.type) {
+                    EventListType.SPECIAL -> context.getString(R.string.title_special_list)
+                    EventListType.MOST_VIEWED -> context.getString(R.string.title_most_viewed_list)
+                    EventListType.UPCOMING -> context.getString(R.string.title_upcoming_list)
+                    EventListType.NEW -> context.getString(R.string.title_new_list)
+                    else -> context.getString(R.string.title_event_list)
+                }
                 innerRecycler.setRecycledViewPool(viewPool)
-                innerRecycler.adapter = HorizontalEventRecyclerAdapter(events).apply {
+                innerRecycler.adapter = HorizontalEventRecyclerAdapter(namedEventList.events).apply {
                     setOnEventClickedListener { onEventClickedListener?.invoke(it) }
                 }
+                allButton.setOnClickListener { onAllButtonClicked?.invoke(namedEventList.type) }
             }
         }
     }

@@ -54,9 +54,10 @@ class PagedKeyedEventDataSource(
         EventListType.MY_EVENTS -> apiCall { service.getMyEvents(page) }
         EventListType.SAVED_EVENTS -> apiCall { service.getSavedEvents(page) }
 
-        EventListType.POPULAR -> apiCall { service.getViewEvents(page) }
-        EventListType.NEW -> apiCall { service.getViewEvents(page) }
-        EventListType.MOST_VIEWED -> apiCall { service.getViewEvents(page) }
+        EventListType.NEW -> apiCall { service.getEvents(page, "-created") }
+        EventListType.MOST_VIEWED -> apiCall { service.getEvents(page, "-view_counter") }
+        EventListType.SPECIAL -> apiCall { service.getSpecialEvents(page) }
+        EventListType.UPCOMING -> apiCall { service.getEvents(page, "start") }
     }
 
     class EventDataSourceFactory(

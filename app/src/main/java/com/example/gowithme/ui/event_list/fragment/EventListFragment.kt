@@ -57,9 +57,11 @@ class EventListFragment : Fragment() {
             EventListType.MY_EVENTS -> getString(R.string.title_event_list_my_events)
             EventListType.SAVED_EVENTS ->getString(R.string.title_event_list_saved_events)
 
-            EventListType.POPULAR -> getString(R.string.title_event_list)
-            EventListType.NEW -> getString(R.string.title_event_list)
-            EventListType.MOST_VIEWED -> getString(R.string.title_event_list)
+            EventListType.SPECIAL -> getString(R.string.title_special_list)
+            EventListType.MOST_VIEWED -> getString(R.string.title_most_viewed_list)
+            EventListType.UPCOMING -> getString(R.string.title_upcoming_list)
+            EventListType.NEW -> getString(R.string.title_new_list)
+            else -> getString(R.string.title_event_list)
         }
     }
 

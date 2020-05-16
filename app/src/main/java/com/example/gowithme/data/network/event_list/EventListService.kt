@@ -23,4 +23,15 @@ interface EventListService {
         @Query("page") page : Int
     ) : PagingResponse<EventResponse>
 
+    @GET("api/v1/event/special")
+    suspend fun getSpecialEvents(
+        @Query("page") page : Int
+    ): PagingResponse<EventResponse>
+
+    @GET("api/v1/event/all")
+    suspend fun getEvents(
+        @Query("page") page : Int,
+        @Query("ordering") ordering: String = ""
+    ): PagingResponse<EventResponse>
+
 }

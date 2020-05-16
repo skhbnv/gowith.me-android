@@ -8,17 +8,20 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.gowithme.ui.home.HomeFragment"
-        android:label="Home"
+        android:label="Главная"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_nav_home_to_eventPageFragment"
             app:destination="@id/eventPageFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_eventListFragment"
+            app:destination="@id/eventListFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.gowithme.ui.auth.fragment.LoginFragment"
-        android:label="LoginFragment" >
+        android:label="Вход" >
         <argument
             android:name="next"
             app:argType="integer" />
@@ -31,7 +34,7 @@
     <fragment
         android:id="@+id/nav_profile"
         android:name="com.example.gowithme.ui.profile.fragment.ProfileFragment"
-        android:label="ProfileFragment" >
+        android:label="Профиль" >
         <action
             android:id="@+id/action_nav_profile_to_eventListFragment"
             app:destination="@id/eventListFragment"
@@ -55,7 +58,7 @@
         <fragment
             android:id="@+id/createNewEventFragment"
             android:name="com.example.gowithme.ui.create_new_event.fragment.CreateNewEventFragment"
-            android:label="CreateNewEventFragment">
+            android:label="Создание события">
             <action
                 android:id="@+id/action_nav_create_new_event_to_mapAddressFragment"
                 app:destination="@id/mapAddressFragment" />
@@ -66,12 +69,12 @@
         <dialog
             android:id="@+id/categorySelectionDialogFragment"
             android:name="com.example.gowithme.ui.create_new_event.fragment.CategorySelectionDialogFragment"
-            android:label="CategorySelectionDialogFragment" />
+            android:label="Выбор категории" />
     </navigation>
     <fragment
         android:id="@+id/eventListFragment"
         android:name="com.example.gowithme.ui.event_list.fragment.EventListFragment"
-        android:label="fragment_event_list"
+        android:label="@string/title_event_list"
         tools:layout="@layout/fragment_event_list" >
         <argument
             android:name="eventListType"
@@ -83,7 +86,7 @@
     <fragment
         android:id="@+id/eventPageFragment"
         android:name="com.example.gowithme.ui.event_page.EventPageFragment"
-        android:label="EventPageFragment" >
+        android:label="Событие" >
         <argument
             android:name="eventId"
             app:argType="integer" />
@@ -91,20 +94,13 @@
             android:id="@+id/action_eventPageFragment_to_eventCommentsFragment"
             app:destination="@id/eventCommentsFragment" />
     </fragment>
-    <action
-        android:id="@+id/action_global_eventPageFragment"
-        app:destination="@id/eventPageFragment"
-        app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"
-        app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right" />
     <navigation
         android:id="@+id/registration"
         app:startDestination="@id/checkPhoneFragment" >
         <fragment
             android:id="@+id/confirmPhoneFragment"
             android:name="com.example.gowithme.ui.auth.fragment.ConfirmPhoneFragment"
-            android:label="ConfirmPhoneFragment">
+            android:label="Регистрация">
             <action
                 android:id="@+id/action_confirmPhoneFragment_to_registerFragment"
                 app:destination="@id/registerFragment"
@@ -114,7 +110,7 @@
         <fragment
             android:id="@+id/checkPhoneFragment"
             android:name="com.example.gowithme.ui.auth.fragment.CheckPhoneFragment"
-            android:label="CheckPhoneFragment">
+            android:label="Регистрация">
             <action
                 android:id="@+id/action_checkPhoneFragment_to_confirmPhoneFragment"
                 app:destination="@id/confirmPhoneFragment"
@@ -128,7 +124,7 @@
         <fragment
             android:id="@+id/registerFragment"
             android:name="com.example.gowithme.ui.auth.fragment.RegisterFragment"
-            android:label="RegisterFragment" >
+            android:label="Регистрация" >
             <action
                 android:id="@+id/action_registerFragment_to_favCategorySelectionDialogFragment"
                 app:destination="@id/favCategorySelectionDialogFragment" />
@@ -136,12 +132,12 @@
         <dialog
             android:id="@+id/favCategorySelectionDialogFragment"
             android:name="com.example.gowithme.ui.auth.fragment.FavCategorySelectionDialogFragment"
-            android:label="FavCategorySelectionDialogFragment" />
+            android:label="Регистрация" />
     </navigation>
     <fragment
         android:id="@+id/eventCommentsFragment"
         android:name="com.example.gowithme.ui.event_page.EventCommentsFragment"
-        android:label="fragment_event_comments"
+        android:label="Комментарии"
         tools:layout="@layout/fragment_event_comments" >
         <argument
             android:name="eventId"

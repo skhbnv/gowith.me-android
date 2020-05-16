@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.fragment_create_new_event.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.Exception
 import kotlin.math.log
 
 class HomeFragment : Fragment() {
@@ -60,7 +61,18 @@ class HomeFragment : Fragment() {
             rv_parent.adapter = homeMainRecyclerAdapter
             homeMainRecyclerAdapter.setOnEventClickedListener {
                 val direction = HomeFragmentDirections.actionNavHomeToEventPageFragment(it)
-                findNavController().navigate(direction)
+                try {
+                    findNavController().navigate(direction)
+                } catch (e: Exception) {
+                    e.stackTrace
+                }            }
+            homeMainRecyclerAdapter.onAllButtonClicked = {
+                val direction = HomeFragmentDirections.actionNavHomeToEventListFragment(it)
+                try {
+                    findNavController().navigate(direction)
+                } catch (e: Exception) {
+                    e.stackTrace
+                }
             }
         }
     }
