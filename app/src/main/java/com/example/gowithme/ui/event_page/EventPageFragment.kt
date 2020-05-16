@@ -90,7 +90,20 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
 
             comments.setOnClickListener {
                 val direction = EventPageFragmentDirections.actionEventPageFragmentToEventCommentsFragment(eventId)
-                findNavController().navigate(direction)
+                try {
+                    findNavController().navigate(direction)
+                } catch (e: Exception) {
+                    e.stackTrace
+                }
+            }
+
+            subscribeCount.setOnClickListener {
+                val direction = EventPageFragmentDirections.actionEventPageFragmentToUserListFragment(eventId)
+                try {
+                    findNavController().navigate(direction)
+                } catch (e: Exception) {
+                    e.stackTrace
+                }
             }
         }
     }

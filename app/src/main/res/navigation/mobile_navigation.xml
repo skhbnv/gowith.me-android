@@ -93,6 +93,9 @@
         <action
             android:id="@+id/action_eventPageFragment_to_eventCommentsFragment"
             app:destination="@id/eventCommentsFragment" />
+        <action
+            android:id="@+id/action_eventPageFragment_to_userListFragment"
+            app:destination="@id/userListFragment" />
     </fragment>
     <navigation
         android:id="@+id/registration"
@@ -139,6 +142,14 @@
         android:name="com.example.gowithme.ui.event_page.EventCommentsFragment"
         android:label="Комментарии"
         tools:layout="@layout/fragment_event_comments" >
+        <argument
+            android:name="eventId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/userListFragment"
+        android:name="com.example.gowithme.ui.user_profile.user_list.fragment.UserListFragment"
+        android:label="UserListFragment" >
         <argument
             android:name="eventId"
             app:argType="integer" />

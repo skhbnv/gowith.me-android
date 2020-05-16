@@ -7,12 +7,14 @@ import com.example.gowithme.data.network.event.EventRepository
 import com.example.gowithme.data.network.event_list.EventListRepository
 import com.example.gowithme.data.network.main.MainRepository
 import com.example.gowithme.data.network.profile.ProfileRepository
+import com.example.gowithme.data.network.user.UserProfileRepository
 import com.example.gowithme.ui.auth.viewmodel.AuthViewModel
 import com.example.gowithme.ui.create_new_event.viewmodel.CreateNewEventViewModel
 import com.example.gowithme.ui.event_list.viewmodel.EventListViewMode
 import com.example.gowithme.ui.event_page.EventPageViewModel
 import com.example.gowithme.ui.home.HomeViewModel
 import com.example.gowithme.ui.profile.viewmodel.ProfileViewModel
+import com.example.gowithme.ui.user_profile.viewmodel.UserProfileListViewModel
 import com.example.gowithme.util.PreferencesConst
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -45,6 +47,10 @@ val repoModule = module {
         EventListRepository(get())
     }
 
+    single {
+        UserProfileRepository(get())
+    }
+
 }
 
 val viewModelModule = module {
@@ -75,6 +81,10 @@ val viewModelModule = module {
 
     viewModel {
         EventPageViewModel(get<EventRepository>())
+    }
+
+    viewModel {
+        UserProfileListViewModel(get<UserProfileRepository>())
     }
 
 }

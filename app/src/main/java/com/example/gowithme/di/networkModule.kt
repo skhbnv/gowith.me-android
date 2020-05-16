@@ -14,6 +14,7 @@ import com.example.gowithme.data.network.auth.AuthService
 import com.example.gowithme.data.network.event.EventService
 import com.example.gowithme.data.network.event_list.EventListService
 import com.example.gowithme.data.network.profile.ProfileService
+import com.example.gowithme.data.network.user.UserProfileService
 import com.example.gowithme.util.NetworkConst.HEADER_AUTH
 import com.example.gowithme.util.NetworkConst.TOKEN_PREFIX
 import com.example.gowithme.util.PreferencesConst
@@ -77,6 +78,10 @@ val networkModule = module {
 
     single<EventListService> {
         get<Retrofit>(named(RETROFIT_NAME)).create(EventListService::class.java)
+    }
+
+    single<UserProfileService> {
+        get<Retrofit>(named(RETROFIT_NAME)).create(UserProfileService::class.java)
     }
 }
 

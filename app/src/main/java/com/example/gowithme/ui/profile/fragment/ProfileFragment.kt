@@ -23,8 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private lateinit var adapter: EventsAdapter
-
-
+    
     private val mainActivityInstance by lazy {
         (activity as MainActivity?)
     }

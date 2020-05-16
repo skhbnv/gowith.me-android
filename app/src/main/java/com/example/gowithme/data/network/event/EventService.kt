@@ -3,7 +3,6 @@ package com.example.gowithme.data.network.event
 import com.example.gowithme.data.models.request.CommentRequest
 import com.example.gowithme.data.models.request.CreateEventRequest
 import com.example.gowithme.data.models.response.*
-import com.example.gowithme.util.Result
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.http.*
