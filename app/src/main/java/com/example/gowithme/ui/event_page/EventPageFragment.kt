@@ -82,6 +82,11 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
                 }
             }
             imageSlider.setSliderAdapter(eventImageSliderAdapter)
+
+            comments.setOnClickListener {
+                val direction = EventPageFragmentDirections.actionEventPageFragmentToEventCommentsFragment(eventId)
+                findNavController().navigate(direction)
+            }
         }
     }
 

@@ -40,6 +40,7 @@ val networkModule = module {
             val request = chain.request()
             Log.d("http", "-> request [${request.method()}], ${request.url()}, ${request.body().toString()}")
             val newRequest = request.newBuilder().apply {
+                Log.d("http", "token $token")
                 if (token.isNotBlank()) {
                     addHeader(HEADER_AUTH, TOKEN_PREFIX + token)
                 }

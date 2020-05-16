@@ -1,5 +1,6 @@
 package com.example.gowithme.data.network.event
 
+import com.example.gowithme.data.models.request.CommentRequest
 import com.example.gowithme.data.models.request.CreateEventRequest
 import com.example.gowithme.data.models.response.*
 import com.example.gowithme.util.Result
@@ -18,6 +19,9 @@ interface IEventRepository {
     suspend fun uploadImage(image: File): Result<CreateEventImageResponse>
     suspend fun getEventDetails(id: Int): Result<EventResponse>
     suspend fun subscribeOnEvent(id: Int): Result<ResponseBody>
+
+    suspend fun getEventComments(id: Int): Result<List<CommentResponse>>
+    suspend fun postComment(request: CommentRequest): Result<CommentResponse>
 
     suspend fun getUpComingEvents() : Result<PagingResponse<EventResponse>>
     suspend fun getNewEvents() : Result<PagingResponse<EventResponse>>
@@ -51,5 +55,9 @@ class EventRepository(
     override suspend fun getEventDetails(id: Int): Result<EventResponse> = apiCall { service.getEventDetails(id) }
 
     override suspend fun subscribeOnEvent(id: Int): Result<ResponseBody> = apiCall { service.subscribeOnEvent(id) }
+
+    override suspend fun getEventComments(id: Int): Result<List<CommentResponse>> = apiCall { service.getEventComments(id) }
+
+    override suspend fun postComment(request: CommentRequest): Result<CommentResponse> = apiCall { service.postComment(request) }
 
 }

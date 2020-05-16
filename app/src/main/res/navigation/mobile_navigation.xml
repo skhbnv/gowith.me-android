@@ -87,6 +87,9 @@
         <argument
             android:name="eventId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_eventPageFragment_to_eventCommentsFragment"
+            app:destination="@id/eventCommentsFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_eventPageFragment"
@@ -135,4 +138,13 @@
             android:name="com.example.gowithme.ui.auth.fragment.FavCategorySelectionDialogFragment"
             android:label="FavCategorySelectionDialogFragment" />
     </navigation>
+    <fragment
+        android:id="@+id/eventCommentsFragment"
+        android:name="com.example.gowithme.ui.event_page.EventCommentsFragment"
+        android:label="fragment_event_comments"
+        tools:layout="@layout/fragment_event_comments" >
+        <argument
+            android:name="eventId"
+            app:argType="integer" />
+    </fragment>
 </navigation>
