@@ -94,6 +94,7 @@
                     android:layout_marginStart="@dimen/app_horizontal_margin"
                     android:layout_marginEnd="@dimen/app_horizontal_margin"
                     android:layout_marginBottom="8dp"
+                    android:background="@drawable/categories_bg"
                     android:text="Выбрать категории"
                     android:textAllCaps="false" />
 
@@ -195,6 +196,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="@dimen/app_horizontal_margin"
                     android:layout_marginBottom="8dp"
+                    android:background="@drawable/categories_bg"
                     android:text="@string/create_event"
                     android:textAllCaps="false" />
 
