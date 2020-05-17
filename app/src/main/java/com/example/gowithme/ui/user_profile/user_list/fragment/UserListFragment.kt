@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.gowithme.MainActivity
 import com.example.gowithme.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -18,6 +19,7 @@ import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentUserListBinding
 import com.example.gowithme.ui.user_profile.user_list.adapter.UserListPagedAdapter
 import com.example.gowithme.ui.user_profile.viewmodel.UserProfileViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 
 class UserListFragment : Fragment() {
@@ -46,7 +48,9 @@ class UserListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getEventSubscribers(listType)
-
+        (activity as MainActivity).toolbar.setNavigationOnClickListener {
+            activity?.onBackPressed()
+        }
         with(binding) {
             recycler.adapter = userListPagedAdapter
         }

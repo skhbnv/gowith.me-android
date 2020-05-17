@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.gowithme.BuildConfig
+import com.example.gowithme.MainActivity
 import com.example.gowithme.MainViewModel
 
 import com.example.gowithme.R
@@ -21,6 +22,7 @@ import com.example.gowithme.databinding.FragmentUserProfileDetailsBinding
 import com.example.gowithme.ui.user_profile.viewmodel.ProfileDetailsUI
 import com.example.gowithme.ui.user_profile.viewmodel.UserProfileViewModel
 import com.example.gowithme.util.showAlert
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_user_profile_details.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Exception
@@ -50,6 +52,9 @@ class UserProfileDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userProfileViewModel.getUserProfileInfo(userId)
+        (activity as MainActivity).toolbar.setNavigationOnClickListener {
+            activity?.onBackPressed()
+        }
         with(binding) {
             viewModel = userProfileViewModel
 

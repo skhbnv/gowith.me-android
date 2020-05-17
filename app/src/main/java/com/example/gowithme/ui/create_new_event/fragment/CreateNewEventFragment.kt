@@ -192,6 +192,9 @@ class CreateNewEventFragment : Fragment() {
                 is CreateEventUI.EventCreated -> {
                     findNavController().navigateUp()
                 }
+                is CreateEventUI.EventCreateError -> {
+                    showAlert(context, message = getString(R.string.text_loading_error), ok = {})
+                }
             }
         })
     }
