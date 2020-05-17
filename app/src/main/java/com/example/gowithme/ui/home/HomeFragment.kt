@@ -80,9 +80,6 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        mainViewModel.loginState.observe(viewLifecycleOwner, Observer {
-        })
-
         homeViewModel.eventsLD.observe(viewLifecycleOwner, Observer {
             Log.d("taaag", "eventsLD")
             homeMainRecyclerAdapter.setData(it)

@@ -80,9 +80,6 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
             subscribeOnEvent.setOnClickListener {
                 eventPageViewModel.subscribeOnEvent(eventId)
                 eventPageViewModel.getEventDetails(eventId)
-                if (mainViewModel.userInfo?.telegramUsername.isNullOrBlank()) {
-                    showAlert(context, title = "Добавьте username телеграмма, чтобы присоедениться к чату события", ok = {})
-                }
             }
             imageSlider.setSliderAdapter(eventImageSliderAdapter)
 
@@ -164,7 +161,7 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
                 subscribeOnEvent.visibility = View.GONE
             }
             chatLink.text = event.telegramChat
-            if (event.isSubscribed) {
+            if (event.isSubscribed || event.author.id == mainViewModel.userInfo?.id) {
                 subscribeOnEvent.visibility = View.GONE
                 chat.visibility = View.VISIBLE
                 chatLink.visibility = View.VISIBLE

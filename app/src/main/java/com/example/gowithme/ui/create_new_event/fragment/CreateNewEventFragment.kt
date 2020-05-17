@@ -20,16 +20,19 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.gowithme.MainActivity
+import com.example.gowithme.MainViewModel
 import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentCreateNewEventBinding
 import com.example.gowithme.ui.create_new_event.adapter.ImagesRecyclerAdapter
 import com.example.gowithme.ui.create_new_event.viewmodel.CreateEventUI
 import com.example.gowithme.ui.create_new_event.viewmodel.CreateNewEventViewModel
 import com.example.gowithme.ui.create_new_event.viewmodel.InputTypes
+import com.example.gowithme.ui.profile.fragment.ProfileFragmentDirections
 import com.example.gowithme.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_create_new_event.*
 import kotlinx.android.synthetic.main.item_textview.view.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -48,6 +51,7 @@ class CreateNewEventFragment : Fragment() {
             selectImageSource()
         }
     }
+    private val mainViewModel by sharedViewModel<MainViewModel>()
     private lateinit var currentPhotoPath: String
 
     override fun onCreateView(
@@ -62,6 +66,16 @@ class CreateNewEventFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        mainViewModel.loginState.observe(viewLifecycleOwner, Observer {
+            if (!it) {
+                val direction =
+                    ProfileFragmentDirections.actionGlobalLoginFragment(
+                        R.id.nav_create_new_event
+                    )
+                findNavController().navigate(direction)
+            }
+        })
         // Вызываем диалог перед back navigation
         setupBackNavigation()
 
