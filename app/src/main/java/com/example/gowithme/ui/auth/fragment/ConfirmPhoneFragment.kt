@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.gowithme.MainActivity
 
 import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentCheckPhoneBinding
@@ -19,6 +20,7 @@ import com.example.gowithme.ui.auth.viewmodel.LoginUI
 import com.example.gowithme.util.sharedGraphViewModel
 import com.example.gowithme.util.showAlert
 import com.example.gowithme.util.showToast
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_confirm_phone.*
 
 class ConfirmPhoneFragment : Fragment() {
@@ -37,6 +39,9 @@ class ConfirmPhoneFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).toolbar.setNavigationOnClickListener {
+            activity?.onBackPressed()
+        }
         binding.nextButton.setOnClickListener {
             val code = binding.codeInput.text.toString()
             authViewModel.confirmPhone(code)

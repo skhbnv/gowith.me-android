@@ -9,12 +9,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.gowithme.MainActivity
 
 import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentConfirmPhoneBinding
 import com.example.gowithme.databinding.FragmentRegisterBinding
 import com.example.gowithme.ui.auth.viewmodel.AuthViewModel
 import com.example.gowithme.util.sharedGraphViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class RegisterFragment : Fragment() {
@@ -34,6 +36,9 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         authViewModel.getCategories()
+        (activity as MainActivity).toolbar.setNavigationOnClickListener {
+            activity?.onBackPressed()
+        }
         with(binding) {
             categories.setOnClickListener {
                 val direction = RegisterFragmentDirections.actionRegisterFragmentToFavCategorySelectionDialogFragment()

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.gowithme.MainActivity
 
 import com.example.gowithme.R
 import com.example.gowithme.data.models.request.CheckPhoneRequest
@@ -18,6 +19,7 @@ import com.example.gowithme.ui.auth.viewmodel.LoginUI
 import com.example.gowithme.ui.create_new_event.viewmodel.CreateNewEventViewModel
 import com.example.gowithme.util.sharedGraphViewModel
 import com.example.gowithme.util.showAlert
+import kotlinx.android.synthetic.main.activity_main.*
 
 class CheckPhoneFragment : Fragment() {
 
@@ -35,6 +37,9 @@ class CheckPhoneFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).toolbar.setNavigationOnClickListener {
+            activity?.onBackPressed()
+        }
         with(binding) {
             nextButton.setOnClickListener {
                 val phone = phoneInput.text.toString()

@@ -73,6 +73,9 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        (activity as MainActivity).toolbar.setNavigationOnClickListener {
+            activity?.onBackPressed()
+        }
         with(binding) {
             subscribeOnEvent.setOnClickListener {
                 eventPageViewModel.subscribeOnEvent(eventId)
