@@ -114,7 +114,8 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
             if (!it) {
                 with(binding) {
                     subscribeOnEvent.visibility = View.GONE
-                    joinToChat.visibility = View.GONE
+                    chat.visibility = View.GONE
+                    chatLink.visibility = View.GONE
                 }
             }
         })
@@ -157,10 +158,15 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
             Log.d("taaag", "event.isSubscribed ${event.isSubscribed}")
             if (mainViewModel.userInfo?.id == event.author.id) {
                 subscribeOnEvent.visibility = View.GONE
-                joinToChat.visibility = View.GONE
             }
+            chatLink.text = event.telegramChat
             if (event.isSubscribed) {
                 subscribeOnEvent.visibility = View.GONE
+                chat.visibility = View.VISIBLE
+                chatLink.visibility = View.VISIBLE
+            } else {
+                chat.visibility = View.GONE
+                chatLink.visibility = View.GONE
             }
         }
     }

@@ -60,6 +60,7 @@ class PagedKeyedEventDataSource(
         EventListType.SPECIAL -> apiCall { service.getSpecialEvents(page) }
         EventListType.UPCOMING -> apiCall { service.getEvents(page, "start") }
         EventListType.USER_EVENTS -> apiCall { service.getUserEvents(id, page) }
+        EventListType.FRIENDS_EVENTS -> apiCall { service.getFollowingEvents(page) }
     }
 
     class EventDataSourceFactory(

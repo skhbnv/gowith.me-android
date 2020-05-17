@@ -40,4 +40,9 @@ interface EventListService {
         @Query("page") page : Int
     ): PagingResponse<EventResponse>
 
+    @GET("api/v1/account/me/following/events")
+    suspend fun getFollowingEvents(
+        @Query("page") page : Int
+    ): PagingResponse<EventResponse>
+
 }

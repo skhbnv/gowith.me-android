@@ -8,5 +8,6 @@ enum class EventListType {
     MOST_VIEWED,
     SPECIAL,
     UPCOMING,
-    USER_EVENTS
+    USER_EVENTS,
+    FRIENDS_EVENTS
 }

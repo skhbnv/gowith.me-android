@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         }
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val appBarConfiguration = AppBarConfiguration(
-            setOf( R.id.nav_home, R.id.nav_map_list, R.id.nav_favorites, R.id.nav_profile )
+            setOf( R.id.nav_home, R.id.nav_map_list, R.id.nav_friends_events, R.id.nav_profile )
         )
 
         setSupportActionBar(toolbar)
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_map_list -> {
                     showBottomNav()
                 }
-                R.id.nav_favorites -> {
+                R.id.nav_friends_events -> {
                     showBottomNav()
                 }
                 R.id.nav_profile -> {

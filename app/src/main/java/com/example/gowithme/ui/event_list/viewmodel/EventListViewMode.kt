@@ -17,7 +17,7 @@ class EventListViewMode(
         repository.getEventList(viewModelScope, it.first, it.second)
     }
 
-    fun loadEvents(eventListType: EventListType, id: Int) {
+    fun loadEvents(eventListType: EventListType, id: Int = -1) {
         _eventListType.value = eventListType to id
     }
 

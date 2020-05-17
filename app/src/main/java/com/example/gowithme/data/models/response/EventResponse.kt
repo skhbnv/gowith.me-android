@@ -34,7 +34,9 @@ data class EventResponse(
     @SerializedName("is_subscribed")
     val isSubscribed: Boolean,
     @SerializedName("is_liked")
-    val isLiked: Boolean
+    val isLiked: Boolean,
+    @SerializedName("telegram_chat")
+    val telegramChat: String?
 ) {
     data class Author(
         @SerializedName("first_name")
