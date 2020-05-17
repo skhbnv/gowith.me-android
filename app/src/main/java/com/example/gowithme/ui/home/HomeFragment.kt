@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gowithme.MainViewModel
@@ -27,6 +28,7 @@ import kotlinx.android.synthetic.main.fragment_create_new_event.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.Exception
 import kotlin.math.log
 
 class HomeFragment : Fragment() {
@@ -53,9 +55,25 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         homeViewModel.getEvents()
+        mainViewModel.checkLoginStatus()
         with(view) {
             rv_parent.layoutManager = LinearLayoutManager(context)
             rv_parent.adapter = homeMainRecyclerAdapter
+            homeMainRecyclerAdapter.setOnEventClickedListener {
+                val direction = HomeFragmentDirections.actionNavHomeToEventPageFragment(it)
+                try {
+                    findNavController().navigate(direction)
+                } catch (e: Exception) {
+                    e.stackTrace
+                }            }
+            homeMainRecyclerAdapter.onAllButtonClicked = {
+                val direction = HomeFragmentDirections.actionNavHomeToEventListFragment(it)
+                try {
+                    findNavController().navigate(direction)
+                } catch (e: Exception) {
+                    e.stackTrace
+                }
+            }
         }
     }
 
@@ -63,14 +81,11 @@ class HomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         mainViewModel.loginState.observe(viewLifecycleOwner, Observer {
-            "Is login $it".showToast(context)
         })
 
         homeViewModel.eventsLD.observe(viewLifecycleOwner, Observer {
             Log.d("taaag", "eventsLD")
-            homeMainRecyclerAdapter.addEventList("Events", it)
-            homeMainRecyclerAdapter.addEventList("Events", it)
-            homeMainRecyclerAdapter.addEventList("Events", it)
+            homeMainRecyclerAdapter.setData(it)
         })
     }
 

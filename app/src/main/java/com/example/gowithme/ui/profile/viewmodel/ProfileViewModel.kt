@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gowithme.data.models.response.EventResponse
-import com.example.gowithme.data.models.response.MyInfoResponse
+import com.example.gowithme.data.models.response.ProfileInfoResponse
 import com.example.gowithme.data.network.profile.IProfileRepository
 import com.example.gowithme.util.Result
 import kotlinx.coroutines.async
@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 
 class ProfileViewModel(private var repository: IProfileRepository) : ViewModel() {
 
-    private val _profileInfo = MutableLiveData<MyInfoResponse>()
-    val profileInfo: LiveData<MyInfoResponse> get() = _profileInfo
+    private val _profileInfo = MutableLiveData<ProfileInfoResponse>()
+    val profileInfo: LiveData<ProfileInfoResponse> get() = _profileInfo
 
     private val _viewedEvents = MutableLiveData<List<EventResponse>>()
     val viewedEvents: LiveData<List<EventResponse>> get() = _viewedEvents

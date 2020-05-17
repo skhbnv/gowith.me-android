@@ -2,7 +2,7 @@ package com.example.gowithme.data.models.response
 import com.google.gson.annotations.SerializedName
 
 
-data class MyInfoResponse(
+data class ProfileInfoResponse(
     @SerializedName("email")
     val email: String,
     @SerializedName("events_created_count")
@@ -28,7 +28,11 @@ data class MyInfoResponse(
     @SerializedName("phone")
     val phone: String,
     @SerializedName("saved_events_count")
-    val savedEventsCount: Int
+    val savedEventsCount: Int,
+    @SerializedName("telegram_username")
+    val telegramUsername: String,
+    @SerializedName("is_me_follower")
+    val isMeFollower: Boolean
 ) {
     val fullName get() = "$firstName $lastName"
 }

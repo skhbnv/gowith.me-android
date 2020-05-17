@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.item_viewed_event.view.*
 class ViewedEventsRecyclerAdapter : RecyclerView.Adapter<ViewedEventsRecyclerAdapter.ViewedEventsViewHolder>() {
 
     private val eventList = ArrayList<EventResponse>()
+    var onItemClicked: ((Int) -> Unit)? = null
 
     fun setEventList(data: List<EventResponse>) {
         eventList.clear()
@@ -44,6 +45,9 @@ class ViewedEventsRecyclerAdapter : RecyclerView.Adapter<ViewedEventsRecyclerAda
                     glide.load(BuildConfig.BASE_URL + it.substring(1)).into(authorImage)
                 }
                 authorName.text = "${event.author.firstName} ${event.author.lastName} ${event.id}"
+                setOnClickListener {
+                    onItemClicked?.invoke(event.id)
+                }
             }
         }
     }

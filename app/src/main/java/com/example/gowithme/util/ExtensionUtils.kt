@@ -54,6 +54,8 @@ fun Date.toIsoFormat() =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.ge
 
 fun Date.format(pattern: String) =  SimpleDateFormat(pattern, Locale.getDefault()).format(this)
 
+fun String.toDate() = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault()).parse(this)
+
 val Int.dp: Int
     get() = (this * getSystem().displayMetrics.density + 0.5f).toInt()
 
