@@ -1,136 +1,198 @@
 package com.example.gowithme.ui.event_page
 
-import android.app.Activity
+import android.location.Geocoder
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.example.gowithme.BuildConfig
 import com.example.gowithme.MainActivity
+import com.example.gowithme.MainViewModel
 import com.example.gowithme.R
+import com.example.gowithme.data.models.response.EventResponse
 import com.example.gowithme.databinding.FragmentEventPageBinding
-import com.example.gowithme.data.network.ApiRepository
-import com.example.gowithme.responses.DetailEvents
-import com.example.gowithme.responses.GeneralEvents
+import com.example.gowithme.ui.event_page.adapter.EventImageSliderAdapter
+import com.example.gowithme.data.network.user.UserListType
+import com.example.gowithme.data.network.user.UserListTypeEnum
+import com.example.gowithme.util.format
+import com.example.gowithme.util.showAlert
+import com.example.gowithme.util.tenge
+import com.example.gowithme.util.toDate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.gson.Gson
-import com.squareup.picasso.Picasso
-import com.synnapps.carouselview.ImageListener
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.fragment_event_page.*
-import java.io.IOException
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.Exception
+import java.util.*
 
 class EventPageFragment : Fragment(), OnMapReadyCallback {
-    private var list = ArrayList<String?>()
-    private var selectedEvent: GeneralEvents? = null
-    var mMap: GoogleMap? = null
+    private lateinit var mMap: GoogleMap
 
     private val mainActivityInstance by lazy {
         (activity as MainActivity?)
     }
 
-    private lateinit var dataBinding: FragmentEventPageBinding
+    private lateinit var binding: FragmentEventPageBinding
+    private val geocoder by lazy { Geocoder(activity, Locale.getDefault()) }
 
-    private val eventPageViewModel by lazy {
-        ViewModelProviders.of(this, EventPageViewModel.EventPageFactory(ApiRepository()))
-            .get(EventPageViewModel::class.java)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        selectedEvent = arguments?.getSerializable("selectedGeneralEvent") as GeneralEvents
-    }
+    private val eventPageViewModel by viewModel<EventPageViewModel>()
+    private val glide by lazy { Glide.with(requireContext()) }
+    private val safeArgs by navArgs<EventPageFragmentArgs>()
+    private val eventId by lazy { safeArgs.eventId }
+    private val eventImageSliderAdapter by lazy { EventImageSliderAdapter() }
+    private val mainViewModel by viewModel<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dataBinding =
+        binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_event_page, container, false)
-        dataBinding.executePendingBindings()
-        dataBinding.viewModel = eventPageViewModel
+        binding.executePendingBindings()
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = eventPageViewModel
 
-        setEventsLocally()
         val mapFrag: SupportMapFragment =
             (childFragmentManager.findFragmentById(R.id.eventMap) as SupportMapFragment)
         mapFrag.getMapAsync(this)
+        eventPageViewModel.getEventDetails(eventId)
 
-        return dataBinding.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        observeViewModel()
-        eventPageViewModel.selectedGeneralEvents.value = selectedEvent
-        mainActivityInstance?.toolbar?.apply {
+        (activity as MainActivity).toolbar.setNavigationOnClickListener {
+            activity?.onBackPressed()
+        }
+        with(binding) {
+            subscribeOnEvent.setOnClickListener {
+                eventPageViewModel.subscribeOnEvent(eventId)
+                eventPageViewModel.getEventDetails(eventId)
+                if (mainViewModel.userInfo?.telegramUsername.isNullOrBlank()) {
+                    showAlert(context, title = "Добавьте username телеграмма, чтобы присоедениться к чату события", ok = {})
+                }
+            }
+            imageSlider.setSliderAdapter(eventImageSliderAdapter)
+
+            comments.setOnClickListener {
+                val direction = EventPageFragmentDirections.actionEventPageFragmentToEventCommentsFragment(eventId)
+                try {
+                    findNavController().navigate(direction)
+                } catch (e: Exception) {
+                    e.stackTrace
+                }
+            }
+
+
         }
     }
 
-    private fun observeViewModel() {
-        eventPageViewModel.selectedDetailEvents.observe(viewLifecycleOwner, Observer { event ->
-            setUpCarousel(event)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        mainViewModel.loginState.observe(viewLifecycleOwner, Observer {
+            if (!it) {
+                with(binding) {
+                    subscribeOnEvent.visibility = View.GONE
+                    chat.visibility = View.GONE
+                    chatLink.visibility = View.GONE
+                    likeCheckBox.setOnClickListener {
+                        showAlert(context, message = getString(R.string.text_pls_auth), ok = {})
+                        likeCheckBox.isChecked = false
+                    }
+                }
+            } else {
+                binding.likeCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
+                    if(isChecked) {
+                        eventPageViewModel.save(eventId)
+                    } else {
+                        eventPageViewModel.unSave(eventId)
+
+                    }
+                }
+            }
+        })
+        eventPageViewModel.eventDetailsUI.observe(viewLifecycleOwner, Observer {
+            when(it) {
+                is EventPageUI.EventLoaded -> {
+                    setEventData(it.event)
+                }
+            }
         })
     }
 
-    private fun setUpCarousel(event: DetailEvents?) {
-        list = event?.images as ArrayList<String?>
-
-        carouselView.setImageListener(imageListener)
-        carouselView.pageCount = list.size
-    }
-
-    private var imageListener: ImageListener =
-        ImageListener { position, imageView ->
-            Picasso.get().load(list[position]).into(imageView)
-        }
-
-    private fun setEventsLocally() {
-        val jsonStr: String? = loadJsonFromAsset()
-        val gson = Gson()
-        val clicks =
-            gson.fromJson<Array<DetailEvents>>(jsonStr, Array<DetailEvents>::class.java)
-        var event: DetailEvents? = null
-
-        for (click in clicks) {
-            if (click.id.toString() == selectedEvent?.id.toString()) {
-                event = click
+    private fun setEventData(event: EventResponse) {
+        with(binding) {
+            title.text = event.title
+            description.text = event.description
+            viewCount.text = event.viewCounter.toString()
+            price.text = if(event.price == 0) {
+                root.context.getString(R.string.text_price, root.context.getString(R.string.text_free))
+            } else {
+                root.context.getString(R.string.text_price, event.price.toString().tenge())
             }
+            authorName.text = "${event.author.firstName} ${event.author.lastName}"
+            event.author.image?.image?.let {
+                glide.load(BuildConfig.BASE_URL + it.substring(1)).into(authorImage)
+            }
+            startDate.text = context?.getString(R.string.text_start_date, event.start.toDate().format("dd MMM, hh:mm"))
+            endDate.text = context?.getString(R.string.text_end_date, event.end.toDate().format("dd MMM, hh:mm"))
+            val latLng = LatLng(event.latitude, event.longitude)
+            mMap.addMarker(MarkerOptions().position(latLng).title("Здесь"))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f))
+
+            val address = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
+            addressText.text = address.first().getAddressLine(0)
+
+            eventImageSliderAdapter.setImages(event.images)
+            likeCheckBox.isChecked = event.isSaved
+
+            subscribeCount.text = getString(R.string.text_users_subscribed, event.subscriptionsCounter.toString())
+            Log.d("taaag", "event.isSubscribed ${event.isSubscribed}")
+            if (mainViewModel.userInfo?.id == event.author.id) {
+                subscribeOnEvent.visibility = View.GONE
+            }
+            chatLink.text = event.telegramChat
+            if (event.isSubscribed) {
+                subscribeOnEvent.visibility = View.GONE
+                chat.visibility = View.VISIBLE
+                chatLink.visibility = View.VISIBLE
+            } else {
+                chat.visibility = View.GONE
+                chatLink.visibility = View.GONE
+            }
+
+            subscribeCount.setOnClickListener {
+                val userListType =
+                    UserListType(
+                        UserListTypeEnum.EVENT_SUBSCRIBERS,
+                        eventId,
+                        mainViewModel.userInfo?.id == event.author.id
+                    )
+                val direction = EventPageFragmentDirections.actionEventPageFragmentToUserListFragment(userListType)
+                try {
+                    findNavController().navigate(direction)
+                } catch (e: Exception) {
+                    e.stackTrace
+                }
+            }
+
         }
-        eventPageViewModel.selectedDetailEvents.value = event
     }
 
-    private fun loadJsonFromAsset(): String? {
-        var json: String? = null
-        try {
-            val inst = context!!.assets.open("detail")
 
-            val size = inst.available()
-            val buffer = ByteArray(size)
-            inst.read(buffer)
-            inst.close()
-
-            json = String(buffer)
-
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-        }
-        return json
-    }
-
-    override fun onMapReady(googleMap: GoogleMap?) {
+    override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        val sydney = LatLng(-34.0, 151.0)
-
-        mMap!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 }

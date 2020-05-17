@@ -18,9 +18,9 @@ data class EventResponse(
     @SerializedName("is_saved")
     val isSaved: Boolean,
     @SerializedName("latitude")
-    val latitude: String,
+    val latitude: Double,
     @SerializedName("longitude")
-    val longitude: String,
+    val longitude: Double,
     @SerializedName("price")
     val price: Int,
     @SerializedName("start")
@@ -28,7 +28,15 @@ data class EventResponse(
     @SerializedName("title")
     val title: String,
     @SerializedName("view_counter")
-    val viewCounter: Int
+    val viewCounter: Int,
+    @SerializedName("subscriptions_counter")
+    val subscriptionsCounter: Int,
+    @SerializedName("is_subscribed")
+    val isSubscribed: Boolean,
+    @SerializedName("is_liked")
+    val isLiked: Boolean,
+    @SerializedName("telegram_chat")
+    val telegramChat: String?
 ) {
     data class Author(
         @SerializedName("first_name")

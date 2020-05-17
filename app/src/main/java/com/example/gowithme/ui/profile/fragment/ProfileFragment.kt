@@ -16,6 +16,8 @@ import com.example.gowithme.databinding.FragmentProfileBinding
 import com.example.gowithme.ui.adapters.EventsAdapter
 import com.example.gowithme.ui.profile.viewmodel.ProfileViewModel
 import com.example.gowithme.ui.profile.adapter.ViewedEventsRecyclerAdapter
+import com.example.gowithme.data.network.user.UserListType
+import com.example.gowithme.data.network.user.UserListTypeEnum
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,8 +25,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private lateinit var adapter: EventsAdapter
-
-
+    
     private val mainActivityInstance by lazy {
         (activity as MainActivity?)
     }
@@ -50,15 +51,29 @@ class ProfileFragment : Fragment() {
 
         with(binding) {
             viewEventsRecycler.adapter = viewedEventsRecyclerAdapter
+            viewedEventsRecyclerAdapter.onItemClicked = {
+                val direction = ProfileFragmentDirections.actionNavProfileToEventPageFragment(it)
+                findNavController().navigate(direction)
+            }
             allViewedEvents.setOnClickListener {
                 val direction = ProfileFragmentDirections.actionNavProfileToEventListFragment(EventListType.VIEWED_EVENTS)
                 findNavController().navigate(direction)
             }
             myFollowers.setOnClickListener {
-
+                val direction = ProfileFragmentDirections.actionNavProfileToUserListFragment(
+                    UserListType(
+                        UserListTypeEnum.MY_FOLLOWERS
+                    )
+                )
+                findNavController().navigate(direction)
             }
             myFollowing.setOnClickListener {
-
+                val direction = ProfileFragmentDirections.actionNavProfileToUserListFragment(
+                    UserListType(
+                        UserListTypeEnum.MY_FOLLOWING
+                    )
+                )
+                findNavController().navigate(direction)
             }
             myEvents.setOnClickListener {
                 val direction = ProfileFragmentDirections.actionNavProfileToEventListFragment(EventListType.MY_EVENTS)

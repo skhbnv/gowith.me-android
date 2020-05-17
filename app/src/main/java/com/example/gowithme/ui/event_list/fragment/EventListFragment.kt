@@ -36,13 +36,18 @@ class EventListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as MainActivity).toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
         setTitle()
-        eventListViewModel.loadEvents(eventListType)
+        (activity as MainActivity).toolbar.setNavigationOnClickListener {
+            activity?.onBackPressed()
+        }
+        eventListViewModel.loadEvents(eventListType, safeArgs.id)
 
         eventList.adapter = eventListPagedAdapter
+
+        eventListPagedAdapter.setOnEventClickedListener {
+            val direction = EventListFragmentDirections.actionEventListFragmentToEventPageFragment(it)
+            findNavController().navigate(direction)
+        }
 
     }
 
@@ -52,9 +57,11 @@ class EventListFragment : Fragment() {
             EventListType.MY_EVENTS -> getString(R.string.title_event_list_my_events)
             EventListType.SAVED_EVENTS ->getString(R.string.title_event_list_saved_events)
 
-            EventListType.POPULAR -> getString(R.string.title_event_list)
-            EventListType.NEW -> getString(R.string.title_event_list)
-            EventListType.MOST_VIEWED -> getString(R.string.title_event_list)
+            EventListType.SPECIAL -> getString(R.string.title_special_list)
+            EventListType.MOST_VIEWED -> getString(R.string.title_most_viewed_list)
+            EventListType.UPCOMING -> getString(R.string.title_upcoming_list)
+            EventListType.NEW -> getString(R.string.title_new_list)
+            else -> getString(R.string.title_event_list)
         }
     }
 
