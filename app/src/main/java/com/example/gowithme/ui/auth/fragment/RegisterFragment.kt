@@ -42,7 +42,7 @@ class RegisterFragment : Fragment() {
             registerButton.setOnClickListener {
                 authViewModel.firstName = firstNameInput.text.toString()
                 authViewModel.lastName = lastNameInput.text.toString()
-                authViewModel.tUserName = telegramInput.text.toString()
+                authViewModel.email = emailInput.text.toString()
                 authViewModel.password = passwordInput.text.toString()
                 authViewModel.confPassword = passwordConfirmInput.text.toString()
 

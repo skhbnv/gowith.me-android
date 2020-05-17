@@ -15,7 +15,9 @@ import com.example.gowithme.R
 import com.example.gowithme.databinding.FragmentCheckPhoneBinding
 import com.example.gowithme.databinding.FragmentConfirmPhoneBinding
 import com.example.gowithme.ui.auth.viewmodel.AuthViewModel
+import com.example.gowithme.ui.auth.viewmodel.LoginUI
 import com.example.gowithme.util.sharedGraphViewModel
+import com.example.gowithme.util.showAlert
 import com.example.gowithme.util.showToast
 import kotlinx.android.synthetic.main.fragment_confirm_phone.*
 
@@ -43,13 +45,20 @@ class ConfirmPhoneFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        authViewModel.checkPhone.observe(viewLifecycleOwner, Observer {
-            it.content.showToast(context)
-        })
+//        authViewModel.checkPhone.observe(viewLifecycleOwner, Observer {
+//            it.content.showToast(context)
+//        })
         authViewModel.confirmPhone.observe(viewLifecycleOwner, Observer {
             Log.d("taaag", "confirmPhone observe")
             val direction = ConfirmPhoneFragmentDirections.actionConfirmPhoneFragmentToRegisterFragment()
             findNavController().navigate(direction)
+        })
+        authViewModel.loginUI.observe(viewLifecycleOwner, Observer {
+            when(it) {
+                is LoginUI.Error -> {
+                    showAlert(context, "Неверный код", ok = {})
+                }
+            }
         })
     }
 

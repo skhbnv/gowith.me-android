@@ -14,8 +14,10 @@ import com.example.gowithme.R
 import com.example.gowithme.data.models.request.CheckPhoneRequest
 import com.example.gowithme.databinding.FragmentCheckPhoneBinding
 import com.example.gowithme.ui.auth.viewmodel.AuthViewModel
+import com.example.gowithme.ui.auth.viewmodel.LoginUI
 import com.example.gowithme.ui.create_new_event.viewmodel.CreateNewEventViewModel
 import com.example.gowithme.util.sharedGraphViewModel
+import com.example.gowithme.util.showAlert
 
 class CheckPhoneFragment : Fragment() {
 
@@ -46,6 +48,13 @@ class CheckPhoneFragment : Fragment() {
         authViewModel.checkPhone.observe(viewLifecycleOwner, Observer {
             val direction = CheckPhoneFragmentDirections.actionCheckPhoneFragmentToConfirmPhoneFragment()
             findNavController().navigate(direction)
+        })
+        authViewModel.loginUI.observe(viewLifecycleOwner, Observer {
+            when(it) {
+                is LoginUI.Error -> {
+                    showAlert(context, "Неверный телефон", ok = {})
+                }
+            }
         })
     }
 

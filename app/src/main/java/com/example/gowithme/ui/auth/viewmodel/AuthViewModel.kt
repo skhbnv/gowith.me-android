@@ -41,7 +41,7 @@ class AuthViewModel(private val repository: IAuthRepository): ViewModel() {
 
     var firstName = ""
     var lastName = ""
-    var tUserName = ""
+    var email = ""
     var password = ""
     var confPassword = ""
 
@@ -81,6 +81,7 @@ class AuthViewModel(private val repository: IAuthRepository): ViewModel() {
                     _loginUI.value = LoginUI.Error(result.exception)
                 }
             }
+            _loginUI.value = LoginUI.Done
             _loading.value = false
         }
     }
@@ -93,9 +94,10 @@ class AuthViewModel(private val repository: IAuthRepository): ViewModel() {
                     _checkPhone.value = result.data
                 }
                 is Result.Error -> {
-
+                    _loginUI.value = LoginUI.Error(result.exception)
                 }
             }
+            _loginUI.value = LoginUI.Done
         }
     }
 
@@ -107,10 +109,10 @@ class AuthViewModel(private val repository: IAuthRepository): ViewModel() {
                     _confirmPhone.value = 5
                 }
                 is Result.Error -> {
-                    Log.d("taaag", "confirmPhone Error ${result.exception}")
-
+                    _loginUI.value = LoginUI.Error(result.exception)
                 }
             }
+            _loginUI.value = LoginUI.Done
         }
     }
 
@@ -120,7 +122,7 @@ class AuthViewModel(private val repository: IAuthRepository): ViewModel() {
                 phone = phone,
                 firstName = firstName,
                 lastName = lastName,
-                telegramUsername = tUserName,
+                email = email,
                 password = password,
                 favoriteCategory = checkedCategories.map { it.id }
             )
@@ -139,6 +141,7 @@ class AuthViewModel(private val repository: IAuthRepository): ViewModel() {
 
 sealed class LoginUI {
 
+    object Done: LoginUI()
     object Login: LoginUI()
     data class Error(val exception: Exception): LoginUI()
 }
