@@ -51,4 +51,14 @@ interface EventService {
     suspend fun postComment(
         @Body request: CommentRequest
     ): CommentResponse
+
+    @POST("api/v1/event/{id}/saved-add")
+    suspend fun saveEvent(
+        @Path("id") id: Int
+    ): ResponseBody
+
+    @POST("api/v1/event/{id}/saved-remove")
+    suspend fun unSaveEvent(
+        @Path("id") id: Int
+    ): ResponseBody
 }

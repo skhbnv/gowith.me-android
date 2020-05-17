@@ -104,6 +104,19 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
                     subscribeOnEvent.visibility = View.GONE
                     chat.visibility = View.GONE
                     chatLink.visibility = View.GONE
+                    likeCheckBox.setOnClickListener {
+                        showAlert(context, message = getString(R.string.text_pls_auth), ok = {})
+                        likeCheckBox.isChecked = false
+                    }
+                }
+            } else {
+                binding.likeCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
+                    if(isChecked) {
+                        eventPageViewModel.save(eventId)
+                    } else {
+                        eventPageViewModel.unSave(eventId)
+
+                    }
                 }
             }
         })
@@ -140,7 +153,7 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
             addressText.text = address.first().getAddressLine(0)
 
             eventImageSliderAdapter.setImages(event.images)
-            likeCheckBox.isChecked = event.isLiked
+            likeCheckBox.isChecked = event.isSaved
 
             subscribeCount.text = getString(R.string.text_users_subscribed, event.subscriptionsCounter.toString())
             Log.d("taaag", "event.isSubscribed ${event.isSubscribed}")
@@ -171,6 +184,7 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
                     e.stackTrace
                 }
             }
+
         }
     }
 

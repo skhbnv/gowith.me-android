@@ -19,6 +19,8 @@ interface IEventRepository {
     suspend fun uploadImage(image: File): Result<CreateEventImageResponse>
     suspend fun getEventDetails(id: Int): Result<EventResponse>
     suspend fun subscribeOnEvent(id: Int): Result<ResponseBody>
+    suspend fun saveEvent(id: Int): Result<ResponseBody>
+    suspend fun unSaveEvent(id: Int): Result<ResponseBody>
 
     suspend fun getEventComments(id: Int): Result<List<CommentResponse>>
     suspend fun postComment(request: CommentRequest): Result<CommentResponse>
@@ -55,6 +57,10 @@ class EventRepository(
     override suspend fun getEventDetails(id: Int): Result<EventResponse> = apiCall { service.getEventDetails(id) }
 
     override suspend fun subscribeOnEvent(id: Int): Result<ResponseBody> = apiCall { service.subscribeOnEvent(id) }
+
+    override suspend fun saveEvent(id: Int): Result<ResponseBody> = apiCall { service.saveEvent(id) }
+
+    override suspend fun unSaveEvent(id: Int): Result<ResponseBody> = apiCall { service.unSaveEvent(id) }
 
     override suspend fun getEventComments(id: Int): Result<List<CommentResponse>> = apiCall { service.getEventComments(id) }
 

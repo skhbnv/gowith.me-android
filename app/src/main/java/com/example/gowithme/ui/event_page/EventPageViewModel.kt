@@ -69,6 +69,32 @@ class EventPageViewModel(var repository: IEventRepository) : ViewModel(){
         }
     }
 
+    fun save(id: Int) {
+        viewModelScope.launch {
+            when(val result = repository.saveEvent(id)) {
+                is Result.Success -> {
+
+                }
+                is Result.Error -> {
+
+                }
+            }
+        }
+    }
+
+    fun unSave(id: Int) {
+        viewModelScope.launch {
+            when(val result = repository.unSaveEvent(id)) {
+                is Result.Success -> {
+
+                }
+                is Result.Error -> {
+
+                }
+            }
+        }
+    }
+
     fun subscribeOnEvent(id: Int) {
         viewModelScope.launch {
             when(val result = repository.subscribeOnEvent(id)) {

@@ -11,9 +11,17 @@
         android:label="Главная"
         tools:layout="@layout/fragment_home">
         <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             android:id="@+id/action_nav_home_to_eventPageFragment"
             app:destination="@id/eventPageFragment" />
         <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             android:id="@+id/action_nav_home_to_eventListFragment"
             app:destination="@id/eventListFragment" />
     </fragment>
@@ -26,6 +34,10 @@
             android:name="next"
             app:argType="integer" />
         <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             android:id="@+id/action_loginFragment_to_registration"
             app:destination="@id/registration"
             app:popUpTo="@+id/loginFragment"
@@ -43,13 +55,25 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             android:id="@+id/action_nav_profile_to_userListFragment"
             app:destination="@id/userListFragment" />
         <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             android:id="@+id/action_nav_profile_to_eventPageFragment"
             app:destination="@id/eventPageFragment" />
     </fragment>
     <action
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
         android:id="@+id/action_global_loginFragment"
         app:destination="@id/loginFragment"
         app:popUpTo="@+id/nav_home" />
@@ -66,6 +90,10 @@
             android:name="com.example.gowithme.ui.create_new_event.fragment.CreateNewEventFragment"
             android:label="Создание события">
             <action
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"
                 android:id="@+id/action_nav_create_new_event_to_mapAddressFragment"
                 app:destination="@id/mapAddressFragment" />
             <action
@@ -86,6 +114,10 @@
             android:name="eventListType"
             app:argType="com.example.gowithme.data.network.event_list.EventListType" />
         <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             android:id="@+id/action_eventListFragment_to_eventPageFragment"
             app:destination="@id/eventPageFragment" />
         <argument
@@ -101,9 +133,17 @@
             android:name="eventId"
             app:argType="integer" />
         <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             android:id="@+id/action_eventPageFragment_to_eventCommentsFragment"
             app:destination="@id/eventCommentsFragment" />
         <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             android:id="@+id/action_eventPageFragment_to_userListFragment"
             app:destination="@id/userListFragment" />
     </fragment>
@@ -115,6 +155,10 @@
             android:name="com.example.gowithme.ui.auth.fragment.ConfirmPhoneFragment"
             android:label="Регистрация">
             <action
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"
                 android:id="@+id/action_confirmPhoneFragment_to_registerFragment"
                 app:destination="@id/registerFragment"
                 app:popUpTo="@+id/confirmPhoneFragment"
@@ -159,10 +203,14 @@
     <fragment
         android:id="@+id/userListFragment"
         android:name="com.example.gowithme.ui.user_profile.user_list.fragment.UserListFragment"
-        android:label="UserListFragment" >
+        android:label="Список пользователей">
         <action
             android:id="@+id/action_userListFragment_to_userProfileDetailsFragment"
-            app:destination="@id/userProfileDetailsFragment" />
+            app:destination="@id/userProfileDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="listType"
             app:argType="com.example.gowithme.data.network.user.UserListType" />
@@ -170,18 +218,27 @@
     <fragment
         android:id="@+id/userProfileDetailsFragment"
         android:name="com.example.gowithme.ui.user_profile.details.fragment.UserProfileDetailsFragment"
-        android:label="UserProfileDetailsFragment" >
-        <argument android:name="userId"
+        android:label="Профиль">
+        <argument
+            android:name="userId"
             app:argType="integer" />
         <action
             android:id="@+id/action_userProfileDetailsFragment_to_eventListFragment"
-            app:destination="@id/eventListFragment" />
+            app:destination="@id/eventListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_userProfileDetailsFragment_to_userListFragment"
-            app:destination="@id/userListFragment" />
+            app:destination="@id/userListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/nav_friends_events"
         android:name="com.example.gowithme.ui.event_list.fragment.FriendsEventsFragment"
-        android:label="FriendsEventsFragment" />
+        android:label="События друзей" />
 </navigation>
