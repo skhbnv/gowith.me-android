@@ -2,6 +2,7 @@ package com.example.gowithme.ui.user_profile.user_list.adapter
 
 import android.annotation.SuppressLint
 import android.util.Log
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -10,10 +11,14 @@ import com.bumptech.glide.Glide
 import com.example.gowithme.BuildConfig
 import com.example.gowithme.R
 import com.example.gowithme.data.models.response.ShortUserInfo
+import com.example.gowithme.data.network.user.UserListType
+import com.example.gowithme.data.network.user.UserListTypeEnum
 import com.example.gowithme.databinding.ItemShortUserProfileBinding
 import com.example.gowithme.util.inflateBinding
 
-class UserListPagedAdapter() : PagedListAdapter<ShortUserInfo, UserListPagedAdapter.ViewHolder>(USER_COMPARATOR) {
+class UserListPagedAdapter(
+    private val listType: UserListType
+) : PagedListAdapter<ShortUserInfo, UserListPagedAdapter.ViewHolder>(USER_COMPARATOR) {
 
     companion object {
         private val USER_COMPARATOR = object : DiffUtil.ItemCallback<ShortUserInfo>() {
@@ -32,6 +37,7 @@ class UserListPagedAdapter() : PagedListAdapter<ShortUserInfo, UserListPagedAdap
     }
 
     var onProfileClicked : ((Int) -> Unit)? = null
+    var onRemoveClicked : ((Int) -> Unit)? = null
 
     inner class ViewHolder(private val binding: ItemShortUserProfileBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -46,6 +52,14 @@ class UserListPagedAdapter() : PagedListAdapter<ShortUserInfo, UserListPagedAdap
                     userInfo.image?.image?.let { glide.load(BuildConfig.BASE_URL + it.substring(1)).into(avatar) }
                     root.setOnClickListener {
                         onProfileClicked?.invoke(userInfo.id)
+                    }
+                    if (listType.showCancel && listType.type == UserListTypeEnum.EVENT_SUBSCRIBERS) {
+                        remove.visibility = View.VISIBLE
+                        remove.setOnClickListener {
+                            onRemoveClicked?.invoke(userInfo.id)
+                        }
+                    } else {
+                        remove.visibility = View.GONE
                     }
                 }
             }

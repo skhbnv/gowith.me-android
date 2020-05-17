@@ -18,6 +18,7 @@ interface IUserProfileRepository {
     suspend fun getUserProfileInfo(userId: Int) : Result<ProfileInfoResponse>
     suspend fun subscribeOnUser(userId: Int) : Result<ResponseBody>
     suspend fun unSubscribeFromUser(userId: Int) : Result<ResponseBody>
+    suspend fun removeUser(eventId: Int, userId: Int) : Result<ResponseBody>
 }
 
 class UserProfileRepository(
@@ -34,5 +35,7 @@ class UserProfileRepository(
     override suspend fun subscribeOnUser(userId: Int): Result<ResponseBody> = apiCall { service.subscribeOnUser(userId) }
 
     override suspend fun unSubscribeFromUser(userId: Int): Result<ResponseBody> = apiCall { service.unSubscribeFromUser(userId) }
+
+    override suspend fun removeUser(eventId: Int, userId: Int): Result<ResponseBody> = apiCall { service.removeUser(eventId, userId) }
 
 }

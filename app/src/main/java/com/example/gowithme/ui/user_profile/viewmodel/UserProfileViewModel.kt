@@ -25,6 +25,19 @@ class UserProfileViewModel(
         _eventId.value = listType
     }
 
+    fun removeUser(eventId: Int, userId: Int) {
+        viewModelScope.launch {
+            when(val result = repository.removeUser(eventId, userId)) {
+                is Result.Success -> {
+                    _profileDetailsUI.value = ProfileDetailsUI.RemoveUserSuccess
+                }
+                is Result.Error -> {
+
+                }
+            }
+        }
+    }
+
     // ------------------------- Profile details ------------------------------------
 
     private val _profileInfo = MutableLiveData<ProfileInfoResponse>()
@@ -70,6 +83,7 @@ class UserProfileViewModel(
 sealed class ProfileDetailsUI {
 
     data class ProfileInfoLoadSuccess(val profileInfo: ProfileInfoResponse) : ProfileDetailsUI()
+    object RemoveUserSuccess : ProfileDetailsUI()
     data class ProfileDetailsLoadError(val exception: Exception) : ProfileDetailsUI()
 
 }

@@ -51,6 +51,10 @@ class ProfileFragment : Fragment() {
 
         with(binding) {
             viewEventsRecycler.adapter = viewedEventsRecyclerAdapter
+            viewedEventsRecyclerAdapter.onItemClicked = {
+                val direction = ProfileFragmentDirections.actionNavProfileToEventPageFragment(it)
+                findNavController().navigate(direction)
+            }
             allViewedEvents.setOnClickListener {
                 val direction = ProfileFragmentDirections.actionNavProfileToEventListFragment(EventListType.VIEWED_EVENTS)
                 findNavController().navigate(direction)

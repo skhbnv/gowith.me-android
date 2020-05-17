@@ -16,8 +16,10 @@ import com.example.gowithme.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 import com.example.gowithme.R
+import com.example.gowithme.data.network.user.UserListTypeEnum
 import com.example.gowithme.databinding.FragmentUserListBinding
 import com.example.gowithme.ui.user_profile.user_list.adapter.UserListPagedAdapter
+import com.example.gowithme.ui.user_profile.viewmodel.ProfileDetailsUI
 import com.example.gowithme.ui.user_profile.viewmodel.UserProfileViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
@@ -30,7 +32,7 @@ class UserListFragment : Fragment() {
         findNavController().navigate(direction)
 
     }
-    private val userListPagedAdapter by lazy { UserListPagedAdapter() }
+    private val userListPagedAdapter by lazy { UserListPagedAdapter(listType) }
     private val viewModel by viewModel<UserProfileViewModel>()
     private val safeArgs by navArgs<UserListFragmentArgs>()
     private val listType by lazy { safeArgs.listType }
@@ -55,12 +57,20 @@ class UserListFragment : Fragment() {
             recycler.adapter = userListPagedAdapter
         }
 
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         viewModel.usersList.observe(viewLifecycleOwner, Observer(userListPagedAdapter::submitList))
+        viewModel.profileDetailsUI.observe(viewLifecycleOwner, Observer {
+            when(it) {
+                is ProfileDetailsUI.RemoveUserSuccess -> {
+                    viewModel.getEventSubscribers(listType)
+                }
+            }
+        })
 
         mainViewModel.loginState.observe(viewLifecycleOwner, Observer {
             userListPagedAdapter.onProfileClicked = { userId ->
@@ -77,7 +87,13 @@ class UserListFragment : Fragment() {
                     onProfileClicked(userId)
                 }
             }
+            userListPagedAdapter.onRemoveClicked = { userId ->
+                if (listType.type == UserListTypeEnum.EVENT_SUBSCRIBERS) {
+                    viewModel.removeUser(listType.id, userId)
+                }
+            }
         })
+
     }
 
 }

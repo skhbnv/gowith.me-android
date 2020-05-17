@@ -6,7 +6,8 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class UserListType(
     val type: UserListTypeEnum,
-    val id: Int = -1
+    val id: Int = -1,
+    val showCancel: Boolean = false
 ): Parcelable
 
 enum class UserListTypeEnum{

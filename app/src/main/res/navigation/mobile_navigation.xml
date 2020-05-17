@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_nav_profile_to_userListFragment"
             app:destination="@id/userListFragment" />
+        <action
+            android:id="@+id/action_nav_profile_to_eventPageFragment"
+            app:destination="@id/eventPageFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_loginFragment"

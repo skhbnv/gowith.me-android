@@ -4,10 +4,7 @@ import com.example.gowithme.data.models.response.PagingResponse
 import com.example.gowithme.data.models.response.ProfileInfoResponse
 import com.example.gowithme.data.models.response.ShortUserInfo
 import okhttp3.ResponseBody
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface UserProfileService {
 
@@ -16,6 +13,13 @@ interface UserProfileService {
         @Path("id") id: Int,
         @Query("page") page: Int
     ): PagingResponse<ShortUserInfo>
+
+    @FormUrlEncoded
+    @PUT("api/v1/event/detail/{id}/unsubscriber-user")
+    suspend fun removeUser(
+        @Path("id") id: Int,
+        @Field("user_id") userId : Int
+    ) : ResponseBody
 
     @GET("api/v1/account/me/following")
     suspend fun getMyFollowing(
@@ -39,6 +43,8 @@ interface UserProfileService {
         @Query("page") page: Int
     ): PagingResponse<ShortUserInfo>
 
+
+
     // ------------------------- Profile details ------------------------------------
 
     @GET("api/v1/account/profile/{id}")
@@ -55,7 +61,5 @@ interface UserProfileService {
     suspend fun unSubscribeFromUser(
         @Path("id") id: Int
     ) : ResponseBody
-
-
 
 }

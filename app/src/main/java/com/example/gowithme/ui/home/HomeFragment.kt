@@ -81,7 +81,6 @@ class HomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         mainViewModel.loginState.observe(viewLifecycleOwner, Observer {
-            "Is login $it".showToast(context)
         })
 
         homeViewModel.eventsLD.observe(viewLifecycleOwner, Observer {

@@ -5,10 +5,7 @@
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/interests" />
-    <item
-        android:id="@+id/nav_map_list"
-        android:icon="@drawable/nav_map_ic"
-        android:title="@string/map" />
+
     <item
         android:id="@+id/nav_create_new_event"
         android:icon="@drawable/add_event_button"

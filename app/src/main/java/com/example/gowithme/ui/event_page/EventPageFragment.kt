@@ -92,19 +92,7 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
                 }
             }
 
-            subscribeCount.setOnClickListener {
-                val userListType =
-                    UserListType(
-                        UserListTypeEnum.EVENT_SUBSCRIBERS,
-                        eventId
-                    )
-                val direction = EventPageFragmentDirections.actionEventPageFragmentToUserListFragment(userListType)
-                try {
-                    findNavController().navigate(direction)
-                } catch (e: Exception) {
-                    e.stackTrace
-                }
-            }
+
         }
     }
 
@@ -167,6 +155,21 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
             } else {
                 chat.visibility = View.GONE
                 chatLink.visibility = View.GONE
+            }
+
+            subscribeCount.setOnClickListener {
+                val userListType =
+                    UserListType(
+                        UserListTypeEnum.EVENT_SUBSCRIBERS,
+                        eventId,
+                        mainViewModel.userInfo?.id == event.author.id
+                    )
+                val direction = EventPageFragmentDirections.actionEventPageFragmentToUserListFragment(userListType)
+                try {
+                    findNavController().navigate(direction)
+                } catch (e: Exception) {
+                    e.stackTrace
+                }
             }
         }
     }
