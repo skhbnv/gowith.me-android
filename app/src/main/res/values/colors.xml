@@ -22,4 +22,8 @@
     <color name="loginBkColor">#f0f0f0</color>
 
     <color name="blackout">#59000000</color>
+
+    <color name="review">#FFC107</color>
+    <color name="rejected">#B10000</color>
+    <color name="accepted">#10A300</color>
 </resources>

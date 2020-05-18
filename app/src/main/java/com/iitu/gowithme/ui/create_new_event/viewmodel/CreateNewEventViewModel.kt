@@ -38,6 +38,8 @@ class CreateNewEventViewModel(private var repository: IEventRepository) : ViewMo
     var description = ""
     var startDate = ""
     var endDate = ""
+    var startTime = 0L
+    var endTime = 0L
     var isFree = false
 
     fun setAddressText(text: String) {
@@ -156,7 +158,7 @@ class CreateNewEventViewModel(private var repository: IEventRepository) : ViewMo
             _createEventUI.value = CreateEventUI.ValidationError(InputTypes.START)
             isValid = false
         }
-        if (endDate.isBlank()) {
+        if (endDate.isBlank() || endTime < startTime) {
             _createEventUI.value = CreateEventUI.ValidationError(InputTypes.END)
             isValid = false
         }

@@ -148,6 +148,7 @@
                     android:layout_marginEnd="16dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="Адресс"
+                    android:layout_marginBottom="4dp"
                     android:textColor="@color/primaryDarkText"
                     android:textSize="16sp" />
 
@@ -183,6 +184,27 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/description" />
 
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Статус"
+                    android:textColor="@color/primaryDarkText"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/statusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    android:textColor="@color/primaryDarkText" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -235,12 +257,24 @@
                     app:layout_constraintTop_toBottomOf="@id/price" />
 
                 <Button
-                    android:id="@+id/subscribeOnEvent"
+                    android:id="@+id/viewSubscribers"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
+                    android:background="@drawable/categories_bg"
+                    android:text="Просмотреть кто подписался"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/subscribeOnEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/categories_bg"
                     android:text="Подписаться"
                     android:textAllCaps="false"

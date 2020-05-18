@@ -90,12 +90,14 @@ class CreateNewEventFragment : Fragment() {
                 startCalendar.showDateTimePicker(root.context) {
                     startDateInput.setText(SimpleDateFormat.getDateTimeInstance().format(it.time))
                     createNewEventViewModel.startDate = it.time.toIsoFormat()
+                    createNewEventViewModel.startTime = it.time.time
                 }
             }
             endDateInput.setOnClickListener {
                 endCalendar.showDateTimePicker(root.context) {
                     endDateInput.setText(SimpleDateFormat.getDateTimeInstance().format(it.time))
                     createNewEventViewModel.endDate = it.time.toIsoFormat()
+                    createNewEventViewModel.endTime = it.time.time
                 }
             }
             selectCategoriesButton.setOnClickListener {

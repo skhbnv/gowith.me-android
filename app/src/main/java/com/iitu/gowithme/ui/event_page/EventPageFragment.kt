@@ -1,11 +1,14 @@
 package com.iitu.gowithme.ui.event_page
 
+import android.content.Intent
 import android.location.Geocoder
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -160,7 +163,17 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
             if (mainViewModel.userInfo?.id == event.author.id) {
                 subscribeOnEvent.visibility = View.GONE
             }
-            chatLink.text = event.telegramChat
+            chat.visibility = if (event.telegramChat.isNullOrBlank()) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
+            chatLink.text = getString(R.string.under_line, event.telegramChat)
+            chatLink.setOnClickListener {
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(event.telegramChat)
+                })
+            }
             if (event.isSubscribed || event.author.id == mainViewModel.userInfo?.id) {
                 subscribeOnEvent.visibility = View.GONE
                 chat.visibility = View.VISIBLE
@@ -170,7 +183,25 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
                 chatLink.visibility = View.GONE
             }
 
-            subscribeCount.setOnClickListener {
+            if (!event.isMine) {
+                statusText.visibility = View.GONE
+                status.visibility = View.GONE
+            }
+
+            statusText.text = when(event.status) {
+                1 -> "На проверке"
+                2 -> "Одобрен"
+                3 -> "Отклонен"
+                else -> "На проверке"
+            }
+            statusText.setTextColor(when(event.status) {
+                1 -> ContextCompat.getColor(root.context, R.color.review)
+                2 -> ContextCompat.getColor(root.context, R.color.accepted)
+                3 -> ContextCompat.getColor(root.context, R.color.rejected)
+                else -> ContextCompat.getColor(root.context, R.color.review)
+            })
+
+            viewSubscribers.setOnClickListener {
                 val userListType =
                     UserListType(
                         UserListTypeEnum.EVENT_SUBSCRIBERS,
