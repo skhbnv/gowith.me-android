@@ -16,11 +16,11 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     defaultConfig {
-        applicationId "com.example.gowithme"
+        applicationId "com.iitu.gowithme"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "0.1"
+        versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "BASE_URL", '"http://34.90.109.115:80/"'

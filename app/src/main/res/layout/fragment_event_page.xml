@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.gowithme.ui.event_page.EventPageViewModel" />
+            type="com.iitu.gowithme.ui.event_page.EventPageViewModel" />
     </data>
 
     <FrameLayout

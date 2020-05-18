@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="com.example.gowithme.ui.event_page.PageDataBinding" />
+        <import type="com.iitu.gowithme.ui.event_page.PageDataBinding" />
         <variable
             name="viewModel"
-            type="com.example.gowithme.ui.map.MapViewModel" />
+            type="com.iitu.gowithme.ui.map.MapViewModel" />
     </data>
 
     <RelativeLayout

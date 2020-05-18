@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.gowithme.ui.user_profile.viewmodel.UserProfileViewModel" />
+            type="com.iitu.gowithme.ui.user_profile.viewmodel.UserProfileViewModel" />
 
     </data>
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.gowithme.ui.home.HomeFragment"
+        android:name="com.iitu.gowithme.ui.home.HomeFragment"
         android:label="Главная"
         tools:layout="@layout/fragment_home">
         <action
@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.gowithme.ui.auth.fragment.LoginFragment"
+        android:name="com.iitu.gowithme.ui.auth.fragment.LoginFragment"
         android:label="Вход" >
         <argument
             android:name="next"
@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.example.gowithme.ui.profile.fragment.ProfileFragment"
+        android:name="com.iitu.gowithme.ui.profile.fragment.ProfileFragment"
         android:label="Профиль" >
         <action
             android:id="@+id/action_nav_profile_to_eventListFragment"
@@ -82,12 +82,12 @@
         app:startDestination="@id/createNewEventFragment" >
         <fragment
             android:id="@+id/mapAddressFragment"
-            android:name="com.example.gowithme.ui.create_new_event.fragment.MapAddressFragment"
+            android:name="com.iitu.gowithme.ui.create_new_event.fragment.MapAddressFragment"
             android:label="@string/title_address_map"
             tools:layout="@layout/fragment_map_address" />
         <fragment
             android:id="@+id/createNewEventFragment"
-            android:name="com.example.gowithme.ui.create_new_event.fragment.CreateNewEventFragment"
+            android:name="com.iitu.gowithme.ui.create_new_event.fragment.CreateNewEventFragment"
             android:label="Создание события">
             <action
                 app:enterAnim="@anim/slide_in_right"
@@ -102,17 +102,17 @@
         </fragment>
         <dialog
             android:id="@+id/categorySelectionDialogFragment"
-            android:name="com.example.gowithme.ui.create_new_event.fragment.CategorySelectionDialogFragment"
+            android:name="com.iitu.gowithme.ui.create_new_event.fragment.CategorySelectionDialogFragment"
             android:label="Выбор категории" />
     </navigation>
     <fragment
         android:id="@+id/eventListFragment"
-        android:name="com.example.gowithme.ui.event_list.fragment.EventListFragment"
+        android:name="com.iitu.gowithme.ui.event_list.fragment.EventListFragment"
         android:label="@string/title_event_list"
         tools:layout="@layout/fragment_event_list" >
         <argument
             android:name="eventListType"
-            app:argType="com.example.gowithme.data.network.event_list.EventListType" />
+            app:argType="com.iitu.gowithme.data.network.event_list.EventListType" />
         <action
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -127,7 +127,7 @@
     </fragment>
     <fragment
         android:id="@+id/eventPageFragment"
-        android:name="com.example.gowithme.ui.event_page.EventPageFragment"
+        android:name="com.iitu.gowithme.ui.event_page.EventPageFragment"
         android:label="Событие" >
         <argument
             android:name="eventId"
@@ -152,7 +152,7 @@
         app:startDestination="@id/checkPhoneFragment" >
         <fragment
             android:id="@+id/confirmPhoneFragment"
-            android:name="com.example.gowithme.ui.auth.fragment.ConfirmPhoneFragment"
+            android:name="com.iitu.gowithme.ui.auth.fragment.ConfirmPhoneFragment"
             android:label="Регистрация">
             <action
                 app:enterAnim="@anim/slide_in_right"
@@ -166,7 +166,7 @@
         </fragment>
         <fragment
             android:id="@+id/checkPhoneFragment"
-            android:name="com.example.gowithme.ui.auth.fragment.CheckPhoneFragment"
+            android:name="com.iitu.gowithme.ui.auth.fragment.CheckPhoneFragment"
             android:label="Регистрация">
             <action
                 android:id="@+id/action_checkPhoneFragment_to_confirmPhoneFragment"
@@ -180,7 +180,7 @@
         </fragment>
         <fragment
             android:id="@+id/registerFragment"
-            android:name="com.example.gowithme.ui.auth.fragment.RegisterFragment"
+            android:name="com.iitu.gowithme.ui.auth.fragment.RegisterFragment"
             android:label="Регистрация" >
             <action
                 android:id="@+id/action_registerFragment_to_favCategorySelectionDialogFragment"
@@ -188,12 +188,12 @@
         </fragment>
         <dialog
             android:id="@+id/favCategorySelectionDialogFragment"
-            android:name="com.example.gowithme.ui.auth.fragment.FavCategorySelectionDialogFragment"
+            android:name="com.iitu.gowithme.ui.auth.fragment.FavCategorySelectionDialogFragment"
             android:label="Регистрация" />
     </navigation>
     <fragment
         android:id="@+id/eventCommentsFragment"
-        android:name="com.example.gowithme.ui.event_page.EventCommentsFragment"
+        android:name="com.iitu.gowithme.ui.event_page.EventCommentsFragment"
         android:label="Комментарии"
         tools:layout="@layout/fragment_event_comments" >
         <argument
@@ -202,7 +202,7 @@
     </fragment>
     <fragment
         android:id="@+id/userListFragment"
-        android:name="com.example.gowithme.ui.user_profile.user_list.fragment.UserListFragment"
+        android:name="com.iitu.gowithme.ui.user_profile.user_list.fragment.UserListFragment"
         android:label="Список пользователей">
         <action
             android:id="@+id/action_userListFragment_to_userProfileDetailsFragment"
@@ -213,11 +213,11 @@
             app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="listType"
-            app:argType="com.example.gowithme.data.network.user.UserListType" />
+            app:argType="com.iitu.gowithme.data.network.user.UserListType" />
     </fragment>
     <fragment
         android:id="@+id/userProfileDetailsFragment"
-        android:name="com.example.gowithme.ui.user_profile.details.fragment.UserProfileDetailsFragment"
+        android:name="com.iitu.gowithme.ui.user_profile.details.fragment.UserProfileDetailsFragment"
         android:label="Профиль">
         <argument
             android:name="userId"
@@ -239,6 +239,6 @@
     </fragment>
     <fragment
         android:id="@+id/nav_friends_events"
-        android:name="com.example.gowithme.ui.event_list.fragment.FriendsEventsFragment"
+        android:name="com.iitu.gowithme.ui.event_list.fragment.FriendsEventsFragment"
         android:label="События друзей" />
 </navigation>

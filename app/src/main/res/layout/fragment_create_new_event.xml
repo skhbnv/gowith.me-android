@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.gowithme.ui.create_new_event.viewmodel.CreateNewEventViewModel" />
+            type="com.iitu.gowithme.ui.create_new_event.viewmodel.CreateNewEventViewModel" />
 
     </data>
 
