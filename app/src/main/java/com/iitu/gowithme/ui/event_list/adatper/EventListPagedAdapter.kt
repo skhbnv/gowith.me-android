@@ -10,8 +10,10 @@ import com.iitu.gowithme.BuildConfig
 import com.iitu.gowithme.R
 import com.iitu.gowithme.data.models.response.EventResponse
 import com.iitu.gowithme.databinding.ItemEventListBinding
+import com.iitu.gowithme.util.format
 import com.iitu.gowithme.util.inflateBinding
 import com.iitu.gowithme.util.tenge
+import com.iitu.gowithme.util.toDate
 
 class EventListPagedAdapter :
     PagedListAdapter<EventResponse, EventListPagedAdapter.EventViewHolder>(EVENT_COMPARATOR) {
@@ -44,7 +46,7 @@ class EventListPagedAdapter :
                         .into(authorImage)
                     authorName.text = "${item.author.firstName} ${item.author.lastName}"
                     viewCount.text = item.viewCounter.toString()
-                    startDate.text = root.context.getString(R.string.text_start_date, item.start)
+                    startDate.text = root.context.getString(R.string.text_start_date, item.start.toDate().format("dd MMM, hh:mm"))
                     price.text = if(item.price == 0) root.context.getString(R.string.text_free) else {
                         root.context.getString(R.string.text_price, item.price.toString().tenge())
                     }

@@ -11,12 +11,14 @@ import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import com.iitu.gowithme.MainActivity
 import com.iitu.gowithme.MainViewModel
 
 import com.iitu.gowithme.R
 import com.iitu.gowithme.databinding.FragmentEventCommentsBinding
 import com.iitu.gowithme.ui.event_page.adapter.CommentRecyclerAdapter
 import com.iitu.gowithme.util.showAlert
+import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -41,6 +43,9 @@ class EventCommentsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         eventPageViewModel.getComments(eventId)
+        (activity as MainActivity).toolbar.setNavigationOnClickListener {
+            activity?.onBackPressed()
+        }
         with(binding) {
             commentList.adapter = commentRecyclerAdapter
 
