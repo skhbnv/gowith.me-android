@@ -286,7 +286,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="4dp"
                     android:fontFamily="sans-serif-medium"
                     android:visibility="gone"
                     android:text="Чат телеграм"
@@ -300,7 +300,6 @@
                     android:visibility="gone"
                     android:textColor="@color/primaryDarkText"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"/>
 

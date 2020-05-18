@@ -67,6 +67,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:hint="Код"
+                android:layout_marginBottom="62dp"
                 app:layout_constraintBottom_toTopOf="@id/nextButton"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

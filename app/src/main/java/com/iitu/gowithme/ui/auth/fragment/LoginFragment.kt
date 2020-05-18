@@ -3,6 +3,7 @@ package com.iitu.gowithme.ui.auth.fragment
 
 import android.app.PendingIntent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -46,8 +47,9 @@ class LoginFragment : Fragment() {
         }
         with(binding){
             loginButton.setOnClickListener {
+                Log.d("taaag", "phoneInput ${phoneInput.rawText}" )
                 val request = LoginRequest(
-                    phone = phoneInput.text.toString(),
+                    phone = "+7${phoneInput.rawText}",
                     password = passwordInput.text.toString()
                 )
                 authViewModel.login(request)

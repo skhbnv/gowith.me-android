@@ -40,7 +40,7 @@ class CheckPhoneFragment : Fragment() {
         }
         with(binding) {
             nextButton.setOnClickListener {
-                val phone = phoneInput.text.toString()
+                val phone = "+7${phoneInput.rawText}"
                 authViewModel.checkPhone(phone)
             }
         }
