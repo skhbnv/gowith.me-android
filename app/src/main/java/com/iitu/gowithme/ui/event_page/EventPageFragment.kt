@@ -85,7 +85,9 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
                 eventPageViewModel.getEventDetails(eventId)
             }
             imageSlider.setSliderAdapter(eventImageSliderAdapter)
-
+            eventImageSliderAdapter.onItemClicked = {
+                ImageDialogFragment.newInstance(it).show(childFragmentManager, "taag")
+            }
             comments.setOnClickListener {
                 val direction = EventPageFragmentDirections.actionEventPageFragmentToEventCommentsFragment(eventId)
                 try {

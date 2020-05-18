@@ -19,11 +19,11 @@ import com.iitu.gowithme.data.network.event_list.EventListType
 import com.iitu.gowithme.data.network.user.UserListType
 import com.iitu.gowithme.data.network.user.UserListTypeEnum
 import com.iitu.gowithme.databinding.FragmentUserProfileDetailsBinding
+import com.iitu.gowithme.ui.event_page.ImageDialogFragment
 import com.iitu.gowithme.ui.user_profile.viewmodel.ProfileDetailsUI
 import com.iitu.gowithme.ui.user_profile.viewmodel.UserProfileViewModel
 import com.iitu.gowithme.util.showAlert
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_user_profile_details.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Exception
 
@@ -94,9 +94,13 @@ class UserProfileDetailsFragment : Fragment() {
 
         userProfileViewModel.profileInfo.observe(viewLifecycleOwner, Observer {
             it.images.firstOrNull()?.image?.let {
+                val uri = BuildConfig.BASE_URL + it.substring(1)
                 Glide.with(binding.root.context)
-                    .load(BuildConfig.BASE_URL + it.substring(1))
-                    .into(avatarImage)
+                    .load(uri)
+                    .into(binding.avatarImage)
+                binding.avatarImage.setOnClickListener {
+                    ImageDialogFragment.newInstance(uri).show(childFragmentManager, "taag")
+                }
             }
         })
         mainViewModel.loginState.observe(viewLifecycleOwner, Observer {

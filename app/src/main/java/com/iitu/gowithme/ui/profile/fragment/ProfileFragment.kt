@@ -19,6 +19,7 @@ import com.iitu.gowithme.data.network.user.UserListType
 import com.iitu.gowithme.data.network.user.UserListTypeEnum
 import com.iitu.gowithme.databinding.FragmentProfileBinding
 import com.iitu.gowithme.ui.adapters.EventsAdapter
+import com.iitu.gowithme.ui.event_page.ImageDialogFragment
 import com.iitu.gowithme.ui.profile.viewmodel.ProfileViewModel
 import com.iitu.gowithme.ui.profile.adapter.ViewedEventsRecyclerAdapter
 import com.iitu.gowithme.util.getFileName
@@ -139,15 +140,22 @@ class ProfileFragment : Fragment() {
         profileViewModel.profileInfo.observe(viewLifecycleOwner, Observer {
             it.images.firstOrNull()?.let {
                 with(binding.avatarImage) {
+                    val uri = BuildConfig.BASE_URL + it.image.substring(1)
                     this.contentDescription = it.description
-                    Glide.with(context).load(BuildConfig.BASE_URL + it.image.substring(1)).into(this)
+                    Glide.with(context).load(uri).into(this)
+                    setOnClickListener {
+                        ImageDialogFragment.newInstance(uri).show(childFragmentManager, "taag")
+                    }
                 }
             }
         })
 
-        profileViewModel.profileImage.observe(viewLifecycleOwner, Observer {
+        profileViewModel.profileImage.observe(viewLifecycleOwner, Observer { uri->
             with(binding.avatarImage) {
-                Glide.with(context).load(it).into(this)
+                Glide.with(context).load(uri).into(this)
+            }
+            binding.avatarImage.setOnClickListener {
+                ImageDialogFragment.newInstance(uri).show(childFragmentManager, "taag")
             }
         })
 
