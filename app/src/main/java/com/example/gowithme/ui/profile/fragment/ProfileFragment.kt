@@ -1,7 +1,12 @@
 package com.example.gowithme.ui.profile.fragment
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.*
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,11 +23,21 @@ import com.example.gowithme.ui.profile.viewmodel.ProfileViewModel
 import com.example.gowithme.ui.profile.adapter.ViewedEventsRecyclerAdapter
 import com.example.gowithme.data.network.user.UserListType
 import com.example.gowithme.data.network.user.UserListTypeEnum
+import com.example.gowithme.ui.create_new_event.fragment.CreateNewEventFragment
+import com.example.gowithme.util.getFileName
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 class ProfileFragment : Fragment() {
+
+    companion object {
+        private const val GALLERY_REQUEST_CODE = 1
+    }
+
     private lateinit var binding: FragmentProfileBinding
     private lateinit var adapter: EventsAdapter
     
@@ -83,7 +98,31 @@ class ProfileFragment : Fragment() {
                 val direction = ProfileFragmentDirections.actionNavProfileToEventListFragment(EventListType.SAVED_EVENTS)
                 findNavController().navigate(direction)
             }
+            button.setOnClickListener {
+                val galleryIntent = Intent(Intent.ACTION_PICK,  MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                startActivityForResult(galleryIntent,
+                    GALLERY_REQUEST_CODE
+                )
+            }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
+            data?.data?.let { uri ->
+                val parcelFileDescriptor =
+                    requireContext().contentResolver.openFileDescriptor(uri, "r", null) ?: return
+                val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+                val file = File(requireContext().cacheDir, requireContext().contentResolver.getFileName(uri))
+                val outputStream = FileOutputStream(file)
+                inputStream.copyTo(outputStream)
+                inputStream.close()
+                outputStream.close()
+                profileViewModel.uploadImage(file)
+            }
+        }
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -105,6 +144,12 @@ class ProfileFragment : Fragment() {
                     this.contentDescription = it.description
                     Glide.with(context).load(BuildConfig.BASE_URL + it.image.substring(1)).into(this)
                 }
+            }
+        })
+
+        profileViewModel.profileImage.observe(viewLifecycleOwner, Observer {
+            with(binding.avatarImage) {
+                Glide.with(context).load(it).into(this)
             }
         })
 

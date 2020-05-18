@@ -11,14 +11,21 @@ import com.example.gowithme.data.network.profile.IProfileRepository
 import com.example.gowithme.util.Result
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.io.File
 
 class ProfileViewModel(private var repository: IProfileRepository) : ViewModel() {
 
     private val _profileInfo = MutableLiveData<ProfileInfoResponse>()
     val profileInfo: LiveData<ProfileInfoResponse> get() = _profileInfo
 
+    private val _profileImage = MutableLiveData<String>()
+    val profileImage: LiveData<String> get() = _profileImage
+
+
     private val _viewedEvents = MutableLiveData<List<EventResponse>>()
     val viewedEvents: LiveData<List<EventResponse>> get() = _viewedEvents
+
+
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
@@ -50,6 +57,21 @@ class ProfileViewModel(private var repository: IProfileRepository) : ViewModel()
                 }
             }
             _loading.value= false
+        }
+    }
+
+    fun uploadImage(imageFile: File) {
+        _loading.value = true
+        viewModelScope.launch {
+            when(val result = repository.uploadProfileImage(imageFile)) {
+                is Result.Success -> {
+                    _profileImage.value = result.data.image
+                }
+                is Result.Error -> {
+                    result.exception.stackTrace
+                }
+            }
+            _loading.value = false
         }
     }
 
