@@ -5,6 +5,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
@@ -76,6 +77,7 @@ class MapAddressFragment : Fragment(), OnMapReadyCallback, SearchView.OnQueryTex
                 addressLatLng = latLng
                 addressText = address.first().getAddressLine(0)
             } catch (e: Exception) {
+                Log.d("taaag", "map e = $e")
                 e.printStackTrace()
             }
         }

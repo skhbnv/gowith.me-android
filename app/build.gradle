@@ -19,11 +19,11 @@ android {
         applicationId "com.iitu.gowithme"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "BASE_URL", '"http://192.168.0.102:8000/"'
+        buildConfigField "String", "BASE_URL", '"http://34.90.109.115:80/"'
     }
     dataBinding { enabled true }
     buildTypes {

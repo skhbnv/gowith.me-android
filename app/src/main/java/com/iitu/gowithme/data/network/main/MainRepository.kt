@@ -43,6 +43,7 @@ class MainRepository(
     override fun removeTokens() {
         pref.edit().putString(PreferencesConst.ACCESS_TOKEN, "").apply()
         pref.edit().putString(PreferencesConst.REFRESH_TOKEN, "").apply()
+        pref.edit().putString(PreferencesConst.PROFILE_INFO, null).apply()
     }
 
 }

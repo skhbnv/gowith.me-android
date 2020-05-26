@@ -35,6 +35,7 @@ import com.iitu.gowithme.data.network.user.UserListType
 import com.iitu.gowithme.data.network.user.UserListTypeEnum
 import com.iitu.gowithme.util.showAlert
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Exception
 import java.util.*
@@ -54,7 +55,7 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
     private val safeArgs by navArgs<EventPageFragmentArgs>()
     private val eventId by lazy { safeArgs.eventId }
     private val eventImageSliderAdapter by lazy { EventImageSliderAdapter() }
-    private val mainViewModel by viewModel<MainViewModel>()
+    private val mainViewModel by sharedViewModel<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -118,9 +119,8 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
                 binding.likeCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
                     if(isChecked) {
                         eventPageViewModel.save(eventId)
-                    } else {
+                    }else {
                         eventPageViewModel.unSave(eventId)
-
                     }
                 }
             }
@@ -189,7 +189,10 @@ class EventPageFragment : Fragment(), OnMapReadyCallback {
                 statusText.visibility = View.GONE
                 status.visibility = View.GONE
             }
-
+            if (mainViewModel.userInfo == null) {
+                chat.visibility = View.GONE
+                chatLink.visibility = View.GONE
+            }
             statusText.text = when(event.status) {
                 1 -> "На проверке"
                 2 -> "Одобрен"
